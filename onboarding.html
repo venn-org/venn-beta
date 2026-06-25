@@ -242,10 +242,136 @@
   <!-- Bottom: buttons + legal pinned to bottom -->
   <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;background:transparent;padding:48px 28px 44px;">
     <button class="btn btn-grad" onclick="goTo(1)" style="margin-bottom:12px;">Create account</button>
-    <button class="btn" onclick="goTo(1)" style="background:transparent;border:1.5px solid rgba(255,255,255,0.3);color:#fff;margin-bottom:16px;">Sign in</button>
+    <button class="btn" onclick="goTo(6)" style="background:transparent;border:1.5px solid rgba(255,255,255,0.3);color:#fff;margin-bottom:16px;">Sign in</button>
     <p style="font-size:11px;color:rgba(255,255,255,0.35);text-align:center;line-height:1.6;margin:0;">
       By tapping Create account or Sign in, you agree to our <span style="color:rgba(255,255,255,0.55);text-decoration:underline;">Terms</span>. Learn how we process your data in our <span style="color:rgba(255,255,255,0.55);text-decoration:underline;">Privacy Policy</span> and <span style="color:rgba(255,255,255,0.55);text-decoration:underline;">Cookies Policy</span>.
     </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S6 — SIGN IN METHOD PICKER
+══════════════════════════════════════════ -->
+<div class="screen" id="s6" style="background:#111;overflow:hidden;">
+  <img src="hero.jpeg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(0.5);"/>
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 30%,rgba(0,0,0,0.92) 100%);"></div>
+  <div class="back-btn" onclick="goBack()" style="position:absolute;top:52px;left:24px;z-index:2;background:rgba(255,255,255,0.12);border-radius:50%;">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:32px 28px 52px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <div style="position:relative;width:32px;height:20px;">
+        <div style="position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#335CFF;mix-blend-mode:screen;opacity:0.9;"></div>
+        <div style="position:absolute;right:0;top:0;width:20px;height:20px;border-radius:50%;background:#8A5BFF;mix-blend-mode:screen;opacity:0.9;"></div>
+      </div>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#fff;">Venn</span>
+    </div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:#fff;letter-spacing:-0.03em;margin:0 0 6px;">Welcome back</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,0.55);margin:0 0 28px;">Sign in to continue finding your flatmate.</p>
+    <button onclick="goTo(29)" style="width:100%;background:#fff;color:#14161B;border:none;border-radius:50px;padding:16px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:10px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Sign in with phone
+    </button>
+    <button onclick="goTo(31)" style="width:100%;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.3);border-radius:50px;padding:16px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Sign in with email
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S29 — SIGN IN: PHONE ENTRY
+══════════════════════════════════════════ -->
+<div class="screen" id="s29" style="background:#fff;">
+  <div class="status"><span class="status-time">9:41</span></div>
+  <div class="back-btn" onclick="goBack()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:28px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;">
+      <div style="position:relative;width:32px;height:20px;"><div style="position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#335CFF;mix-blend-mode:multiply;opacity:0.9;"></div><div style="position:absolute;right:0;top:0;width:20px;height:20px;border-radius:50%;background:#8A5BFF;mix-blend-mode:multiply;opacity:0.9;"></div></div>
+    </div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:#14161B;letter-spacing:-0.03em;margin:0 0 8px;">What's your number?</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;margin:0 0 28px;">We'll send you a code to verify it's you.</p>
+    <div style="display:flex;align-items:center;gap:10px;background:#F2F3F7;border-radius:14px;padding:14px 16px;margin-bottom:12px;">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#14161B;">🇮🇳 +91</span>
+      <div style="width:1px;height:20px;background:#D0D3DC;"></div>
+      <input id="signin-phone" type="tel" placeholder="Phone number" maxlength="10" oninput="this.value=this.value.replace(/\D/g,'');document.getElementById('signin-phone-btn').disabled=this.value.length<10;" style="flex:1;border:none;background:transparent;font-family:'Hanken Grotesk',sans-serif;font-size:16px;color:#14161B;outline:none;"/>
+    </div>
+    <button id="signin-phone-btn" disabled onclick="goTo(30)" class="btn btn-grad" style="margin-top:8px;">Send OTP</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S30 — SIGN IN: PHONE OTP
+══════════════════════════════════════════ -->
+<div class="screen" id="s30" style="background:#fff;">
+  <div class="status"><span class="status-time">9:41</span></div>
+  <div class="back-btn" onclick="goBack()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:28px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;">
+      <div style="position:relative;width:32px;height:20px;"><div style="position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#335CFF;mix-blend-mode:multiply;opacity:0.9;"></div><div style="position:absolute;right:0;top:0;width:20px;height:20px;border-radius:50%;background:#8A5BFF;mix-blend-mode:multiply;opacity:0.9;"></div></div>
+    </div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:#14161B;letter-spacing:-0.03em;margin:0 0 8px;">Enter the code</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;margin:0 0 28px;">Sent to your phone number.</p>
+    <div style="display:flex;gap:10px;justify-content:center;margin-bottom:24px;">
+      <input class="otp" type="tel" maxlength="1" id="si0" oninput="soi(this,0)" onkeydown="sok(event,0)"/>
+      <input class="otp" type="tel" maxlength="1" id="si1" oninput="soi(this,1)" onkeydown="sok(event,1)"/>
+      <input class="otp" type="tel" maxlength="1" id="si2" oninput="soi(this,2)" onkeydown="sok(event,2)"/>
+      <input class="otp" type="tel" maxlength="1" id="si3" oninput="soi(this,3)" onkeydown="sok(event,3)"/>
+      <input class="otp" type="tel" maxlength="1" id="si4" oninput="soi(this,4)" onkeydown="sok(event,4)"/>
+      <input class="otp" type="tel" maxlength="1" id="si5" oninput="soi(this,5)" onkeydown="sok(event,5)"/>
+    </div>
+    <button id="signin-otp-btn" disabled onclick="localStorage.setItem('venn_done','1');goTo(25)" class="btn btn-grad">Verify &amp; sign in</button>
+    <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;text-align:center;color:#335CFF;cursor:pointer;margin-top:16px;">Resend code</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S31 — SIGN IN: EMAIL ENTRY
+══════════════════════════════════════════ -->
+<div class="screen" id="s31" style="background:#fff;">
+  <div class="status"><span class="status-time">9:41</span></div>
+  <div class="back-btn" onclick="goBack()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:28px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;">
+      <div style="position:relative;width:32px;height:20px;"><div style="position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#335CFF;mix-blend-mode:multiply;opacity:0.9;"></div><div style="position:absolute;right:0;top:0;width:20px;height:20px;border-radius:50%;background:#8A5BFF;mix-blend-mode:multiply;opacity:0.9;"></div></div>
+    </div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:#14161B;letter-spacing:-0.03em;margin:0 0 8px;">What's your email?</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;margin:0 0 28px;">We'll send a code to verify it's you.</p>
+    <input id="signin-email" type="email" placeholder="your@email.com" oninput="document.getElementById('signin-email-btn').disabled=!this.value.includes('@');" style="width:100%;background:#F2F3F7;border:none;border-radius:14px;padding:14px 16px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;color:#14161B;outline:none;box-sizing:border-box;margin-bottom:12px;"/>
+    <button id="signin-email-btn" disabled onclick="goTo(32)" class="btn btn-grad">Send OTP</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S32 — SIGN IN: EMAIL OTP
+══════════════════════════════════════════ -->
+<div class="screen" id="s32" style="background:#fff;">
+  <div class="status"><span class="status-time">9:41</span></div>
+  <div class="back-btn" onclick="goBack()">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:28px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;">
+      <div style="position:relative;width:32px;height:20px;"><div style="position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#335CFF;mix-blend-mode:multiply;opacity:0.9;"></div><div style="position:absolute;right:0;top:0;width:20px;height:20px;border-radius:50%;background:#8A5BFF;mix-blend-mode:multiply;opacity:0.9;"></div></div>
+    </div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:#14161B;letter-spacing:-0.03em;margin:0 0 8px;">Enter the code</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;margin:0 0 28px;">Sent to your email address.</p>
+    <div style="display:flex;gap:10px;justify-content:center;margin-bottom:24px;">
+      <input class="otp" type="tel" maxlength="1" id="se0" oninput="seo(this,0)" onkeydown="sek(event,0)"/>
+      <input class="otp" type="tel" maxlength="1" id="se1" oninput="seo(this,1)" onkeydown="sek(event,1)"/>
+      <input class="otp" type="tel" maxlength="1" id="se2" oninput="seo(this,2)" onkeydown="sek(event,2)"/>
+      <input class="otp" type="tel" maxlength="1" id="se3" oninput="seo(this,3)" onkeydown="sek(event,3)"/>
+      <input class="otp" type="tel" maxlength="1" id="se4" oninput="seo(this,4)" onkeydown="sek(event,4)"/>
+      <input class="otp" type="tel" maxlength="1" id="se5" oninput="seo(this,5)" onkeydown="sek(event,5)"/>
+    </div>
+    <button id="signin-email-otp-btn" disabled onclick="localStorage.setItem('venn_done','1');goTo(25)" class="btn btn-grad">Verify &amp; sign in</button>
+    <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;text-align:center;color:#335CFF;cursor:pointer;margin-top:16px;">Resend code</p>
   </div>
 </div>
 
@@ -2008,6 +2134,26 @@
   }
 
 
+
+  // ── Sign-in OTP inputs ───────────────────────────────────────────────────
+  function soi(el, i) { // phone OTP
+    el.value = el.value.replace(/\D/g,'');
+    if (el.value && i < 5) document.getElementById('si'+(i+1)).focus();
+    const filled = [0,1,2,3,4,5].every(n => document.getElementById('si'+n).value);
+    document.getElementById('signin-otp-btn').disabled = !filled;
+  }
+  function sok(e, i) {
+    if (e.key === 'Backspace' && !document.getElementById('si'+i).value && i > 0) document.getElementById('si'+(i-1)).focus();
+  }
+  function seo(el, i) { // email OTP
+    el.value = el.value.replace(/\D/g,'');
+    if (el.value && i < 5) document.getElementById('se'+(i+1)).focus();
+    const filled = [0,1,2,3,4,5].every(n => document.getElementById('se'+n).value);
+    document.getElementById('signin-email-otp-btn').disabled = !filled;
+  }
+  function sek(e, i) {
+    if (e.key === 'Backspace' && !document.getElementById('se'+i).value && i > 0) document.getElementById('se'+(i-1)).focus();
+  }
 
   // ── Budget sliders ───────────────────────────────────────────────────────
   function formatBudget(v) {
