@@ -1074,9 +1074,9 @@
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">STANDOUTS</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+    <div onclick="goTo(27)" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">MATCHES</span>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">LIKES</span>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1154,6 +1154,157 @@
 </div>
 
 <!-- ══════════════════════════════════════════
+     S27 — LIKES YOU
+══════════════════════════════════════════ -->
+<div class="screen" id="s27" style="background:#fff;display:flex;flex-direction:column;">
+
+  <!-- Top -->
+  <div style="flex-shrink:0;padding:52px 24px 0;">
+    <h1 style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:#14161B;letter-spacing:-0.03em;margin:0 0 2px;">Likes You</h1>
+  </div>
+
+  <!-- Empty state body -->
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 32px 20px;">
+
+    <!-- Illustration: Venn-flavoured city + floating circles -->
+    <svg viewBox="0 0 320 280" width="300" height="260" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:8px;">
+      <!-- Blush backdrop blob -->
+      <ellipse cx="160" cy="148" rx="118" ry="100" fill="#EDE8FF" opacity="0.55"/>
+      <!-- City skyline silhouette -->
+      <g fill="#14161B" opacity="0.08">
+        <rect x="30" y="200" width="18" height="50"/>
+        <rect x="52" y="185" width="22" height="65"/>
+        <rect x="78" y="195" width="14" height="55"/>
+        <rect x="96" y="175" width="28" height="75"/>
+        <rect x="128" y="190" width="16" height="60"/>
+        <rect x="148" y="182" width="24" height="68"/>
+        <rect x="176" y="193" width="18" height="57"/>
+        <rect x="198" y="170" width="30" height="80"/>
+        <rect x="232" y="186" width="20" height="64"/>
+        <rect x="256" y="198" width="16" height="52"/>
+        <rect x="276" y="188" width="14" height="62"/>
+        <!-- Water tank -->
+        <rect x="112" y="165" width="8" height="12"/>
+        <ellipse cx="116" cy="165" rx="10" ry="4"/>
+      </g>
+      <!-- Ground line -->
+      <rect x="20" y="248" width="280" height="2" rx="1" fill="#14161B" opacity="0.06"/>
+
+      <!-- Venn overlapping circles (floating, large) -->
+      <circle cx="138" cy="105" r="52" fill="#335CFF" opacity="0.13"/>
+      <circle cx="182" cy="105" r="52" fill="#8A5BFF" opacity="0.13"/>
+      <!-- Overlap label -->
+      <text x="160" y="112" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="11" font-weight="700" fill="#3A2FD6" opacity="0.7">overlap</text>
+
+      <!-- Small floating circles (like notifications/likes) -->
+      <circle cx="88" cy="72" r="14" fill="#fff" stroke="#E6E8EE" stroke-width="1.5"/>
+      <path d="M88 78.5l-1-0.9C84 75.2 82 73.3 82 71c0-2.1 1.6-3.5 3.5-3.5 1 0 2 0.5 2.5 1.3 0.5-0.8 1.5-1.3 2.5-1.3C92.4 67.5 94 69 94 71c0 2.3-2 4.2-5 7.5l-1 0.9z" fill="#FF4D6A" opacity="0.7"/>
+
+      <circle cx="240" cy="60" r="14" fill="#fff" stroke="#E6E8EE" stroke-width="1.5"/>
+      <path d="M240 66.5l-1-0.9C236 63.2 234 61.3 234 59c0-2.1 1.6-3.5 3.5-3.5 1 0 2 0.5 2.5 1.3 0.5-0.8 1.5-1.3 2.5-1.3C244.4 55.5 246 57 246 59c0 2.3-2 4.2-5 7.5l-1 0.9z" fill="#335CFF" opacity="0.7"/>
+
+      <circle cx="64" cy="148" r="10" fill="#fff" stroke="#E6E8EE" stroke-width="1.5"/>
+      <path d="M64 153l-0.7-0.65C61 150.2 59.5 148.7 59.5 147c0-1.5 1.1-2.5 2.5-2.5 0.7 0 1.4 0.35 1.8 0.9 0.4-0.55 1.1-0.9 1.8-0.9 1.4 0 2.5 1 2.5 2.5 0 1.7-1.5 3.2-3.9 5.35L64 153z" fill="#8A5BFF" opacity="0.7"/>
+
+      <circle cx="258" cy="148" r="10" fill="#fff" stroke="#E6E8EE" stroke-width="1.5"/>
+      <path d="M258 153l-0.7-0.65C255 150.2 253.5 148.7 253.5 147c0-1.5 1.1-2.5 2.5-2.5 0.7 0 1.4 0.35 1.8 0.9 0.4-0.55 1.1-0.9 1.8-0.9 1.4 0 2.5 1 2.5 2.5 0 1.7-1.5 3.2-3.9 5.35L258 153z" fill="#FF4D6A" opacity="0.7"/>
+
+      <!-- Dashed lines connecting circles to center -->
+      <line x1="96" y1="78" x2="130" y2="98" stroke="#C8CAD2" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="232" y1="68" x2="190" y2="95" stroke="#C8CAD2" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="72" y1="148" x2="112" y2="112" stroke="#C8CAD2" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="250" y1="148" x2="208" y2="112" stroke="#C8CAD2" stroke-width="1" stroke-dasharray="4,3"/>
+    </svg>
+
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#14161B;text-align:center;letter-spacing:-0.02em;margin:0 0 10px;line-height:1.2;">You're new, no likes yet</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#9AA0B2;text-align:center;line-height:1.6;margin:0 0 32px;">We can help you find your first flatmate connection sooner.</p>
+
+    <!-- Boost button -->
+    <button onclick="openBoostSheet()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#335CFF,#8A5BFF);color:#fff;border:none;border-radius:50px;padding:16px 24px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#fff"/></svg>
+      Boost your profile
+    </button>
+
+    <!-- Venn+ upgrade -->
+    <button style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:#14161B;border:1.5px solid #E6E8EE;border-radius:50px;padding:16px 24px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:600;cursor:pointer;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2zM5 17l1 3 3-1-3 1-1 3-1-3-3 1 3-1 1-3z" fill="#8A5BFF"/></svg>
+      Upgrade to Venn+
+    </button>
+  </div>
+
+  <!-- Bottom nav -->
+  <div style="flex-shrink:0;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
+    <div onclick="goTo(25)" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">HOME</span>
+    </div>
+    <div onclick="goTo(26)" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">STANDOUTS</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" fill="#335CFF" stroke="#335CFF" stroke-width="1.8"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#335CFF;letter-spacing:0.05em;">LIKES</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">CHATS</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" stroke="#14161B" stroke-width="1.8"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">PROFILE</span>
+    </div>
+  </div>
+</div>
+
+<!-- Boost sheet modal -->
+<div id="boost-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.45);" onclick="closeBoostSheet(event)">
+  <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#F2F3F7;border-radius:24px 24px 0 0;padding:0 0 0;" onclick="event.stopPropagation()">
+    <!-- Handle + close -->
+    <div style="display:flex;align-items:center;justify-content:center;padding:16px 24px 0;position:relative;">
+      <div style="width:40px;height:4px;background:#D0D2DA;border-radius:2px;"></div>
+      <button onclick="closeBoostSheet(null)" style="position:absolute;right:20px;top:12px;width:32px;height:32px;border-radius:50%;background:#E6E8EE;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:#14161B;">✕</button>
+    </div>
+    <div style="padding:20px 24px 0;text-align:center;">
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:#14161B;letter-spacing:-0.03em;line-height:1.2;margin:0 0 10px;">Boost your profile<br>for more views</h2>
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;margin:0 0 20px;line-height:1.6;">Each boost gets you seen by 11× more flatmate seekers for one hour.</p>
+    </div>
+
+    <!-- Boost carousel -->
+    <div style="display:flex;gap:12px;overflow-x:auto;padding:0 24px 20px;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
+      <!-- 1 Boost -->
+      <div style="flex-shrink:0;width:200px;background:#fff;border-radius:20px;padding:24px 20px;text-align:center;border:1.5px solid #E6E8EE;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#14161B;margin-bottom:14px;">1 Boost</div>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:12px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#335CFF"/></svg>
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;font-weight:600;margin-bottom:16px;">₹890 each</div>
+        <button style="width:100%;background:#fff;border:1.5px solid #335CFF;border-radius:50px;padding:10px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:700;color:#335CFF;cursor:pointer;">Select</button>
+      </div>
+      <!-- 3 Boosts -->
+      <div style="flex-shrink:0;width:200px;background:#fff;border-radius:20px;padding:24px 20px;text-align:center;border:2px solid #335CFF;position:relative;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#14161B;margin-bottom:14px;">3 Boosts</div>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:12px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#335CFF"/></svg>
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;font-weight:600;margin-bottom:16px;">₹999 each</div>
+        <button style="width:100%;background:#335CFF;border:none;border-radius:50px;padding:10px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;">Select</button>
+      </div>
+      <!-- 5 Boosts -->
+      <div style="flex-shrink:0;width:200px;background:#fff;border-radius:20px;padding:24px 20px;text-align:center;border:1.5px solid #E6E8EE;position:relative;">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#8A5BFF;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:700;border-radius:50px;padding:4px 12px;white-space:nowrap;">Save 20%</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#14161B;margin-bottom:14px;">5 Boosts</div>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:12px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#335CFF"/></svg>
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;font-weight:600;margin-bottom:16px;">₹799 each</div>
+        <button style="width:100%;background:#fff;border:1.5px solid #335CFF;border-radius:50px;padding:10px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:700;color:#335CFF;cursor:pointer;">Select</button>
+      </div>
+    </div>
+
+    <!-- Superboost -->
+    <div style="background:#fff;margin:0 16px 16px;border-radius:20px;padding:18px 20px;">
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#14161B;text-align:center;margin:0 0 12px;line-height:1.5;">Increase your chances with a<br>24-hour Superboost</p>
+      <button style="width:100%;background:linear-gradient(135deg,#335CFF,#8A5BFF);color:#fff;border:none;border-radius:50px;padding:16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Superboost for ₹2,999</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
      S26 — STANDOUTS (Flats available)
 ══════════════════════════════════════════ -->
 <div class="screen" id="s26" style="background:#F2F3F7;display:flex;flex-direction:column;">
@@ -1209,9 +1360,9 @@
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#8A5BFF" stroke="#8A5BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#8A5BFF;letter-spacing:0.05em;">STANDOUTS</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+    <div onclick="goTo(27)" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="#14161B" stroke-width="1.8"/></svg>
-      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">MATCHES</span>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">LIKES</span>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1653,6 +1804,13 @@
   }
 
 
+
+  // ── Boost modal ──────────────────────────────────────────────────────────
+  function openBoostSheet() { document.getElementById('boost-modal').style.display = 'block'; }
+  function closeBoostSheet(e) {
+    if (e && e.target !== document.getElementById('boost-modal')) return;
+    document.getElementById('boost-modal').style.display = 'none';
+  }
 
   // ── Standouts ────────────────────────────────────────────────────────────
   let rosesCount = 0;
