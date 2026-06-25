@@ -290,9 +290,97 @@
 </div>
 
 <!-- ══════════════════════════════════════════
-     S3 — HOW DO YOU LIVE
+     S3 — GOOGLE RECOVERY
 ══════════════════════════════════════════ -->
-<div class="screen" id="s3">
+<div class="screen" id="s3" style="background:#ECEDF8;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;">
+
+  <!-- White card -->
+  <div style="background:#fff;border-radius:24px;padding:32px 28px;width:100%;max-width:340px;box-shadow:0 4px 24px rgba(51,92,255,0.07);">
+    <!-- Venn logo -->
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:24px;">
+      <div style="position:relative;width:36px;height:24px;">
+        <div style="position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:#335CFF;mix-blend-mode:multiply;"></div>
+        <div style="position:absolute;right:0;top:0;width:24px;height:24px;border-radius:50%;background:#8A5BFF;mix-blend-mode:multiply;"></div>
+      </div>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#14161B;letter-spacing:-0.02em;">Venn</span>
+    </div>
+
+    <h1 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:#14161B;letter-spacing:-0.03em;line-height:1.15;margin:0 0 10px;">An easier way to sign back in</h1>
+    <p style="font-size:14px;color:#5A6072;line-height:1.6;margin:0 0 28px;">Connect an account to log back in quickly if you're signed out.</p>
+
+    <!-- Google button -->
+    <button onclick="goTo(4)" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;border:1.5px solid #E6E8EE;border-radius:50px;padding:14px 20px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;cursor:pointer;transition:box-shadow 0.15s;margin-bottom:16px;" onmouseover="this.style.boxShadow='0 2px 12px rgba(0,0,0,0.1)'" onmouseout="this.style.boxShadow='none'">
+      <!-- Google G logo -->
+      <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
+        <path d="M44.5 20H24v8.5h11.8C34.7 33.9 29.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#FFC107"/>
+        <path d="M6.3 14.7l7 5.1C15 16.1 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z" fill="#FF3D00"/>
+        <path d="M24 46c5.5 0 10.5-1.9 14.3-5.1l-6.6-5.6C29.6 36.6 26.9 37.5 24 37.5c-5 0-9.3-3.1-11.1-7.5l-7 5.4C9.6 42.2 16.3 46 24 46z" fill="#4CAF50"/>
+        <path d="M44.5 20H24v8.5h11.8c-.9 2.6-2.6 4.8-4.8 6.3l6.6 5.6C41.6 37.1 45 31 45 24c0-1.3-.2-2.7-.5-4z" fill="#1976D2"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <button onclick="goTo(4)" style="width:100%;background:none;border:none;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#5A6072;cursor:pointer;padding:10px;">No thanks</button>
+  </div>
+
+  <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#9AA0B4;margin-top:28px;">© 2024 Venn. All rights reserved.</p>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S4 — EMAIL OTP
+══════════════════════════════════════════ -->
+<div class="screen" id="s4" style="background:#ECEDF8;display:flex;flex-direction:column;padding:52px 28px 36px;">
+
+  <!-- Top bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;">
+    <!-- Venn mark -->
+    <div style="position:relative;width:44px;height:28px;">
+      <div style="position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:#335CFF;mix-blend-mode:multiply;"></div>
+      <div style="position:absolute;right:0;top:0;width:28px;height:28px;border-radius:50%;background:#8A5BFF;mix-blend-mode:multiply;"></div>
+    </div>
+    <!-- Back arrow -->
+    <div onclick="goBack()" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 5l-7 7 7 7" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <h1 style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:#14161B;letter-spacing:-0.03em;line-height:1.15;text-align:center;margin:0 0 36px;">We emailed you a verification code</h1>
+
+  <!-- OTP boxes -->
+  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px;">
+    <input class="otp" type="tel" maxlength="1" id="e0" oninput="ei(this,0)" onkeydown="ek(event,0)" style="background:#fff;"/>
+    <input class="otp" type="tel" maxlength="1" id="e1" oninput="ei(this,1)" onkeydown="ek(event,1)" style="background:#fff;"/>
+    <input class="otp" type="tel" maxlength="1" id="e2" oninput="ei(this,2)" onkeydown="ek(event,2)" style="background:#fff;"/>
+    <input class="otp" type="tel" maxlength="1" id="e3" oninput="ei(this,3)" onkeydown="ek(event,3)" style="background:#fff;"/>
+    <input class="otp" type="tel" maxlength="1" id="e4" oninput="ei(this,4)" onkeydown="ek(event,4)" style="background:#fff;"/>
+    <input class="otp" type="tel" maxlength="1" id="e5" oninput="ei(this,5)" onkeydown="ek(event,5)" style="background:#fff;"/>
+  </div>
+
+  <!-- Email display -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:auto;">
+    <span style="font-size:13px;color:#5A6072;">Code sent to: <strong id="email-display" style="color:#14161B;">your@email.com</strong></span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="cursor:pointer;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="#5A6072" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="#5A6072" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- Buttons -->
+  <div style="margin-top:32px;">
+    <button class="btn btn-grad" id="email-verify-btn" disabled onclick="goTo(5)" style="margin-bottom:14px;">Verify</button>
+    <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;text-align:center;color:#335CFF;cursor:pointer;margin:0;" onclick="resetEmailOtp()">Resend code</p>
+  </div>
+
+  <!-- Footer -->
+  <div style="margin-top:28px;text-align:center;">
+    <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#9AA0B4;margin:0 0 6px;">
+      <span style="cursor:pointer;">Privacy</span> &nbsp;·&nbsp; <span style="cursor:pointer;">Terms</span>
+    </p>
+    <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#9AA0B4;margin:0;">© 2024 Venn. All rights reserved.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S5 — HOW DO YOU LIVE
+══════════════════════════════════════════ -->
+<div class="screen" id="s5">
   <div class="status" style="color:#14161B;"><span class="status-time">5:01</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:#9FA6B7;">STEP 3 OF 5</span></div>
   <div class="prog-track"><div class="prog-fill" style="width:60%"></div></div>
 
@@ -345,14 +433,14 @@
   </div>
 
   <div class="px-main" style="padding-bottom:40px;padding-top:12px;">
-    <button class="btn btn-dark" id="life-next" disabled onclick="goTo(4)">Continue</button>
+    <button class="btn btn-dark" id="life-next" disabled onclick="goTo(6)">Continue</button>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════
-     S4 — OTP VERIFY
+     S6 — PHONE OTP VERIFY
 ══════════════════════════════════════════ -->
-<div class="screen" id="s4">
+<div class="screen" id="s6">
   <div class="status" style="color:#14161B;"><span class="status-time">5:02</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:#9FA6B7;">STEP 4 OF 5</span></div>
   <div class="prog-track"><div class="prog-fill" style="width:80%"></div></div>
 
@@ -379,14 +467,14 @@
   </div>
 
   <div class="px-main" style="padding-bottom:40px;padding-top:12px;">
-    <button class="btn btn-dark" id="otp-next" disabled onclick="goTo(5)">Verify</button>
+    <button class="btn btn-dark" id="otp-next" disabled onclick="goTo(7)">Verify</button>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════
-     S5 — SUCCESS
+     S7 — SUCCESS
 ══════════════════════════════════════════ -->
-<div class="screen" id="s5" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 32px;">
+<div class="screen" id="s7" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 32px;">
   <!-- Check circle -->
   <div class="pop" style="width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#335CFF,#8A5BFF);display:flex;align-items:center;justify-content:center;margin-bottom:28px;">
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
@@ -428,7 +516,7 @@
     const to   = document.getElementById('s' + n);
     if (!to) return;
 
-    if (n === 4) {
+    if (n === 6) {
       const ph = document.getElementById('phone')?.value || '';
       document.getElementById('ph-display').textContent = '+91 ' + (ph || '——————');
     }
@@ -472,7 +560,24 @@
     document.getElementById('life-next').disabled = !done;
   }
 
-  // OTP
+  // Email OTP
+  function ei(el, i) {
+    el.value = el.value.replace(/\D/g,'');
+    if (el.value && i < 5) document.getElementById('e'+(i+1)).focus();
+    let full = '';
+    for (let j=0;j<6;j++) full += (document.getElementById('e'+j).value||'');
+    document.getElementById('email-verify-btn').disabled = full.length < 6;
+  }
+  function ek(e, i) {
+    if (e.key==='Backspace' && !e.target.value && i>0) document.getElementById('e'+(i-1)).focus();
+  }
+  function resetEmailOtp() {
+    for (let i=0;i<6;i++) document.getElementById('e'+i).value='';
+    document.getElementById('e0').focus();
+    document.getElementById('email-verify-btn').disabled=true;
+  }
+
+  // Phone OTP
   function oi(el, i) {
     el.value = el.value.replace(/\D/g,'');
     if (el.value && i < 5) document.getElementById('o'+(i+1)).focus();
