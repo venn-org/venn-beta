@@ -1055,14 +1055,12 @@
   </div>
 
   <!-- Floating X / Heart buttons — sit above bottom nav -->
-  <div style="position:absolute;bottom:82px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:36px;z-index:20;pointer-events:none;">
-    <button onclick="feedPass()" id="feed-x-btn" style="pointer-events:auto;width:64px;height:64px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,0.16);cursor:pointer;transition:transform 0.12s;">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#FF4D6A" stroke-width="2.5" stroke-linecap="round"/></svg>
-    </button>
-    <button onclick="feedLike()" id="feed-heart-btn" style="pointer-events:auto;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#335CFF,#8A5BFF);border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(51,92,255,0.4);cursor:pointer;transition:transform 0.12s;">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#fff"/></svg>
-    </button>
-  </div>
+  <button onclick="feedPass()" id="feed-x-btn" style="position:absolute;bottom:94px;left:32px;z-index:20;width:64px;height:64px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,0.16);cursor:pointer;transition:transform 0.12s;">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#FF4D6A" stroke-width="2.5" stroke-linecap="round"/></svg>
+  </button>
+  <button onclick="feedLike()" id="feed-heart-btn" style="position:absolute;bottom:94px;right:32px;z-index:20;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#335CFF,#8A5BFF);border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(51,92,255,0.4);cursor:pointer;transition:transform 0.12s;">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#fff"/></svg>
+  </button>
 
   <!-- Bottom nav -->
   <div style="flex-shrink:0;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
@@ -1630,21 +1628,15 @@
     const likeBtnBase = `width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;`;
 
     let promptsHTML = regPrompts.map(p => `
-      <div style="position:relative;background:#fff;border-radius:20px;padding:24px 20px 60px;margin-bottom:10px;">
+      <div style="background:#fff;border-radius:20px;padding:24px 20px;margin-bottom:10px;">
         <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#5A6072;margin-bottom:10px;font-weight:500;">${p.q}</div>
         <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#14161B;letter-spacing:-0.02em;line-height:1.3;">${p.a}</div>
-        <div style="position:absolute;bottom:14px;right:14px;${likeBtnBase}background:#F2F3F7;" onclick="cardLike(this,'${profile.name}')">
-          ${heartSVG}
-        </div>
       </div>`).join('');
 
     const accentHTML = accentPrompt ? `
-      <div style="position:relative;background:linear-gradient(135deg,#EEF0FF,#F3EEFF);border-radius:20px;padding:24px 20px 60px;margin-bottom:10px;">
+      <div style="background:linear-gradient(135deg,#EEF0FF,#F3EEFF);border-radius:20px;padding:24px 20px;margin-bottom:10px;">
         <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#8A5BFF;margin-bottom:10px;font-weight:600;">${accentPrompt.q}</div>
         <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#14161B;letter-spacing:-0.02em;line-height:1.3;">${accentPrompt.a}</div>
-        <div style="position:absolute;bottom:14px;right:14px;${likeBtnBase}background:#fff;box-shadow:0 1px 8px rgba(138,91,255,0.15);" onclick="cardLike(this,'${profile.name}')">
-          ${heartSVGAccent}
-        </div>
       </div>` : '';
 
     return `
@@ -1670,9 +1662,6 @@
         <!-- Profile photo -->
         <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:10px;">
           <img src="${profile.photo}" style="width:100%;height:400px;object-fit:cover;object-position:${profile.photoPos};display:block;"/>
-          <div style="position:absolute;bottom:14px;right:14px;${likeBtnBase}background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.15);" onclick="cardLike(this,'${profile.name}')">
-            ${heartSVG}
-          </div>
         </div>
 
         <!-- Info chips -->
@@ -1705,9 +1694,6 @@
           <img src="${profile.flatPhoto}" style="width:100%;height:280px;object-fit:cover;display:block;"/>
           <div style="position:absolute;bottom:14px;left:14px;background:rgba(0,0,0,0.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:50px;padding:6px 12px;">
             <span style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#fff;font-weight:600;">${profile.flatLabel}</span>
-          </div>
-          <div style="position:absolute;bottom:14px;right:14px;${likeBtnBase}background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.15);" onclick="cardLike(this,'${profile.name}')">
-            ${heartSVG}
           </div>
         </div>
 
