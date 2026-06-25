@@ -290,55 +290,9 @@
 </div>
 
 <!-- ══════════════════════════════════════════
-     S3 — NOTIFICATIONS
+     S3 — HOW DO YOU LIVE
 ══════════════════════════════════════════ -->
-<div class="screen" id="s3" style="background:#000;">
-  <!-- Background image placeholder — replace src with your image -->
-  <img src="notif-bg.jpeg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;" onerror="this.style.display='none'"/>
-  <!-- Warm gradient fallback / overlay -->
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(180,130,80,0.55) 0%, rgba(120,80,40,0.35) 40%, rgba(0,0,0,0.15) 100%);"></div>
-
-  <!-- Top bar -->
-  <div style="position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:52px 24px 0;">
-    <!-- Venn wordmark -->
-    <div style="display:flex;align-items:center;gap:8px;">
-      <div style="position:relative;width:32px;height:20px;">
-        <div style="position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#335CFF;mix-blend-mode:screen;opacity:0.9;"></div>
-        <div style="position:absolute;right:0;top:0;width:20px;height:20px;border-radius:50%;background:#8A5BFF;mix-blend-mode:screen;opacity:0.9;"></div>
-      </div>
-      <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#14161B;letter-spacing:-0.02em;">Venn</span>
-    </div>
-    <span onclick="goTo(4)" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;color:#14161B;cursor:pointer;opacity:0.6;">SKIP</span>
-  </div>
-
-  <!-- Headline -->
-  <div style="position:relative;z-index:2;padding:28px 28px 0;flex:1;">
-    <h1 style="font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;color:#14161B;letter-spacing:-0.03em;line-height:1.1;margin:0;text-align:center;">Don't miss when someone wants to connect</h1>
-  </div>
-
-  <!-- Bottom card area -->
-  <div style="position:relative;z-index:2;padding:0 20px 48px;margin-top:auto;">
-    <!-- Toggle card -->
-    <div style="background:#fff;border-radius:20px;padding:18px 20px;display:flex;align-items:center;gap:14px;margin-bottom:12px;box-shadow:0 8px 32px rgba(0,0,0,0.10);">
-      <!-- Bell icon -->
-      <div style="width:44px;height:44px;border-radius:12px;background:#EEF0FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" fill="#335CFF"/></svg>
-      </div>
-      <span style="font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:600;color:#14161B;flex:1;">Turn on notifications</span>
-      <!-- Toggle -->
-      <div id="notif-toggle" onclick="toggleNotif()" style="width:50px;height:28px;border-radius:14px;background:#335CFF;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;">
-        <div id="notif-knob" style="position:absolute;right:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.2);transition:right 0.2s;"></div>
-      </div>
-    </div>
-    <p style="font-size:13px;color:rgba(20,22,27,0.5);text-align:center;margin:0 0 20px;line-height:1.5;">Receive real-time alerts for new matches and messages.</p>
-    <button class="btn" onclick="goTo(4)" style="background:#335CFF;color:#fff;">Continue</button>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════
-     S4 — HOW DO YOU LIVE
-══════════════════════════════════════════ -->
-<div class="screen" id="s4">
+<div class="screen" id="s3">
   <div class="status" style="color:#14161B;"><span class="status-time">5:01</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:#9FA6B7;">STEP 3 OF 5</span></div>
   <div class="prog-track"><div class="prog-fill" style="width:60%"></div></div>
 
@@ -391,14 +345,14 @@
   </div>
 
   <div class="px-main" style="padding-bottom:40px;padding-top:12px;">
-    <button class="btn btn-dark" id="life-next" disabled onclick="goTo(5)">Continue</button>
+    <button class="btn btn-dark" id="life-next" disabled onclick="goTo(4)">Continue</button>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════
-     S5 — OTP VERIFY
+     S4 — OTP VERIFY
 ══════════════════════════════════════════ -->
-<div class="screen" id="s5">
+<div class="screen" id="s4">
   <div class="status" style="color:#14161B;"><span class="status-time">5:02</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:#9FA6B7;">STEP 4 OF 5</span></div>
   <div class="prog-track"><div class="prog-fill" style="width:80%"></div></div>
 
@@ -425,14 +379,14 @@
   </div>
 
   <div class="px-main" style="padding-bottom:40px;padding-top:12px;">
-    <button class="btn btn-dark" id="otp-next" disabled onclick="goTo(6)">Verify</button>
+    <button class="btn btn-dark" id="otp-next" disabled onclick="goTo(5)">Verify</button>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════
-     S6 — SUCCESS
+     S5 — SUCCESS
 ══════════════════════════════════════════ -->
-<div class="screen" id="s6" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 32px;">
+<div class="screen" id="s5" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 32px;">
   <!-- Check circle -->
   <div class="pop" style="width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#335CFF,#8A5BFF);display:flex;align-items:center;justify-content:center;margin-bottom:28px;">
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
@@ -474,7 +428,7 @@
     const to   = document.getElementById('s' + n);
     if (!to) return;
 
-    if (n === 5) {
+    if (n === 4) {
       const ph = document.getElementById('phone')?.value || '';
       document.getElementById('ph-display').textContent = '+91 ' + (ph || '——————');
     }
@@ -507,17 +461,6 @@
       fromEl.style.transition = '';
     }, 320);
     cur = prev;
-  }
-
-  // Notification toggle (decorative — actual permission needs native API)
-  let notifOn = true;
-  function toggleNotif() {
-    notifOn = !notifOn;
-    const t = document.getElementById('notif-toggle');
-    const k = document.getElementById('notif-knob');
-    t.style.background = notifOn ? '#335CFF' : '#D1D5DB';
-    k.style.right = notifOn ? '3px' : 'auto';
-    k.style.left  = notifOn ? 'auto' : '3px';
   }
 
   // Chip select (single per group)
