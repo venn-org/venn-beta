@@ -972,7 +972,7 @@
       </div>
       <span style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#fff;letter-spacing:-0.02em;">Venn</span>
     </div>
-    <span onclick="goTo(25)" style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#fff;cursor:pointer;opacity:0.65;">SKIP</span>
+    <span onclick="localStorage.setItem('venn_done','1');goTo(25)" style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#fff;cursor:pointer;opacity:0.65;">SKIP</span>
   </div>
 
   <!-- Headline — positioned in the bright zone above the girls -->
@@ -994,7 +994,7 @@
       </div>
     </div>
     <p style="font-size:12px;color:rgba(20,22,27,0.45);text-align:center;margin:0 0 20px;line-height:1.5;padding:0 10px;">Receive real-time alerts for new matches and messages.</p>
-    <button class="btn" onclick="goTo(25)" style="background:#335CFF;color:#fff;">Continue</button>
+    <button class="btn" onclick="localStorage.setItem('venn_done','1');goTo(25)" style="background:#335CFF;color:#fff;">Continue</button>
 
   </div>
 </div>
@@ -2095,6 +2095,12 @@
   document.addEventListener('DOMContentLoaded', () => {
     updatePromptCards();
     renderPrompts('about');
+    if (localStorage.getItem('venn_done') === '1') {
+      document.getElementById('s0').classList.remove('active');
+      document.getElementById('s25').classList.add('active');
+      cur = 25; hist.length = 0; hist.push(25);
+      setTimeout(initFeed, 60);
+    }
   });
 </script>
 </body>
