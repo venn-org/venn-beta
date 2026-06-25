@@ -1662,6 +1662,9 @@
         <!-- Profile photo -->
         <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:10px;">
           <img src="${profile.photo}" style="width:100%;height:400px;object-fit:cover;object-position:${profile.photoPos};display:block;"/>
+          <div style="position:absolute;bottom:14px;right:14px;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="cardLike(this,'${profile.name}')">
+            ${heartSVG}
+          </div>
         </div>
 
         <!-- Info chips -->
