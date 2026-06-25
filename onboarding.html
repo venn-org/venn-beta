@@ -1449,6 +1449,8 @@
     if (hist.length <= 1) return;
     hist.pop();
     const prev = hist[hist.length - 1];
+    // Never go back to splash
+    if (prev === 0) return;
     const fromEl = document.getElementById('s' + cur);
     const toEl   = document.getElementById('s' + prev);
 
