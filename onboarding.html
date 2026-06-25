@@ -1070,9 +1070,9 @@
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="#335CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#335CFF;letter-spacing:0.05em;">HOME</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+    <div onclick="goTo(26)" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">LIKES</span>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">STANDOUTS</span>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1153,6 +1153,115 @@
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════
+     S26 — STANDOUTS (Flats available)
+══════════════════════════════════════════ -->
+<div class="screen" id="s26" style="background:#F2F3F7;display:flex;flex-direction:column;">
+
+  <!-- Top bar -->
+  <div style="flex-shrink:0;padding:52px 20px 18px;background:#F2F3F7;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color:#14161B;letter-spacing:-0.03em;">Standouts</span>
+        <div style="width:20px;height:20px;border-radius:50%;background:#E6E8EE;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#9AA0B2" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="#9AA0B2" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <!-- Roses pill -->
+      <div onclick="showRosesInfo()" style="display:flex;align-items:center;gap:8px;background:#EDE8FF;border-radius:50px;padding:10px 16px;cursor:pointer;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" fill="#8A5BFF" opacity="0.2"/>
+          <path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" stroke="#8A5BFF" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M12 3v18" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M9 6c0 0 1 2 3 2s3-2 3-2" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:700;color:#8A5BFF;" id="roses-count">Roses (0)</span>
+      </div>
+    </div>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;margin:0;">People who have flats ready and waiting for a flatmate like you.</p>
+  </div>
+
+  <!-- Horizontal card carousel -->
+  <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 20px;">
+
+    <!-- Scrollable row -->
+    <div style="display:flex;gap:14px;overflow-x:auto;padding:4px 20px 20px;-webkit-overflow-scrolling:touch;scrollbar-width:none;" id="standouts-row">
+      <!-- cards rendered by JS -->
+    </div>
+
+    <!-- Section: All Standouts (grid) -->
+    <div style="padding:0 20px;">
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#14161B;margin-bottom:14px;letter-spacing:-0.02em;">More flats near you</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" id="standouts-grid">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom nav -->
+  <div style="flex-shrink:0;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
+    <div onclick="goTo(25)" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">HOME</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#8A5BFF" stroke="#8A5BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#8A5BFF;letter-spacing:0.05em;">STANDOUTS</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="#14161B" stroke-width="1.8"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">MATCHES</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">CHATS</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" stroke="#14161B" stroke-width="1.8"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">PROFILE</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Roses info modal -->
+<div id="roses-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.45);" onclick="this.style.display='none'">
+  <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-radius:24px 24px 0 0;padding:28px 24px 36px;" onclick="event.stopPropagation()">
+    <div style="width:40px;height:4px;background:#E6E8EE;border-radius:2px;margin:0 auto 24px;"></div>
+    <div style="width:56px;height:56px;border-radius:50%;background:#EDE8FF;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" fill="#8A5BFF" opacity="0.25"/>
+        <path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" stroke="#8A5BFF" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M12 3v18" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M9 6c0 0 1 2 3 2s3-2 3-2" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#14161B;text-align:center;margin:0 0 10px;letter-spacing:-0.02em;">Send a Rose</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#5A6072;text-align:center;line-height:1.6;margin:0 0 24px;">Roses are a premium signal that puts you at the top of someone's list. Standouts are people who already have a flat — a Rose tells them you're seriously interested.</p>
+    <button style="width:100%;background:linear-gradient(135deg,#8A5BFF,#335CFF);color:#fff;border:none;border-radius:50px;padding:16px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:700;cursor:pointer;">Get Roses — coming soon</button>
+  </div>
+</div>
+
+<!-- Rose send sheet -->
+<div id="rose-sheet" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.45);" onclick="closeRoseSheet(event)">
+  <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-radius:24px 24px 0 0;padding:24px 24px 0;" onclick="event.stopPropagation()">
+    <div style="width:40px;height:4px;background:#E6E8EE;border-radius:2px;margin:0 auto 20px;"></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+      <div style="width:36px;height:36px;border-radius:50%;background:#EDE8FF;display:flex;align-items:center;justify-content:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" fill="#8A5BFF" opacity="0.3"/><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" stroke="#8A5BFF" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 3v18" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#14161B;" id="rose-sheet-name"></div>
+    </div>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;margin:0 0 16px;">Add a note with your Rose (optional)</p>
+    <textarea id="rose-note-input" placeholder="Tell them why you're interested in their flat..." maxlength="120" style="width:100%;min-height:90px;border:1.5px solid #E6E8EE;border-radius:14px;padding:14px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;resize:none;outline:none;box-sizing:border-box;line-height:1.5;"></textarea>
+    <div style="display:flex;gap:10px;padding:14px 0 30px;">
+      <button onclick="closeRoseSheet(null)" style="flex:1;background:#F2F3F7;color:#14161B;border:none;border-radius:50px;padding:14px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;cursor:pointer;">Cancel</button>
+      <button onclick="sendRose()" style="flex:2;background:linear-gradient(135deg,#8A5BFF,#335CFF);color:#fff;border:none;border-radius:50px;padding:14px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Send Rose 🌹</button>
+    </div>
+  </div>
+</div>
+
 </div><!-- /shell -->
 
 <script>
@@ -1173,6 +1282,7 @@
       document.getElementById('ph-display').textContent = '+91 ' + (ph || '——————');
     }
     if (n === 25) { setTimeout(initFeed, 60); }
+    if (n === 26) { setTimeout(initStandouts, 60); }
 
     // Replay animations
     to.querySelectorAll('.fu').forEach(el => { el.style.animation='none'; el.offsetHeight; el.style.animation=''; });
@@ -1544,6 +1654,113 @@
 
 
 
+  // ── Standouts ────────────────────────────────────────────────────────────
+  let rosesCount = 0;
+
+  const standoutProfiles = [
+    { name: 'Tanvi', age: 25, verified: false, photo: 'hero.jpeg', photoPos: 'center top',
+      area: 'Bandra West', rent: '₹18k / mo', flatReady: true,
+      prompt: 'The thing that makes my flat special', answer: 'sea-facing balcony and zero drama policy' },
+    { name: 'Manisha', age: 27, verified: true, photo: 'notif-bg.jpeg', photoPos: 'center center',
+      area: 'Andheri East', rent: '₹12k / mo', flatReady: true,
+      prompt: 'My flat vibe is', answer: 'quiet evenings, good coffee, plants everywhere' },
+    { name: 'Sakshi', age: 24, verified: true, photo: 'hero.jpeg', photoPos: 'center 30%',
+      area: 'Powai', rent: '₹15k / mo', flatReady: true,
+      prompt: 'One non-negotiable in my flat', answer: 'shoes off at the door, always' },
+    { name: 'Rohan', age: 26, verified: false, photo: 'notif-bg.jpeg', photoPos: 'center top',
+      area: 'Khar', rent: '₹20k / mo', flatReady: true,
+      prompt: 'Living with me means', answer: 'Sunday brunches, calm weekdays, loud Fridays' },
+    { name: 'Divya', age: 22, verified: true, photo: 'hero.jpeg', photoPos: 'center 15%',
+      area: 'Goregaon West', rent: '₹10k / mo', flatReady: true,
+      prompt: 'My flat in three words', answer: 'bright, clean, peaceful' },
+    { name: 'Kabir', age: 28, verified: false, photo: 'notif-bg.jpeg', photoPos: 'center center',
+      area: 'Lower Parel', rent: '₹22k / mo', flatReady: true,
+      prompt: 'The best thing about my flat', answer: '10-min walk to everything that matters' },
+  ];
+
+  const roseSVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" fill="#8A5BFF" opacity="0.25"/><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" stroke="#8A5BFF" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 3v18" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/><path d="M9 6c0 0 1 2 3 2s3-2 3-2" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+
+  function initStandouts() {
+    // Hero carousel (first 3)
+    const row = document.getElementById('standouts-row');
+    row.innerHTML = standoutProfiles.slice(0, 3).map((p, i) => `
+      <div style="flex-shrink:0;width:240px;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.09);position:relative;">
+        <div style="position:relative;">
+          <img src="${p.photo}" style="width:240px;height:300px;object-fit:cover;object-position:${p.photoPos};display:block;"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0) 45%);"></div>
+          <div style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:6px;">
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:-0.01em;">${p.name}</span>
+            ${p.verified ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#8A5BFF"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
+          </div>
+          <div style="position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.35);backdrop-filter:blur(6px);border-radius:50px;padding:4px 10px;">
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:700;color:#fff;">${p.rent}</span>
+          </div>
+        </div>
+        <div style="padding:16px 16px 14px;">
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;margin-bottom:6px;">${p.prompt}</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#14161B;line-height:1.3;margin-bottom:14px;">${p.answer}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:5px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="#9AA0B2" stroke-width="1.5"/><circle cx="12" cy="10" r="3" stroke="#9AA0B2" stroke-width="1.5"/></svg>
+              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">${p.area}</span>
+            </div>
+            <button onclick="openRoseSheet('${p.name}')" id="rose-btn-${i}" style="display:flex;align-items:center;gap:6px;background:#EDE8FF;border:none;border-radius:50px;padding:8px 14px;cursor:pointer;transition:all 0.15s;">
+              ${roseSVG}
+              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:700;color:#8A5BFF;">Rose</span>
+            </button>
+          </div>
+        </div>
+      </div>`).join('');
+
+    // Grid (remaining)
+    const grid = document.getElementById('standouts-grid');
+    grid.innerHTML = standoutProfiles.slice(3).map((p, i) => `
+      <div style="border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.07);">
+        <div style="position:relative;">
+          <img src="${p.photo}" style="width:100%;height:160px;object-fit:cover;object-position:${p.photoPos};display:block;"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.32) 0%,rgba(0,0,0,0) 50%);"></div>
+          <div style="position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:4px;">
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:#fff;">${p.name}</span>
+            ${p.verified ? `<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#8A5BFF"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
+          </div>
+        </div>
+        <div style="padding:12px;">
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9AA0B2;margin-bottom:4px;">${p.prompt}</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;line-height:1.35;margin-bottom:10px;">${p.answer}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9AA0B2;">${p.area}</span>
+            <button onclick="openRoseSheet('${p.name}')" style="display:flex;align-items:center;gap:4px;background:#EDE8FF;border:none;border-radius:50px;padding:6px 10px;cursor:pointer;">
+              ${roseSVG}
+              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:700;color:#8A5BFF;">Rose</span>
+            </button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  function openRoseSheet(name) {
+    if (rosesCount <= 0) { showRosesInfo(); return; }
+    document.getElementById('rose-sheet-name').textContent = name;
+    document.getElementById('rose-note-input').value = '';
+    document.getElementById('rose-sheet').style.display = 'block';
+  }
+
+  function closeRoseSheet(e) {
+    if (e && e.target !== document.getElementById('rose-sheet')) return;
+    document.getElementById('rose-sheet').style.display = 'none';
+  }
+
+  function sendRose() {
+    rosesCount = Math.max(0, rosesCount - 1);
+    document.getElementById('roses-count').textContent = `Roses (${rosesCount})`;
+    document.getElementById('rose-sheet').style.display = 'none';
+  }
+
+  function showRosesInfo() {
+    document.getElementById('roses-modal').style.display = 'block';
+  }
+
+  // Wire standouts init into goTo
   // ── Prompts ──────────────────────────────────────────────────────────────
   const promptData = {
     about: [
