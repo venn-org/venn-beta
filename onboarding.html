@@ -1750,11 +1750,14 @@
   <!-- Compact top bar -->
   <div style="flex-shrink:0;padding:48px 20px 14px;position:relative;z-index:5;">
     <div style="display:flex;align-items:center;justify-content:space-between;">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.03em;">Standouts</span>
-        <div style="width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.5)" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/></svg>
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.03em;">Standouts</span>
+          <div style="background:rgba(138,91,255,0.2);border:1px solid rgba(138,91,255,0.4);border-radius:50px;padding:2px 8px;">
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:10px;font-weight:700;color:#C4AAFF;letter-spacing:0.04em;">FLAT OWNERS</span>
+          </div>
         </div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:rgba(255,255,255,0.45);margin:0;">These people have a flat ready. Send a Rose 🌹 to connect.</p>
       </div>
       <div onclick="showRosesInfo()" style="display:flex;align-items:center;gap:7px;background:#2A1A4A;border-radius:50px;padding:9px 14px;cursor:pointer;border:1px solid rgba(138,91,255,0.35);">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" fill="#8A5BFF" opacity="0.4"/><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" stroke="#8A5BFF" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 3v18" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/><path d="M9 6c0 0 1 2 3 2s3-2 3-2" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -1817,7 +1820,7 @@
       </svg>
     </div>
     <h2 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#14161B;text-align:center;margin:0 0 10px;letter-spacing:-0.02em;">Send a Rose</h2>
-    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#5A6072;text-align:center;line-height:1.6;margin:0 0 24px;">Roses are a premium signal that puts you at the top of someone's list. Standouts are people who already have a flat — a Rose tells them you're seriously interested.</p>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#5A6072;text-align:center;line-height:1.6;margin:0 0 24px;">Standouts are people who <strong>already have a flat</strong> and are looking for the right flatmate. To reach out to them, you need to send a Rose — it tells them you're genuinely interested and puts you at the top of their list.</p>
     <button style="width:100%;background:linear-gradient(135deg,#8A5BFF,#335CFF);color:#fff;border:none;border-radius:50px;padding:16px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:700;cursor:pointer;">Get Roses — coming soon</button>
   </div>
 </div>
@@ -2433,6 +2436,15 @@
         <div id="so-rose" style="position:absolute;top:36px;right:24px;border:3px solid #8A5BFF;border-radius:8px;padding:6px 14px;opacity:0;transform:rotate(15deg);transition:opacity 0.1s;">
           <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#8A5BFF;letter-spacing:0.04em;">ROSE 🌹</span>
         </div>
+        <!-- Has flat badge top-left -->
+        <div style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:5px;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);border-radius:50px;padding:5px 10px;border:1px solid rgba(255,255,255,0.15);">
+          <span style="font-size:12px;">🏠</span>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:700;color:#fff;letter-spacing:0.03em;">Has flat</span>
+        </div>
+        <!-- Rent badge top-right -->
+        <div style="position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);border-radius:50px;padding:5px 10px;border:1px solid rgba(255,255,255,0.15);">
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:700;color:#C4AAFF;">${p.rent}</span>
+        </div>
         <!-- Info overlay -->
         <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 20px 18px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
@@ -2443,12 +2455,14 @@
           <div style="display:flex;align-items:center;gap:5px;margin-bottom:12px;">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="rgba(255,255,255,0.6)" stroke-width="1.8"/><circle cx="12" cy="10" r="3" stroke="rgba(255,255,255,0.6)" stroke-width="1.8"/></svg>
             <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:rgba(255,255,255,0.7);">${p.area}</span>
-            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:rgba(255,255,255,0.4);">·</span>
-            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:700;color:#C4AAFF;">${p.rent}</span>
           </div>
-          <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:14px;padding:14px 16px;border:1px solid rgba(255,255,255,0.12);">
+          <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:14px;padding:14px 16px;border:1px solid rgba(255,255,255,0.12);margin-bottom:10px;">
             <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.05em;">${p.prompt}</div>
             <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#fff;line-height:1.35;">${p.answer}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;justify-content:center;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" fill="#C4AAFF" opacity="0.5"/><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" stroke="#C4AAFF" stroke-width="1.2" stroke-linejoin="round"/><path d="M12 3v18" stroke="#C4AAFF" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);">Swipe right or send a Rose to connect</span>
           </div>
         </div>
       </div>`;
