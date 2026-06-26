@@ -1,627 +1,476 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Venn — Find your overlap.</title>
+  <title>Venn — Find where your lives overlap.</title>
+  <meta name="description" content="The flatmate app built for people who care about more than just rent. Find someone you'll actually enjoy living with."/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'venn-blue': '#335CFF',
-            'venn-violet': '#8A5BFF',
-            'overlap-indigo': '#3A2FD6',
-            'ink': '#14161B',
-            'slate': '#5A6072',
-            'mist': '#E6E8EE',
-            'paper': '#FCFCFD',
-            'canvas': '#EDEEF2',
-          },
-          fontFamily: {
-            'display': ['Space Grotesk', 'sans-serif'],
-            'body': ['Hanken Grotesk', 'system-ui', 'sans-serif'],
-            'mono': ['Space Mono', 'monospace'],
-          },
-          spacing: {
-            'section': '104px',
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body { -webkit-font-smoothing: antialiased; }
-
-    .lens-mark {
-      position: relative;
-      display: inline-flex;
-    }
-    .lens-mark .circle-l {
-      border-radius: 50%;
-      background: #335CFF;
-      mix-blend-mode: multiply;
-    }
-    .lens-mark .circle-r {
-      border-radius: 50%;
-      background: #8A5BFF;
-      mix-blend-mode: multiply;
-      position: absolute;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Hanken Grotesk', system-ui, sans-serif;
+      background: #0A0A0A;
+      color: #fff;
+      overflow-x: hidden;
     }
 
-    /* Nav blur */
-    .nav-blur {
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(10,10,10,0.8);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon { position: relative; width: 40px; height: 26px; }
+    .nav-logo-icon .c1 { position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:#335CFF;opacity:0.9; }
+    .nav-logo-icon .c2 { position:absolute;right:0;top:0;width:26px;height:26px;border-radius:50%;background:#8A5BFF;opacity:0.85;mix-blend-mode:screen; }
+    .nav-logo-text { font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.02em; }
+    .nav-cta {
+      background: linear-gradient(135deg, #335CFF, #8A5BFF);
+      color: #fff; border: none; border-radius: 50px;
+      padding: 11px 24px; font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      text-decoration: none; display: inline-block;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 800px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(51,92,255,0.18) 0%, rgba(138,91,255,0.10) 40%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50px; padding: 8px 18px; margin-bottom: 32px;
+      font-family: 'Hanken Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+    .hero-badge span { width:6px;height:6px;border-radius:50%;background:#4ADE80;display:inline-block;animation:pulse-dot 2s infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: #fff;
+      margin-bottom: 24px;
+      max-width: 900px;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(135deg, #335CFF 0%, #8A5BFF 60%, #C084FC 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px); color: rgba(255,255,255,0.5);
+      line-height: 1.65; max-width: 520px; margin-bottom: 48px;
     }
 
-    /* Smooth fade-up on scroll */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+    /* ── Waitlist form ── */
+    .waitlist-form {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      justify-content: center; width: 100%; max-width: 480px;
+      margin-bottom: 20px;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
+    .waitlist-form input[type="email"] {
+      flex: 1; min-width: 240px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 50px; padding: 16px 24px;
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 15px; color: #fff; outline: none;
+      transition: border-color 0.2s;
+    }
+    .waitlist-form input[type="email"]::placeholder { color: rgba(255,255,255,0.3); }
+    .waitlist-form input[type="email"]:focus { border-color: rgba(51,92,255,0.6); }
+    .waitlist-form button {
+      background: linear-gradient(135deg, #335CFF, #8A5BFF);
+      color: #fff; border: none; border-radius: 50px;
+      padding: 16px 32px; font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      white-space: nowrap; transition: opacity 0.2s, transform 0.15s;
+    }
+    .waitlist-form button:hover { opacity: 0.88; transform: translateY(-1px); }
+    .form-note { font-size: 13px; color: rgba(255,255,255,0.28); }
+
+    /* ── Counter strip ── */
+    .counter-strip {
+      display: flex; align-items: center; justify-content: center; gap: 32px;
+      margin-top: 64px; flex-wrap: wrap;
+    }
+    .counter-item { text-align: center; }
+    .counter-num {
+      font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #335CFF, #8A5BFF);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .counter-label { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+    .counter-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
+
+    /* ── How it works ── */
+    section { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #335CFF; margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+      color: #fff; margin-bottom: 60px; max-width: 600px;
+    }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .step {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 36px 32px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .step:hover { border-color: rgba(51,92,255,0.35); transform: translateY(-4px); }
+    .step-num {
+      font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; color: rgba(255,255,255,0.25); margin-bottom: 20px;
+    }
+    .step-icon {
+      width: 52px; height: 52px; border-radius: 16px;
+      background: linear-gradient(135deg, rgba(51,92,255,0.2), rgba(138,91,255,0.2));
+      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+    }
+    .step h3 {
+      font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700;
+      color: #fff; margin-bottom: 10px; letter-spacing: -0.02em;
+    }
+    .step p { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+    /* ── Why Venn ── */
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .why-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px; padding: 28px 24px;
+    }
+    .why-card .icon { font-size: 28px; margin-bottom: 14px; }
+    .why-card h4 {
+      font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700;
+      color: #fff; margin-bottom: 8px;
+    }
+    .why-card p { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.55; }
+
+    /* ── Cities ── */
+    .cities-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .city-chip {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px; padding: 10px 20px;
+      font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600;
+      color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 8px;
+    }
+    .city-chip.active {
+      background: rgba(51,92,255,0.15); border-color: rgba(51,92,255,0.4);
+      color: #fff;
+    }
+    .city-chip .dot { width:6px;height:6px;border-radius:50%;background:#335CFF; }
+
+    /* ── CTA banner ── */
+    .cta-banner {
+      margin: 0 24px 100px;
+      background: linear-gradient(135deg, rgba(51,92,255,0.15) 0%, rgba(138,91,255,0.12) 100%);
+      border: 1px solid rgba(51,92,255,0.3);
+      border-radius: 32px; padding: 72px 48px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(51,92,255,0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .cta-banner h2 {
+      font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800; letter-spacing: -0.03em; color: #fff;
+      margin-bottom: 16px; position: relative;
+    }
+    .cta-banner p {
+      font-size: 16px; color: rgba(255,255,255,0.5); margin-bottom: 40px; position: relative;
     }
 
-    /* Gradient glow blobs */
-    .blob-blue {
-      background: radial-gradient(circle, rgba(51,92,255,0.18) 0%, transparent 70%);
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 40px 48px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
     }
-    .blob-violet {
-      background: radial-gradient(circle, rgba(138,91,255,0.15) 0%, transparent 70%);
-    }
+    footer p { font-size: 13px; color: rgba(255,255,255,0.25); }
 
-    /* Stat ticker animation */
-    @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    /* ── Success state ── */
+    #success-msg {
+      display: none; text-align: center;
+      background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3);
+      border-radius: 16px; padding: 20px 28px; max-width: 480px;
     }
-    .ticker-track {
-      display: flex;
-      animation: ticker 24s linear infinite;
-      width: max-content;
-    }
-    .ticker-wrap { overflow: hidden; }
+    #success-msg p { font-size: 15px; font-weight: 600; color: #4ADE80; }
+    #success-msg span { font-size: 13px; color: rgba(255,255,255,0.45); display:block; margin-top:4px; }
 
-    /* Match card pulse */
-    @keyframes pulse-ring {
-      0% { box-shadow: 0 0 0 0 rgba(51,92,255,0.35); }
-      70% { box-shadow: 0 0 0 14px rgba(51,92,255,0); }
-      100% { box-shadow: 0 0 0 0 rgba(51,92,255,0); }
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 100px 20px 60px; }
+      section { padding: 64px 20px; }
+      .counter-divider { display: none; }
+      .cta-banner { margin: 0 16px 64px; padding: 48px 24px; }
+      footer { padding: 32px 20px; flex-direction: column; text-align: center; }
     }
-    .pulse-ring { animation: pulse-ring 2.4s ease-out infinite; }
-
-    /* Venn diagram animation */
-    @keyframes slideLeft {
-      from { transform: translateX(22px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideRight {
-      from { transform: translateX(-22px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-    .circle-anim-l { animation: slideLeft 0.9s cubic-bezier(0.22,1,0.36,1) both; }
-    .circle-anim-r { animation: slideRight 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
-
-    /* Card hover lift */
-    .card-lift {
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-    .card-lift:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 48px rgba(20,22,27,0.08);
-    }
-
-    /* Button active press */
-    .btn-press { transition: transform 0.12s ease, box-shadow 0.12s ease; }
-    .btn-press:active { transform: scale(0.96); }
   </style>
 </head>
-<body class="bg-canvas text-ink font-body">
+<body>
 
-<!-- ===== NAV ===== -->
-<header id="nav" class="fixed top-0 left-0 right-0 z-50 bg-paper/90 nav-blur border-b border-mist/60 transition-all duration-300">
-  <div class="max-w-[1440px] mx-auto px-5 md:px-20 h-[72px] flex items-center justify-between">
-    <!-- Logo -->
-    <a href="/" class="flex items-center gap-3 group">
-      <div class="lens-mark relative w-10 h-[26px]">
-        <div class="circle-l absolute left-0 top-0 w-[26px] h-[26px]"></div>
-        <div class="circle-r right-0 top-0 w-[26px] h-[26px]"></div>
-      </div>
-      <span class="font-display font-semibold text-[22px] tracking-[-0.03em] text-ink">Venn</span>
-    </a>
-    <!-- Desktop nav -->
-    <nav class="hidden md:flex items-center gap-8">
-      <a href="#how" class="font-mono text-[11px] tracking-[0.14em] uppercase text-slate hover:text-ink transition-colors">How it works</a>
-      <a href="#features" class="font-mono text-[11px] tracking-[0.14em] uppercase text-slate hover:text-ink transition-colors">Features</a>
-      <a href="#stories" class="font-mono text-[11px] tracking-[0.14em] uppercase text-slate hover:text-ink transition-colors">Stories</a>
-      <a href="onboarding.html" class="btn-press bg-venn-blue text-white font-mono text-[11px] tracking-[0.14em] uppercase px-6 py-3 rounded-full hover:bg-overlap-indigo hover:shadow-lg hover:shadow-venn-blue/25 transition-all duration-200">
-        Pre-register
-      </a>
-    </nav>
-    <!-- Mobile hamburger -->
-    <button id="mob-toggle" class="md:hidden p-2 text-ink" aria-label="Menu">
-      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-        <line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/>
-      </svg>
-    </button>
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">
+      <div class="c1"></div>
+      <div class="c2"></div>
+    </div>
+    <span class="nav-logo-text">Venn</span>
+  </a>
+  <a href="#waitlist" class="nav-cta">Join waitlist</a>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">
+    <span></span>
+    Now accepting early members in Mumbai
   </div>
-  <!-- Mobile drawer -->
-  <div id="mob-menu" class="hidden md:hidden border-t border-mist bg-paper px-5 py-6 flex flex-col gap-5">
-    <a href="#how" class="font-mono text-[12px] tracking-[0.14em] uppercase text-slate">How it works</a>
-    <a href="#features" class="font-mono text-[12px] tracking-[0.14em] uppercase text-slate">Features</a>
-    <a href="#stories" class="font-mono text-[12px] tracking-[0.14em] uppercase text-slate">Stories</a>
-    <a href="onboarding.html" class="bg-venn-blue text-white font-mono text-[11px] tracking-[0.14em] uppercase px-6 py-3 rounded-full text-center">Pre-register</a>
+  <h1>Find where<br><span class="grad">your lives</span><br>overlap.</h1>
+  <p>The flatmate app built for people who care about more than just rent. Stop swiping on spreadsheets. Find someone you'll actually enjoy living with.</p>
+
+  <div class="waitlist-form" id="waitlist">
+    <input type="email" id="email-input" placeholder="your@email.com" required/>
+    <button onclick="joinWaitlist()">Get early access</button>
   </div>
-</header>
+  <p class="form-note">No spam. We'll only reach out when Venn is ready for you.</p>
 
-<main class="pt-[72px]">
-
-  <!-- ===== HERO ===== -->
-  <section class="max-w-[1440px] mx-auto px-5 md:px-20 pt-20 md:pt-28 pb-16 md:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-    <!-- Copy -->
-    <div class="lg:col-span-6 space-y-7 reveal">
-      <!-- pill -->
-      <div class="inline-flex items-center gap-2 bg-venn-blue/8 border border-venn-blue/20 px-4 py-2 rounded-full">
-        <span class="w-2 h-2 rounded-full bg-venn-blue animate-pulse"></span>
-        <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-venn-blue">Launching soon · London, Manchester, Bristol</span>
-      </div>
-      <h1 class="font-display font-semibold text-[52px] md:text-[70px] lg:text-[82px] leading-[0.93] tracking-[-0.035em] text-ink">
-        Find where<br>your lives <span class="text-venn-blue">overlap.</span>
-      </h1>
-      <p class="font-body text-[18px] leading-[1.65] text-slate max-w-[500px]">
-        Flatmate matching for students and young professionals — paired on the things that actually make a shared home work.
-      </p>
-      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2">
-        <a href="onboarding.html" class="btn-press bg-venn-blue text-white font-display font-semibold text-[16px] px-9 py-4 rounded-full hover:bg-overlap-indigo hover:shadow-xl hover:shadow-venn-blue/30 transition-all duration-250">
-          Pre-register now
-        </a>
-        <a href="#how" class="flex items-center gap-2 font-mono text-[11px] tracking-[0.12em] uppercase text-ink hover:text-venn-blue transition-colors group">
-          See how it works
-          <svg class="group-hover:translate-x-1 transition-transform" width="14" height="14" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-
-    <!-- Hero visual: match card stack -->
-    <div class="lg:col-span-6 relative h-[520px] lg:h-[600px] reveal" style="transition-delay:0.1s">
-      <!-- Background blobs -->
-      <div class="blob-blue absolute top-0 right-0 w-[420px] h-[420px] rounded-full pointer-events-none"></div>
-      <div class="blob-violet absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full pointer-events-none"></div>
-
-      <!-- Background card (behind) -->
-      <div class="absolute top-12 left-6 right-0 bottom-0 bg-paper border border-mist rounded-[32px] shadow-xl shadow-ink/5 rotate-[-3deg]"></div>
-
-      <!-- Main profile card -->
-      <div class="absolute top-0 left-0 right-6 bottom-12 bg-paper border border-mist rounded-[32px] shadow-2xl shadow-ink/8 overflow-hidden">
-        <!-- Image placeholder with gradient -->
-        <div class="w-full h-[62%] bg-gradient-to-br from-[#E8ECFF] to-[#D5C8FF] relative">
-          <!-- Decorative circles inside image area -->
-          <div class="absolute bottom-6 left-6 right-6 flex gap-3">
-            <div class="flex-1 h-1 rounded-full bg-white/60"></div>
-            <div class="flex-1 h-1 rounded-full bg-white/30"></div>
-            <div class="flex-1 h-1 rounded-full bg-white/30"></div>
-          </div>
-          <!-- Large venn mark watermark -->
-          <div class="absolute inset-0 flex items-center justify-center opacity-10">
-            <div class="relative w-[240px] h-[154px]">
-              <div class="absolute left-0 top-0 w-[154px] h-[154px] rounded-full bg-venn-blue"></div>
-              <div class="absolute right-0 top-0 w-[154px] h-[154px] rounded-full bg-venn-violet"></div>
-            </div>
-          </div>
-          <!-- Name tag -->
-          <div class="absolute bottom-5 left-6">
-            <p class="font-display font-semibold text-[22px] tracking-[-0.02em] text-ink">Priya, 24</p>
-            <p class="font-body text-[14px] text-slate mt-0.5">Architecture Graduate · Bandra</p>
-          </div>
-        </div>
-        <!-- Card body -->
-        <div class="p-6 space-y-4">
-          <!-- Match score -->
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="font-mono text-[10px] tracking-[0.16em] uppercase text-slate">Compatibility</p>
-              <p class="font-display font-semibold text-[32px] tracking-[-0.03em] text-venn-blue mt-0.5">Great <span class="text-[16px] text-slate font-normal">match</span></p>
-            </div>
-            <!-- Mini venn mark -->
-            <div class="w-12 h-[30px] relative">
-              <div class="absolute left-0 top-0 w-[30px] h-[30px] rounded-full bg-venn-blue mix-blend-multiply"></div>
-              <div class="absolute right-0 top-0 w-[30px] h-[30px] rounded-full bg-venn-violet mix-blend-multiply"></div>
-            </div>
-          </div>
-          <!-- Tags -->
-          <div class="flex flex-wrap gap-2">
-            <span class="font-mono text-[10px] tracking-[0.08em] bg-venn-blue/8 text-venn-blue px-3 py-1.5 rounded-full">Night owl</span>
-            <span class="font-mono text-[10px] tracking-[0.08em] bg-venn-violet/8 text-venn-violet px-3 py-1.5 rounded-full">Tidy kitchen</span>
-            <span class="font-mono text-[10px] tracking-[0.08em] bg-mist text-slate px-3 py-1.5 rounded-full">No pets</span>
-            <span class="font-mono text-[10px] tracking-[0.08em] bg-mist text-slate px-3 py-1.5 rounded-full">WFH friendly</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Match badge floating -->
-      <div class="pulse-ring absolute bottom-20 left-0 bg-venn-blue text-white font-mono text-[11px] tracking-[0.1em] uppercase px-4 py-3 rounded-2xl shadow-xl">
-        ✦ It's a match
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== TICKER ===== -->
-  <div class="bg-ink py-4 overflow-hidden border-y border-ink">
-    <div class="ticker-wrap">
-      <div class="ticker-track">
-        <!-- doubled for seamless loop -->
-        <template id="ticker-items">
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-paper/60 px-8">Find your overlap</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-venn-violet px-1">·</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-paper/60 px-8">Venn, if not now?</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-venn-violet px-1">·</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-paper/60 px-8">Compatibility-first matching</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-venn-violet px-1">·</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-paper/60 px-8">Mumbai · Navi Mumbai · Pune</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-venn-violet px-1">·</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-paper/60 px-8">Launching 2026</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-venn-violet px-1">·</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-paper/60 px-8">Flatmate matching, reimagined</span>
-          <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-venn-violet px-1">·</span>
-        </template>
-      </div>
-    </div>
+  <div id="success-msg">
+    <p>🎉 You're on the list!</p>
+    <span>We'll notify you when Venn launches in your city.</span>
   </div>
 
-  <!-- ===== THE IDEA ===== -->
-  <section id="how" class="bg-paper border-b border-mist">
-    <div class="max-w-[1440px] mx-auto px-5 md:px-20 py-24 md:py-[104px]">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-
-        <!-- Venn diagram visual -->
-        <div class="reveal order-2 lg:order-1">
-          <div class="bg-[#F4F5F8] border border-mist rounded-2xl h-[360px] relative flex items-center justify-center overflow-hidden">
-            <!-- Dashed guide line -->
-            <div class="absolute left-0 right-0 top-1/2 h-px" style="background: repeating-linear-gradient(to right, #CDD2DC 0 6px, transparent 6px 12px);"></div>
-            <!-- Venn circles -->
-            <div class="relative w-[320px] h-[200px] circle-anim-l">
-              <div class="absolute left-0 top-0 w-[200px] h-[200px] rounded-full border border-dashed border-[#B9C0CC]"></div>
-              <div class="absolute right-0 top-0 w-[200px] h-[200px] rounded-full border border-dashed border-[#B9C0CC]"></div>
-              <div class="absolute left-0 top-0 w-[200px] h-[200px] rounded-full bg-venn-blue mix-blend-multiply circle-anim-l" style="opacity:0.85"></div>
-              <div class="absolute right-0 top-0 w-[200px] h-[200px] rounded-full bg-venn-violet mix-blend-multiply circle-anim-r" style="opacity:0.85"></div>
-            </div>
-            <!-- Labels -->
-            <div class="absolute bottom-5 left-8 font-mono text-[11px] tracking-[0.12em] uppercase text-slate">You</div>
-            <div class="absolute bottom-5 left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-[0.12em] uppercase text-paper bg-overlap-indigo px-3 py-1 rounded-full">The overlap</div>
-            <div class="absolute bottom-5 right-8 font-mono text-[11px] tracking-[0.12em] uppercase text-slate">Them</div>
-          </div>
-        </div>
-
-        <!-- Copy -->
-        <div class="reveal order-1 lg:order-2 space-y-6" style="transition-delay:0.1s">
-          <div class="flex items-center gap-3">
-            <span class="font-mono text-[13px] text-overlap-indigo">01</span>
-            <span class="font-mono text-[12px] tracking-[0.16em] uppercase text-ink">The idea</span>
-            <div class="flex-1 h-px bg-mist"></div>
-          </div>
-          <h2 class="font-display font-medium text-[38px] leading-[1.15] tracking-[-0.02em] text-ink">Two circles. One overlap.</h2>
-          <p class="font-body text-[16px] leading-[1.7] text-slate max-w-[480px]">
-            Most apps match you on rent and location. Venn matches you on the <strong class="text-ink font-semibold">rhythm of life</strong> — schedules, standards, and the small habits that make or break a flatshare.
-          </p>
-          <div class="flex flex-col gap-3 pt-1">
-            <div class="flex items-start gap-3">
-              <span class="mt-1.5 w-2 h-2 rounded-full bg-venn-blue flex-none"></span>
-              <p class="font-body text-[15px] text-ink leading-[1.5]"><span class="font-semibold">You</span> — your lifestyle, budget, and deal-breakers.</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="mt-1.5 w-2 h-2 rounded-full bg-venn-violet flex-none"></span>
-              <p class="font-body text-[15px] text-ink leading-[1.5]"><span class="font-semibold">Them</span> — someone with their own rhythm, habits, and non-negotiables.</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="mt-1.5 w-2 h-2 rounded-full bg-overlap-indigo flex-none"></span>
-              <p class="font-body text-[15px] text-ink leading-[1.5]"><span class="font-semibold">The overlap</span> — where you're compatible enough to actually share a home.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="counter-strip">
+    <div class="counter-item">
+      <div class="counter-num" id="counter">247</div>
+      <div class="counter-label">people on the waitlist</div>
     </div>
-  </section>
-
-  <!-- ===== FEATURES ===== -->
-  <section id="features" class="max-w-[1440px] mx-auto px-5 md:px-20 py-24 md:py-[104px]">
-    <div class="reveal text-center space-y-3 mb-16">
-      <div class="flex items-center gap-3 justify-center">
-        <span class="font-mono text-[13px] text-overlap-indigo">02</span>
-        <span class="font-mono text-[12px] tracking-[0.16em] uppercase text-ink">Features</span>
-      </div>
-      <h2 class="font-display font-semibold text-[38px] tracking-[-0.02em] text-ink">Everything you need to find the one.</h2>
-      <p class="font-body text-[16px] text-slate max-w-xl mx-auto">Smart tools designed to eliminate the awkwardness and uncertainty of finding a flatmate.</p>
+    <div class="counter-divider"></div>
+    <div class="counter-item">
+      <div class="counter-num">3</div>
+      <div class="counter-label">cities launching</div>
     </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Compatibility Quiz -->
-      <div class="card-lift reveal bg-paper border border-mist rounded-2xl p-10 group cursor-default">
-        <div class="w-14 h-14 bg-venn-blue/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-venn-blue/15 transition-colors">
-          <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="#335CFF" stroke-width="1.6">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <span class="font-mono text-[10px] tracking-[0.16em] uppercase text-venn-blue">Matching</span>
-        <h3 class="font-display font-semibold text-[20px] tracking-[-0.01em] text-ink mt-3 mb-3">Lens Assessment</h3>
-        <p class="font-body text-[14px] leading-[1.65] text-slate">Our proprietary quiz goes beyond hobbies — it reads your domestic personality: sleep rhythm, tidiness standards, guest policy, and noise tolerance.</p>
-      </div>
-
-      <!-- Verified Profiles -->
-      <div class="card-lift reveal bg-paper border border-mist rounded-2xl p-10 group cursor-default" style="transition-delay:0.06s">
-        <div class="w-14 h-14 bg-venn-violet/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-venn-violet/15 transition-colors">
-          <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="#8A5BFF" stroke-width="1.6">
-            <path d="M12 2l3 6.3L22 9.3l-5 5 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.3l7-1z" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span class="font-mono text-[10px] tracking-[0.16em] uppercase text-venn-violet">Trust</span>
-        <h3 class="font-display font-semibold text-[20px] tracking-[-0.01em] text-ink mt-3 mb-3">Verified Profiles</h3>
-        <p class="font-body text-[14px] leading-[1.65] text-slate">Every user is ID-verified with student/LinkedIn background checks. You'll know who you're meeting before the first message.</p>
-      </div>
-
-      <!-- Shared Habits -->
-      <div class="card-lift reveal bg-paper border border-mist rounded-2xl p-10 group cursor-default" style="transition-delay:0.12s">
-        <div class="w-14 h-14 bg-overlap-indigo/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-overlap-indigo/15 transition-colors">
-          <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="#3A2FD6" stroke-width="1.6">
-            <circle cx="8" cy="12" r="6"/><circle cx="16" cy="12" r="6"/>
-          </svg>
-        </div>
-        <span class="font-mono text-[10px] tracking-[0.16em] uppercase text-overlap-indigo">Insights</span>
-        <h3 class="font-display font-semibold text-[20px] tracking-[-0.01em] text-ink mt-3 mb-3">Overlap View</h3>
-        <p class="font-body text-[14px] leading-[1.65] text-slate">Before you message anyone, see exactly where your routines sync — and where they don't. No more bathroom traffic jams or passive-aggressive notes.</p>
-      </div>
-    </div>
-
-    <!-- Secondary features row -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-      <div class="card-lift reveal bg-ink rounded-2xl p-10 text-paper relative overflow-hidden" style="transition-delay:0.18s">
-        <div class="absolute top-0 right-0 w-[300px] h-[300px] bg-venn-blue/10 rounded-full blur-3xl pointer-events-none"></div>
-        <span class="font-mono text-[10px] tracking-[0.16em] uppercase text-venn-violet">City</span>
-        <h3 class="font-display font-semibold text-[26px] tracking-[-0.02em] mt-3 mb-3">Area-smart search</h3>
-        <p class="font-body text-[14px] leading-[1.65] text-paper/70">Filter by area, commute time, and budget — not just pin codes. Venn knows that Bandra and ₹25,000/mo mean different things to different people.</p>
-        <div class="flex gap-2 mt-6 flex-wrap">
-          <span class="font-mono text-[10px] tracking-[0.08em] border border-paper/20 text-paper/70 px-3 py-1.5 rounded-full">Zone 1–3</span>
-          <span class="font-mono text-[10px] tracking-[0.08em] border border-paper/20 text-paper/70 px-3 py-1.5 rounded-full">₹10k–₹40k/mo</span>
-          <span class="font-mono text-[10px] tracking-[0.08em] border border-paper/20 text-paper/70 px-3 py-1.5 rounded-full">30 min commute</span>
-        </div>
-      </div>
-
-      <div class="card-lift reveal bg-paper border border-mist rounded-2xl p-10 relative overflow-hidden" style="transition-delay:0.24s">
-        <div class="absolute top-0 right-0 w-[200px] h-[200px] blob-violet rounded-full pointer-events-none"></div>
-        <span class="font-mono text-[10px] tracking-[0.16em] uppercase text-slate">Safety</span>
-        <h3 class="font-display font-semibold text-[26px] tracking-[-0.02em] text-ink mt-3 mb-3">Safe introductions</h3>
-        <p class="font-body text-[14px] leading-[1.65] text-slate">Chat within the app until you're ready. Venn holds your number private and lets you report or block with one tap — your safety isn't optional.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== HOW IT WORKS ===== -->
-  <section class="bg-paper border-y border-mist">
-    <div class="max-w-[1440px] mx-auto px-5 md:px-20 py-24 md:py-[104px]">
-      <div class="reveal flex items-center gap-3 mb-14">
-        <span class="font-mono text-[13px] text-overlap-indigo">03</span>
-        <span class="font-mono text-[12px] tracking-[0.16em] uppercase text-ink">How it works</span>
-        <div class="flex-1 h-px bg-mist"></div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <!-- Step 1 -->
-        <div class="reveal space-y-4">
-          <div class="w-10 h-10 bg-venn-blue rounded-full flex items-center justify-center">
-            <span class="font-mono text-[13px] font-bold text-white">01</span>
-          </div>
-          <div class="h-px bg-mist w-full"></div>
-          <h4 class="font-display font-semibold text-[18px] tracking-[-0.01em] text-ink">Take the Lens quiz</h4>
-          <p class="font-body text-[14px] leading-[1.65] text-slate">14 questions about how you actually live — not just what you own.</p>
-        </div>
-        <!-- Step 2 -->
-        <div class="reveal space-y-4" style="transition-delay:0.07s">
-          <div class="w-10 h-10 bg-venn-violet rounded-full flex items-center justify-center">
-            <span class="font-mono text-[13px] font-bold text-white">02</span>
-          </div>
-          <div class="h-px bg-mist w-full"></div>
-          <h4 class="font-display font-semibold text-[18px] tracking-[-0.01em] text-ink">See your matches</h4>
-          <p class="font-body text-[14px] leading-[1.65] text-slate">Ranked by overlap score, not distance. The lens shows you exactly why they came up.</p>
-        </div>
-        <!-- Step 3 -->
-        <div class="reveal space-y-4" style="transition-delay:0.14s">
-          <div class="w-10 h-10 bg-overlap-indigo rounded-full flex items-center justify-center">
-            <span class="font-mono text-[13px] font-bold text-white">03</span>
-          </div>
-          <div class="h-px bg-mist w-full"></div>
-          <h4 class="font-display font-semibold text-[18px] tracking-[-0.01em] text-ink">Connect safely</h4>
-          <p class="font-body text-[14px] leading-[1.65] text-slate">Chat in-app, video call, then meet. We hold your details private until you're ready.</p>
-        </div>
-        <!-- Step 4 -->
-        <div class="reveal space-y-4" style="transition-delay:0.21s">
-          <div class="w-10 h-10 bg-ink rounded-full flex items-center justify-center">
-            <span class="font-mono text-[13px] font-bold text-white">04</span>
-          </div>
-          <div class="h-px bg-mist w-full"></div>
-          <h4 class="font-display font-semibold text-[18px] tracking-[-0.01em] text-ink">Move in</h4>
-          <p class="font-body text-[14px] leading-[1.65] text-slate">Venn helps with listing handshakes, tenancy checklists, and even bill-split templates.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== STORIES / TESTIMONIALS ===== -->
-  <section id="stories" class="max-w-[1440px] mx-auto px-5 md:px-20 py-24 md:py-[104px]">
-    <div class="reveal flex items-center gap-3 mb-14">
-      <span class="font-mono text-[13px] text-overlap-indigo">04</span>
-      <span class="font-mono text-[12px] tracking-[0.16em] uppercase text-ink">Stories</span>
-      <div class="flex-1 h-px bg-mist"></div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Quote 1 -->
-      <div class="card-lift reveal bg-venn-blue rounded-2xl p-8 flex flex-col justify-between gap-10 text-white">
-        <p class="font-display font-medium text-[22px] leading-[1.35] tracking-[-0.01em]">"Matched in a week. Best flat I've had."</p>
-        <div>
-          <p class="font-mono text-[11px] tracking-[0.1em] text-white/60 uppercase">Priya · Bandra · Great match</p>
-        </div>
-      </div>
-      <!-- Quote 2 -->
-      <div class="card-lift reveal bg-paper border border-mist rounded-2xl p-8 flex flex-col justify-between gap-10" style="transition-delay:0.06s">
-        <p class="font-display font-medium text-[22px] leading-[1.35] tracking-[-0.01em] text-ink">"We had the same sleep schedule and same cleanliness bar. Venn just knew."</p>
-        <div>
-          <p class="font-mono text-[11px] tracking-[0.1em] text-slate uppercase">Maya & Tom · Manchester · 88% match</p>
-        </div>
-      </div>
-      <!-- Quote 3 -->
-      <div class="card-lift reveal bg-ink rounded-2xl p-8 flex flex-col justify-between gap-10 text-paper" style="transition-delay:0.12s">
-        <p class="font-display font-medium text-[22px] leading-[1.35] tracking-[-0.01em]">"I was dreading the flat search. Venn, if not now? — genuinely."</p>
-        <div>
-          <p class="font-mono text-[11px] tracking-[0.1em] text-paper/50 uppercase">Leah & Jo · Mumbai</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Why it works block -->
-    <div class="reveal mt-10 bg-[#F4F5F8] border border-mist rounded-2xl p-12 flex flex-col md:flex-row items-center justify-between gap-8" style="transition-delay:0.18s">
-      <div>
-        <p class="font-display font-semibold text-[48px] md:text-[64px] leading-[1] tracking-[-0.04em] text-venn-blue">Built on what actually matters.</p>
-        <p class="font-body text-[18px] leading-[1.5] text-slate mt-4 max-w-sm">Most flatmate searches rely on luck. Venn matches you on the things that make or break a living situation.</p>
-      </div>
-      <div class="w-px h-24 bg-mist hidden md:block"></div>
-      <div class="space-y-4 max-w-sm">
-        <p class="font-mono text-[10px] tracking-[0.18em] uppercase text-slate">Built on what matters</p>
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3"><span class="w-3 h-3 rounded-full bg-venn-blue flex-none"></span><span class="font-body text-[15px] text-ink">Sleep schedules &amp; noise tolerance</span></div>
-          <div class="flex items-center gap-3"><span class="w-3 h-3 rounded-full bg-venn-violet flex-none"></span><span class="font-body text-[15px] text-ink">Cleanliness standards</span></div>
-          <div class="flex items-center gap-3"><span class="w-3 h-3 rounded-full bg-overlap-indigo flex-none"></span><span class="font-body text-[15px] text-ink">Guest &amp; social preferences</span></div>
-          <div class="flex items-center gap-3"><span class="w-3 h-3 rounded-full bg-ink flex-none"></span><span class="font-body text-[15px] text-ink">Budget &amp; area compatibility</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CTA ===== -->
-  <section class="max-w-[1440px] mx-auto px-5 md:px-20 pb-24 md:pb-[104px]">
-    <div class="reveal bg-ink rounded-[40px] p-12 md:p-20 relative overflow-hidden text-center text-paper">
-      <!-- Glow blobs -->
-      <div class="absolute top-0 left-[-10%] w-[50%] h-full bg-venn-blue/20 rounded-full blur-[100px] pointer-events-none"></div>
-      <div class="absolute bottom-0 right-[-10%] w-[50%] h-full bg-venn-violet/20 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div class="relative z-10 space-y-6 max-w-2xl mx-auto">
-        <!-- Logo mark -->
-        <div class="flex justify-center mb-2">
-          <div class="relative w-14 h-9">
-            <div class="absolute left-0 top-0 w-9 h-9 rounded-full bg-paper opacity-80" style="mix-blend-mode:screen"></div>
-            <div class="absolute right-0 top-0 w-9 h-9 rounded-full bg-venn-violet opacity-90" style="mix-blend-mode:screen"></div>
-          </div>
-        </div>
-        <h2 class="font-display font-semibold text-[38px] md:text-[52px] leading-[1.05] tracking-[-0.03em]">Venn, if not now?.</h2>
-        <p class="font-body text-[17px] leading-[1.6] text-paper/70">Be the first to find your overlap. Pre-register now and get early access when we launch in your city.</p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-          <a href="onboarding.html" class="btn-press w-full sm:w-auto bg-paper text-ink font-display font-semibold text-[16px] px-10 py-4 rounded-full hover:bg-white transition-colors">
-            Pre-register — it's free
-          </a>
-          <a href="#how" class="btn-press w-full sm:w-auto border border-paper/25 text-paper font-display font-medium text-[16px] px-10 py-4 rounded-full hover:bg-paper/10 transition-colors">
-            Learn more
-          </a>
-        </div>
-        <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-paper/40">No spam · Unsubscribe anytime · Launching 2026</p>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ===== FOOTER ===== -->
-<footer class="bg-paper border-t border-mist">
-  <div class="max-w-[1440px] mx-auto px-5 md:px-20 pt-16 pb-10">
-    <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
-      <!-- Brand -->
-      <div class="space-y-4 max-w-[240px]">
-        <a href="/" class="flex items-center gap-3">
-          <div class="lens-mark relative w-8 h-[22px]">
-            <div class="circle-l absolute left-0 top-0 w-[22px] h-[22px]"></div>
-            <div class="circle-r right-0 top-0 w-[22px] h-[22px]"></div>
-          </div>
-          <span class="font-display font-semibold text-[20px] tracking-[-0.03em] text-ink">Venn</span>
-        </a>
-        <p class="font-body text-[14px] leading-[1.6] text-slate">Flatmate matching for students and young professionals.</p>
-        <p class="font-mono text-[11px] tracking-[0.12em] uppercase text-overlap-indigo">Mumbai · Navi Mumbai · Pune</p>
-      </div>
-      <!-- Links -->
-      <div class="flex flex-wrap gap-x-16 gap-y-8">
-        <div class="space-y-3">
-          <p class="font-mono text-[10px] tracking-[0.16em] uppercase text-ink">Product</p>
-          <ul class="space-y-2">
-            <li><a href="#how" class="font-body text-[14px] text-slate hover:text-ink transition-colors">How it works</a></li>
-            <li><a href="#features" class="font-body text-[14px] text-slate hover:text-ink transition-colors">Features</a></li>
-            <li><a href="#stories" class="font-body text-[14px] text-slate hover:text-ink transition-colors">Stories</a></li>
-          </ul>
-        </div>
-        <div class="space-y-3">
-          <p class="font-mono text-[10px] tracking-[0.16em] uppercase text-ink">Company</p>
-          <ul class="space-y-2">
-            <li><a href="#" class="font-body text-[14px] text-slate hover:text-ink transition-colors">About</a></li>
-            <li><a href="#" class="font-body text-[14px] text-slate hover:text-ink transition-colors">Blog</a></li>
-            <li><a href="#" class="font-body text-[14px] text-slate hover:text-ink transition-colors">Careers</a></li>
-          </ul>
-        </div>
-        <div class="space-y-3">
-          <p class="font-mono text-[10px] tracking-[0.16em] uppercase text-ink">Legal</p>
-          <ul class="space-y-2">
-            <li><a href="#" class="font-body text-[14px] text-slate hover:text-ink transition-colors">Privacy</a></li>
-            <li><a href="#" class="font-body text-[14px] text-slate hover:text-ink transition-colors">Terms</a></li>
-          </ul>
-        </div>
-        <div class="space-y-3">
-          <p class="font-mono text-[10px] tracking-[0.16em] uppercase text-ink">Connect</p>
-          <ul class="space-y-2">
-            <li><a href="#" class="font-body text-[14px] text-slate hover:text-ink transition-colors">Instagram</a></li>
-            <li><a href="#" class="font-body text-[14px] text-slate hover:text-ink transition-colors">TikTok</a></li>
-            <li><a href="mailto:hello@venn.flat" class="font-body text-[14px] text-slate hover:text-ink transition-colors">hello@venn.flat</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- Bottom bar -->
-    <div class="h-px bg-ink mb-5"></div>
-    <div class="flex flex-col md:flex-row justify-between items-center gap-3">
-      <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-slate">Venn · Brand system v1.0</p>
-      <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-slate">© 2026 Venn · Colour values approximate</p>
+    <div class="counter-divider"></div>
+    <div class="counter-item">
+      <div class="counter-num">Q3</div>
+      <div class="counter-label">target launch</div>
     </div>
   </div>
+</div>
+
+<!-- How it works -->
+<section>
+  <div class="section-label">How it works</div>
+  <div class="section-title">Finding a flatmate shouldn't feel like a job interview.</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#335CFF" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="#335CFF" stroke-width="2"/></svg>
+      </div>
+      <h3>Build your profile</h3>
+      <p>Answer a few prompts about how you actually live — your schedule, habits, vibe. Not just your budget.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="#8A5BFF" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Like what resonates</h3>
+      <p>Discover people by their answers, not their photos. Like a prompt, reply to a response — start conversations that matter.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#335CFF" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Match &amp; move in</h3>
+      <p>When both of you are interested, you match. Chat, meet, and find a place together — or move into theirs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Why Venn -->
+<section style="padding-top:0;">
+  <div class="section-label">Why Venn</div>
+  <div class="section-title">Built different, on purpose.</div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="icon">🏙️</div>
+      <h4>Mumbai-first</h4>
+      <p>Designed for Indian cities. Neighbourhoods, rent ranges, and move-in timelines that actually make sense.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon">✅</div>
+      <h4>Verified profiles</h4>
+      <p>Every person on Venn goes through basic verification so you know who you're talking to.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon">💬</div>
+      <h4>Prompt-led matching</h4>
+      <p>Like someone's answer about Sunday routines. Lead with personality, not just a profile photo.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon">🔒</div>
+      <h4>Safe &amp; private</h4>
+      <p>Your contact details stay hidden until you're ready. No random DMs from brokers or strangers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Cities -->
+<section style="padding-top:0;">
+  <div class="section-label">Launching in</div>
+  <div class="section-title">Starting where the need is loudest.</div>
+  <div class="cities-row">
+    <div class="city-chip active"><div class="dot"></div> Mumbai</div>
+    <div class="city-chip active"><div class="dot"></div> Bangalore</div>
+    <div class="city-chip active"><div class="dot"></div> Pune</div>
+    <div class="city-chip">Delhi NCR</div>
+    <div class="city-chip">Hyderabad</div>
+    <div class="city-chip">Chennai</div>
+  </div>
+</section>
+
+<!-- CTA banner -->
+<div class="cta-banner">
+  <h2>Be the first to find<br>your overlap.</h2>
+  <p>Join the waitlist and get early access before we open to everyone.</p>
+  <div class="waitlist-form" style="margin:0 auto;">
+    <input type="email" id="email-input-2" placeholder="your@email.com" required/>
+    <button onclick="joinWaitlist2()">Join the waitlist</button>
+  </div>
+  <div id="success-msg-2" style="display:none;margin-top:20px;">
+    <p style="color:#4ADE80;font-weight:600;font-size:15px;">🎉 You're on the list!</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <a href="#" class="nav-logo" style="text-decoration:none;">
+    <div class="nav-logo-icon">
+      <div class="c1"></div>
+      <div class="c2"></div>
+    </div>
+    <span class="nav-logo-text" style="font-size:17px;">Venn</span>
+  </a>
+  <p>© 2025 Venn. Built in Mumbai.</p>
+  <p style="color:rgba(255,255,255,0.15);">The flatmate app designed to be deleted.</p>
 </footer>
 
 <script>
-  // Mobile nav toggle
-  const toggle = document.getElementById('mob-toggle');
-  const menu = document.getElementById('mob-menu');
-  toggle.addEventListener('click', () => menu.classList.toggle('hidden'));
+  // ── Waitlist form submission ──
+  // Replace YOUR_FORM_ID with your Formspree form ID
+  // Sign up free at formspree.io → create a form → copy the ID
+  const FORMSPREE_ID = 'YOUR_FORM_ID';
 
-  // Ticker — duplicate content for seamless loop
-  const tmpl = document.getElementById('ticker-items');
-  const track = document.querySelector('.ticker-track');
-  const html = tmpl.innerHTML;
-  track.innerHTML = html + html; // duplicate
+  async function submitEmail(email, successEl, formEl) {
+    if (!email || !email.includes('@')) {
+      formEl.querySelector('input').style.borderColor = 'rgba(255,75,106,0.6)';
+      setTimeout(() => formEl.querySelector('input').style.borderColor = '', 1500);
+      return;
+    }
 
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => obs.observe(el));
+    const btn = formEl.querySelector('button');
+    btn.textContent = 'Joining…';
+    btn.style.opacity = '0.7';
 
-  // Nav shadow on scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('shadow-md', window.scrollY > 24);
-  });
+    try {
+      if (FORMSPREE_ID !== 'YOUR_FORM_ID') {
+        await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+      }
+      // Show success
+      formEl.style.display = 'none';
+      successEl.style.display = 'block';
+      // Increment counter
+      const counter = document.getElementById('counter');
+      if (counter) counter.textContent = parseInt(counter.textContent) + 1;
+      // Store locally so we remember
+      localStorage.setItem('venn_waitlist', email);
+    } catch {
+      btn.textContent = 'Try again';
+      btn.style.opacity = '1';
+    }
+  }
+
+  function joinWaitlist() {
+    const email = document.getElementById('email-input').value.trim();
+    submitEmail(email, document.getElementById('success-msg'), document.getElementById('waitlist'));
+  }
+
+  function joinWaitlist2() {
+    const email = document.getElementById('email-input-2').value.trim();
+    const fakeForm = document.querySelector('.cta-banner .waitlist-form');
+    submitEmail(email, document.getElementById('success-msg-2'), fakeForm);
+  }
+
+  // Allow Enter key
+  document.getElementById('email-input').addEventListener('keydown', e => { if (e.key === 'Enter') joinWaitlist(); });
+  document.getElementById('email-input-2').addEventListener('keydown', e => { if (e.key === 'Enter') joinWaitlist2(); });
+
+  // If already joined, show success
+  if (localStorage.getItem('venn_waitlist')) {
+    document.getElementById('waitlist').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }
+
+  // ── Animate counter on scroll ──
+  const counterEl = document.getElementById('counter');
+  let counted = false;
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !counted) {
+      counted = true;
+      let start = 180, end = 247, duration = 1200;
+      let startTime = null;
+      function step(ts) {
+        if (!startTime) startTime = ts;
+        const progress = Math.min((ts - startTime) / duration, 1);
+        counterEl.textContent = Math.floor(start + (end - start) * (1 - Math.pow(1 - progress, 3)));
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+  }, { threshold: 0.5 });
+  observer.observe(counterEl);
 </script>
 </body>
 </html>
