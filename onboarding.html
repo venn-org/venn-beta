@@ -1414,7 +1414,7 @@
   </button>
 
   <!-- Bottom nav -->
-  <div style="flex-shrink:0;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
+  <div style="flex-shrink:0;z-index:10;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
     <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="#335CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       
@@ -1593,7 +1593,7 @@
   </div>
 
   <!-- Bottom nav -->
-  <div style="flex-shrink:0;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
+  <div style="flex-shrink:0;z-index:10;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
     <div onclick="goTo(25)" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
@@ -1930,7 +1930,7 @@
   </div>
 
   <!-- Bottom nav -->
-  <div style="flex-shrink:0;background:rgba(0,0,0,0.5);border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
+  <div style="flex-shrink:0;z-index:10;background:rgba(0,0,0,0.5);border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
     <div onclick="goTo(25)" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
@@ -2073,7 +2073,7 @@
   </div>
 
   <!-- Bottom nav -->
-  <div style="flex-shrink:0;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
+  <div style="flex-shrink:0;z-index:10;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
     <div onclick="goTo(25)" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
@@ -2133,7 +2133,7 @@
   </div>
 
   <!-- Bottom nav -->
-  <div style="flex-shrink:0;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
+  <div style="flex-shrink:0;z-index:10;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
     <div onclick="goTo(25)" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
@@ -2413,8 +2413,27 @@
               <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#335CFF;font-weight:600;">${profile.active}</span>
             </div>
           </div>
-          <div style="width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(0,0,0,0.1);cursor:pointer;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="1.5" fill="#14161B"/><circle cx="12" cy="12" r="1.5" fill="#14161B"/><circle cx="12" cy="19" r="1.5" fill="#14161B"/></svg>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <!-- Back button -->
+            <div onclick="feedBack()" style="width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(0,0,0,0.1);cursor:pointer;" title="Previous profile">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <!-- 3-dot menu -->
+            <div style="position:relative;">
+              <div onclick="openFeedMenu(this)" style="width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(0,0,0,0.1);cursor:pointer;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="1.5" fill="#14161B"/><circle cx="12" cy="12" r="1.5" fill="#14161B"/><circle cx="12" cy="19" r="1.5" fill="#14161B"/></svg>
+              </div>
+              <div class="feed-dropdown" style="display:none;position:absolute;top:44px;right:0;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.14);min-width:160px;z-index:50;overflow:hidden;">
+                <div onclick="closeFeedMenu(this,'remove')" style="display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;border-bottom:1px solid #F0F1F5;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#9AA0B2" stroke-width="1.8"/><path d="M15 9l-6 6M9 9l6 6" stroke="#9AA0B2" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  Remove
+                </div>
+                <div onclick="closeFeedMenu(this,'report')" style="display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#FF4D6A;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" stroke="#FF4D6A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="22" x2="4" y2="15" stroke="#FF4D6A" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  Report
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -2500,15 +2519,53 @@
   function feedPass() {
     const card = document.getElementById('feed-card-current');
     if (!card) return;
-    // Animate left
     card.style.transform = 'translateX(-110%) rotate(-6deg)';
     card.style.opacity = '0';
-    // Flash X red
     const xBtn = document.getElementById('feed-x-btn');
     xBtn.style.transform = 'scale(1.15)';
     setTimeout(() => { xBtn.style.transform = 'scale(1)'; }, 200);
     setTimeout(() => { feedIdx++; initFeed(); }, 320);
   }
+
+  function feedBack() {
+    if (feedIdx <= 0) return;
+    const card = document.getElementById('feed-card-current');
+    if (card) { card.style.transform = 'translateX(110%)'; card.style.opacity = '0'; }
+    setTimeout(() => { feedIdx--; initFeed(); }, 250);
+  }
+
+  function openFeedMenu(btn) {
+    // Close any other open dropdowns first
+    document.querySelectorAll('.feed-dropdown').forEach(d => d.style.display = 'none');
+    const dropdown = btn.nextElementSibling;
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function closeFeedMenu(el, action) {
+    const dropdown = el.closest('.feed-dropdown');
+    if (dropdown) dropdown.style.display = 'none';
+    if (action === 'remove') {
+      // Skip to next profile silently
+      const card = document.getElementById('feed-card-current');
+      if (card) { card.style.opacity = '0'; card.style.transform = 'scale(0.95)'; }
+      setTimeout(() => { feedIdx++; initFeed(); }, 250);
+    } else if (action === 'report') {
+      // Show a brief toast-style confirmation
+      const toast = document.createElement('div');
+      toast.textContent = 'Report submitted';
+      toast.style.cssText = 'position:absolute;bottom:110px;left:50%;transform:translateX(-50%);background:#14161B;color:#fff;font-family:Hanken Grotesk,sans-serif;font-size:13px;font-weight:600;padding:10px 20px;border-radius:50px;z-index:999;white-space:nowrap;';
+      document.getElementById('feed-stack').appendChild(toast);
+      setTimeout(() => toast.remove(), 2200);
+      setTimeout(() => { feedIdx++; initFeed(); }, 400);
+    }
+  }
+
+  // Close feed dropdown when clicking outside
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.feed-dropdown') && !e.target.closest('[onclick*="openFeedMenu"]')) {
+      document.querySelectorAll('.feed-dropdown').forEach(d => d.style.display = 'none');
+    }
+  });
 
   function feedLike() {
     if (feedIdx >= feedProfiles.length) return;
