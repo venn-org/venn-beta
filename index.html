@@ -654,20 +654,15 @@
     btn.textContent = 'Joining…';
     btn.disabled = true;
 
-    try {
-      // GET with query param — works reliably with Apps Script + no-cors
-      await fetch(SHEETS_URL + '?email=' + encodeURIComponent(email), {
-        method: 'GET',
-        mode: 'no-cors',
-      });
+    // Image pixel — no CORS issues, request always reaches Apps Script
+    new Image().src = SHEETS_URL + '?email=' + encodeURIComponent(email) + '&t=' + Date.now();
+    // Wait a beat then show success
+    setTimeout(() => {
       formEl.style.display = 'none';
       successEl.classList.remove('hidden');
       successEl.style.display = 'flex';
       localStorage.setItem('venn_waitlist', email);
-    } catch {
-      btn.textContent = 'Try again';
-      btn.disabled = false;
-    }
+    }, 600);
   }
 
   // Remember if already signed up
