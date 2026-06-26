@@ -4,6 +4,17 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Venn — Find your overlap.</title>
+  <meta name="description" content="Flatmate matching for students and young professionals in Mumbai, Navi Mumbai and Pune — matched on lifestyle, not luck."/>
+  <!-- Open Graph / WhatsApp / iMessage -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://venn-tau.vercel.app/"/>
+  <meta property="og:title" content="Venn — Find your overlap."/>
+  <meta property="og:description" content="Finally, a flatmate app that matches on how you actually live — sleep schedules, cleanliness, guests, noise. Joining the waitlist is free. Launching Mumbai · Navi Mumbai · Pune."/>
+  <meta property="og:site_name" content="Venn"/>
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Venn — Find your overlap."/>
+  <meta name="twitter:description" content="Finally, a flatmate app that matches on how you actually live. Launching Mumbai · Navi Mumbai · Pune."/>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='11' cy='16' r='10' fill='%23335CFF' opacity='0.9'/><circle cx='21' cy='16' r='10' fill='%238A5BFF' opacity='0.9'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -158,7 +169,6 @@
   <div id="mob-menu" class="hidden md:hidden border-t border-mist bg-paper px-5 py-6 flex flex-col gap-5">
     <a href="#how" class="font-mono text-[12px] tracking-[0.14em] uppercase text-slate">How it works</a>
     <a href="#features" class="font-mono text-[12px] tracking-[0.14em] uppercase text-slate">Features</a>
-    <a href="#stories" class="font-mono text-[12px] tracking-[0.14em] uppercase text-slate">Stories</a>
     <button onclick="document.getElementById('hero-form').scrollIntoView({behavior:'smooth'})" class="bg-venn-blue text-white font-mono text-[11px] tracking-[0.14em] uppercase px-6 py-3 rounded-full text-center">Join waitlist</button>
   </div>
 </header>
@@ -176,15 +186,15 @@
     <!-- Copy -->
     <div class="lg:col-span-6 space-y-7 reveal">
       <!-- pill -->
-      <div class="inline-flex items-center gap-2 bg-venn-blue/10 border border-venn-blue/25 px-4 py-2 rounded-full">
-        <span class="w-2 h-2 rounded-full bg-venn-blue animate-pulse"></span>
-        <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-venn-blue">Launching soon · Mumbai · Navi Mumbai · Pune</span>
+      <div class="inline-flex items-center gap-2 bg-venn-blue/10 border border-venn-blue/25 px-3 py-2 rounded-full">
+        <span class="w-2 h-2 rounded-full bg-venn-blue animate-pulse flex-none"></span>
+        <span class="font-mono text-[9px] sm:text-[10px] tracking-[0.18em] uppercase text-venn-blue">Launching soon · Mumbai · Navi Mumbai · Pune</span>
       </div>
-      <h1 class="font-display font-semibold text-[52px] md:text-[70px] lg:text-[80px] leading-[0.93] tracking-[-0.035em] text-ink">
+      <h1 class="font-display font-semibold text-[40px] sm:text-[56px] md:text-[70px] lg:text-[80px] leading-[0.93] tracking-[-0.035em] text-ink">
         Find where<br>your lives <span class="text-venn-blue">overlap.</span>
       </h1>
-      <p class="font-body text-[18px] leading-[1.65] text-slate max-w-[480px]">
-        Flatmate matching for students and young professionals — paired on the things that actually make a shared home work.
+      <p class="font-body text-[16px] sm:text-[18px] leading-[1.65] text-slate max-w-[480px]">
+        Most flatmate apps match you on rent and a pin code. Venn matches on how you <em>actually live</em> — sleep schedules, cleanliness, guests, and noise. The stuff that actually matters.
       </p>
       <div class="flex flex-col items-start gap-4 pt-2 w-full max-w-[480px]" id="hero-form">
         <div id="hero-waitlist-form" class="flex w-full gap-2 shadow-lg shadow-venn-blue/10 rounded-full">
@@ -199,6 +209,7 @@
           <span class="text-venn-blue text-[18px]">🎉</span>
           <span class="font-body font-semibold text-[14px] text-venn-blue">You're on the list! We'll be in touch.</span>
         </div>
+        <p class="font-mono text-[10px] tracking-[0.1em] uppercase text-slate/70">Free to join · Early access for first members · No spam</p>
         <a href="#how" class="flex items-center gap-2 font-mono text-[11px] tracking-[0.12em] uppercase text-ink hover:text-venn-blue transition-colors group">
           See how it works
           <svg class="group-hover:translate-x-1 transition-transform" width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -209,13 +220,13 @@
     </div>
 
     <!-- Hero visual: phone mockup -->
-    <div class="lg:col-span-6 flex justify-center items-center relative reveal" style="transition-delay:0.1s">
+    <div class="lg:col-span-6 flex justify-center items-center relative reveal pb-8 lg:pb-0" style="transition-delay:0.1s">
       <!-- Blobs -->
       <div class="blob-blue absolute top-0 right-0 w-[380px] h-[380px] rounded-full pointer-events-none"></div>
       <div class="blob-violet absolute bottom-0 left-0 w-[260px] h-[260px] rounded-full pointer-events-none"></div>
 
       <!-- Phone shell -->
-      <div style="width:280px;height:580px;background:#14161B;border-radius:44px;padding:10px;box-shadow:0 32px 80px rgba(20,22,27,0.28),0 0 0 1px rgba(255,255,255,0.08);position:relative;flex-shrink:0;">
+      <div style="width:min(280px,78vw);height:min(580px,162vw);background:#14161B;border-radius:44px;padding:10px;box-shadow:0 32px 80px rgba(20,22,27,0.28),0 0 0 1px rgba(255,255,255,0.08);position:relative;flex-shrink:0;">
         <!-- Notch -->
         <div style="position:absolute;top:18px;left:50%;transform:translateX(-50%);width:80px;height:22px;background:#14161B;border-radius:12px;z-index:10;"></div>
         <!-- Screen -->
@@ -549,6 +560,18 @@
     </div>
   </section>
 
+  <!-- ===== FOUNDER NOTE ===== -->
+  <section class="max-w-[1440px] mx-auto px-5 md:px-20 pt-0 pb-10">
+    <div class="reveal border border-venn-blue/20 bg-venn-blue/5 rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+      <div class="w-10 h-10 rounded-full bg-venn-blue/15 flex items-center justify-center flex-none">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#335CFF" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <p class="font-body text-[15px] leading-[1.6] text-ink">
+        <span class="font-semibold">Built by people who've been there.</span> We moved to Mumbai for work and spent months in bad flatshares — mismatched schedules, passive-aggressive notes, silent kitchen wars. Venn exists because no app was solving the right problem.
+      </p>
+    </div>
+  </section>
+
   <!-- ===== WHY IT WORKS ===== -->
   <section id="stories" class="max-w-[1440px] mx-auto px-5 md:px-20 py-24 md:py-[104px]">
     <div class="reveal bg-[#F4F5F8] border border-mist rounded-2xl p-12 flex flex-col md:flex-row items-center justify-between gap-8">
@@ -584,8 +607,8 @@
             <div class="absolute right-0 top-0 w-9 h-9 rounded-full bg-venn-violet opacity-90" style="mix-blend-mode:screen"></div>
           </div>
         </div>
-        <h2 class="font-display font-semibold text-[38px] md:text-[52px] leading-[1.05] tracking-[-0.03em]">Venn, if not now?.</h2>
-        <p class="font-body text-[17px] leading-[1.6] text-paper/70">Be the first to find your overlap. Join the waitlist and get early access when we launch in your city.</p>
+        <h2 class="font-display font-semibold text-[38px] md:text-[52px] leading-[1.05] tracking-[-0.03em]">Venn, if not now?</h2>
+        <p class="font-body text-[17px] leading-[1.6] text-paper/70">Join the waitlist free. Early members get priority access and a say in shaping the product before it launches.</p>
         <div id="footer-waitlist-form" class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full max-w-[460px] mx-auto">
           <input id="footer-email" type="email" placeholder="your@email.com"
             class="w-full sm:flex-1 bg-white/10 border border-white/20 rounded-full px-6 py-4 font-body text-[15px] text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors"
