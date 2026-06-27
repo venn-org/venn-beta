@@ -635,7 +635,7 @@
 
   // ── Waitlist form ──
   // Sign up free at formspree.io → create form → paste your ID here
-  const FORMSPREE_ID = 'YOUR_FORM_ID';
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwhLL_8ZiKrD_RgtNQptAiPxnTXsz3XtyHC9hb7X1dISbxRCZR2qHn6WOif3GY3Yxpj/exec';
 
   async function submitWaitlist(slot) {
     const emailEl = document.getElementById(slot + '-email');
@@ -655,13 +655,13 @@
     btn.disabled = true;
 
     try {
-      if (FORMSPREE_ID !== 'YOUR_FORM_ID') {
-        await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ email }),
-        });
-      }
+      // Google Apps Script doesn't support CORS preflight — use no-cors mode
+      await fetch(SHEETS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
       formEl.style.display = 'none';
       successEl.classList.remove('hidden');
       successEl.style.display = 'flex';
