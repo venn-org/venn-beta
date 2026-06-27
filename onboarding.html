@@ -2780,15 +2780,65 @@
     document.getElementById('chat-name').textContent = name;
     _renderMessages();
     switchChatTab('chat');
-    // Populate profile tab with match's profile
+    // Populate profile tab with match's full profile
     const matchData = likesData.find(p => p.name === name) || likesData[0];
+    const extraPrompts = [
+      { q: 'My ideal Sunday at home', a: 'Slow mornings, home-cooked breakfast, and a clean kitchen after' },
+      { q: 'One thing flatmates always say about me', a: 'I keep common areas spotless — probably too spotless' },
+      { q: 'I\'m looking for a flatmate who', a: 'Respects shared spaces and is up for the occasional house movie night' },
+    ];
     document.getElementById('profile-panel').innerHTML = `
-      <img src="${photo}" style="width:100%;height:220px;object-fit:cover;object-position:${photoPos};border-radius:16px;margin-bottom:14px;display:block;"/>
-      <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:#14161B;margin-bottom:4px;">${name}, ${age}</div>
-      <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;margin-bottom:16px;">${matchData.area} · ${matchData.rent}</div>
-      <div style="background:#F8F9FB;border-radius:14px;padding:14px 16px;margin-bottom:12px;">
-        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:10px;color:#9AA0B2;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">${matchData.prompt}</div>
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#14161B;line-height:1.4;">"${matchData.answer}"</div>
+      <!-- Hero photo -->
+      <div style="position:relative;margin-bottom:0;flex-shrink:0;">
+        <img src="${photo}" style="width:100%;height:300px;object-fit:cover;object-position:${photoPos};display:block;"/>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 50%);"></div>
+        <div style="position:absolute;bottom:16px;left:16px;right:16px;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:#fff;letter-spacing:-0.02em;">${name}, ${age}</div>
+          <div style="display:flex;align-items:center;gap:5px;margin-top:3px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="rgba(255,255,255,0.7)" stroke-width="1.8"/><circle cx="12" cy="10" r="3" stroke="rgba(255,255,255,0.7)" stroke-width="1.8"/></svg>
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">${matchData.area} · ${matchData.rent}</span>
+          </div>
+        </div>
+      </div>
+      <!-- Liked banner -->
+      <div style="background:#F0F4FF;padding:11px 16px;display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-shrink:0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" fill="#335CFF"/></svg>
+        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#335CFF;">${matchData.likedWhat}</span>
+      </div>
+      <div style="padding:0 16px 16px;">
+        <!-- Details card -->
+        <div style="background:#F8F9FB;border-radius:16px;margin-bottom:14px;overflow:hidden;">
+          <div style="display:flex;border-bottom:1px solid #ECEEF2;">
+            <div style="flex:1;padding:12px;border-right:1px solid #ECEEF2;text-align:center;">
+              <div style="font-family:'Space Mono',monospace;font-size:9px;color:#9AA0B2;margin-bottom:4px;letter-spacing:0.04em;">AGE</div>
+              <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:700;color:#14161B;">${age}</div>
+            </div>
+            <div style="flex:1.5;padding:12px;border-right:1px solid #ECEEF2;text-align:center;">
+              <div style="font-family:'Space Mono',monospace;font-size:9px;color:#9AA0B2;margin-bottom:4px;letter-spacing:0.04em;">AREA</div>
+              <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:700;color:#14161B;">${matchData.area}</div>
+            </div>
+            <div style="flex:1.5;padding:12px;text-align:center;">
+              <div style="font-family:'Space Mono',monospace;font-size:9px;color:#9AA0B2;margin-bottom:4px;letter-spacing:0.04em;">BUDGET</div>
+              <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:700;color:#335CFF;">${matchData.rent}</div>
+            </div>
+          </div>
+          ${[['Occupation','Working professional'],['Gender','Woman'],['Food habits','Vegetarian'],['Smoking','Non-smoker'],['Move-in','ASAP']].map(([label,val],i,arr)=>`
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;${i<arr.length-1?'border-bottom:1px solid #ECEEF2;':''}">
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;">${label}</span>
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#14161B;">${val}</span>
+          </div>`).join('')}
+        </div>
+        <!-- Main prompt -->
+        <div style="background:#F8F9FB;border-radius:16px;padding:16px;margin-bottom:14px;">
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:10px;color:#9AA0B2;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">${matchData.prompt}</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#14161B;line-height:1.4;">"${matchData.answer}"</div>
+        </div>
+        <!-- Extra prompts -->
+        ${extraPrompts.map(ep=>`
+        <div style="background:#F8F9FB;border-radius:16px;padding:16px;margin-bottom:14px;">
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:10px;color:#9AA0B2;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">${ep.q}</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#14161B;line-height:1.4;">"${ep.a}"</div>
+        </div>`).join('')}
       </div>`;
     goTo(33);
   }
