@@ -27,10 +27,13 @@
   </script>
   <style>
     * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+    html { overflow: hidden; height: 100%; }
     body {
       margin: 0;
       background: #0d0d0d;
       min-height: 100vh;
+      height: 100%;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -49,7 +52,7 @@
     }
     @media (max-width: 430px) {
       body { background: #000; align-items: flex-start; }
-      .shell { width: 100vw; height: 100dvh; border-radius: 0; box-shadow: none; }
+      .shell { width: 100vw; height: 100dvh; border-radius: 0; box-shadow: none; position: fixed; top: 0; left: 0; }
     }
 
     /* ── Screen transitions ── */
@@ -282,7 +285,7 @@
 <!-- ══════════════════════════════════════════
      S29 — SIGN IN: PHONE ENTRY
 ══════════════════════════════════════════ -->
-<div class="screen" id="s29" style="background:#fff;">
+<div class="screen" id="s29" style="background:#fff;overflow:hidden;">
   <div class="status"><span class="status-time">9:41</span></div>
   <div class="back-btn" onclick="goBack()">
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
