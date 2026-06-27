@@ -3380,7 +3380,14 @@
   // ── Boost modal ──────────────────────────────────────────────────────────
   // Remove splash overlay after fade-out completes
   const _splash = document.getElementById('venn-splash');
-  if (_splash) setTimeout(() => _splash.remove(), 3100);
+  if (_splash) {
+    // Disable pointer events immediately so buttons behind are never blocked
+    setTimeout(() => { if (_splash) _splash.style.pointerEvents = 'none'; }, 2400);
+    // Remove from DOM once fade animation finishes
+    _splash.addEventListener('animationend', () => _splash.remove(), { once: true });
+    // Fallback in case animationend doesn't fire
+    setTimeout(() => { if (_splash && _splash.parentNode) _splash.remove(); }, 3500);
+  }
 
   // yourPrompt/yourAnswer = YOUR content they liked; prompt/answer = their own profile content
   const likesData = [
