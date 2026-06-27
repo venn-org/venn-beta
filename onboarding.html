@@ -177,6 +177,28 @@
     /* Screen-specific */
     .scroll-body { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; }
     .px-main { padding-left:28px; padding-right:28px; }
+
+    /* Profile question screens */
+    .pq-screen { background:#EDEEF2; }
+    .pq-title { font-family:'Space Grotesk',sans-serif; font-size:34px; font-weight:700; color:#14161B; letter-spacing:-0.03em; line-height:1.1; margin:0 0 10px; }
+    .pq-sub { font-size:14px; color:#5A6072; line-height:1.5; margin:0 0 28px; }
+    .pq-row { display:flex; align-items:center; justify-content:space-between; background:#fff; border-radius:18px; padding:18px 20px; margin-bottom:10px; cursor:pointer; border:2px solid transparent; transition:border-color 0.15s,background 0.15s; user-select:none; }
+    .pq-row.sel { border-color:#14161B; background:#F0F0EC; }
+    .pq-row-label { font-family:'Hanken Grotesk',sans-serif; font-size:17px; color:#14161B; }
+    .pq-check { width:24px; height:24px; border-radius:6px; border:2px solid #C8CAD2; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; background:#fff; }
+    .pq-row.sel .pq-check { background:#14161B; border-color:#14161B; }
+    .pq-radio { width:24px; height:24px; border-radius:50%; border:2px solid #C8CAD2; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; background:#fff; }
+    .pq-row.sel .pq-radio { border-color:#14161B; }
+    .pq-radio-dot { width:10px; height:10px; border-radius:50%; background:#14161B; display:none; }
+    .pq-row.sel .pq-radio-dot { display:block; }
+    .pq-footer { position:absolute; bottom:0; left:0; right:0; padding:16px 28px 40px; background:#EDEEF2; }
+    .pq-footer-inner { display:flex; align-items:center; justify-content:space-between; }
+    .pq-visible { display:flex; align-items:center; gap:10px; font-size:14px; color:#14161B; }
+    .pq-vis-check { width:22px; height:22px; border-radius:5px; background:#14161B; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .pq-next-btn { width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.15s; border:none; }
+    .pq-next-btn.active { background:#14161B; }
+    .pq-next-btn.inactive { background:#C8CAD2; }
+    .pq-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; min-height:36px; }
   </style>
 </head>
 <body>
@@ -335,7 +357,148 @@
   </div>
 
   <div class="px-main" style="padding-bottom:40px;padding-top:12px;">
-    <button class="btn btn-dark" id="bday-next" disabled onclick="">Continue</button>
+    <button class="btn btn-dark" id="bday-next" disabled onclick="goTo(10)">Continue</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S10 — PRONOUNS
+══════════════════════════════════════════ -->
+<div class="screen pq-screen" id="s10">
+  <div class="back-btn" onclick="goBack()" style="top:52px;">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:80px;padding-bottom:120px;">
+    <h1 class="pq-title">What are your pronouns?</h1>
+    <p class="pq-sub">Optional. Pick up to four that feel right.</p>
+    <div id="s10-rows">
+      <div class="pq-row" onclick="pqCheck(this,'s10',4)"><span class="pq-row-label">she</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s10',4)"><span class="pq-row-label">her</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s10',4)"><span class="pq-row-label">hers</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s10',4)"><span class="pq-row-label">he</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s10',4)"><span class="pq-row-label">him</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s10',4)"><span class="pq-row-label">his</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s10',4)"><span class="pq-row-label">they</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s10',4)"><span class="pq-row-label">them</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </div>
+    <div class="pq-tags" id="s10-tags"></div>
+  </div>
+  <div class="pq-footer">
+    <div class="pq-footer-inner">
+      <label class="pq-visible"><span class="pq-vis-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Visible on profile</label>
+      <button class="pq-next-btn active" onclick="goTo(11)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11h12M12 6l5 5-5 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S11 — GENDER
+══════════════════════════════════════════ -->
+<div class="screen pq-screen" id="s11">
+  <div class="back-btn" onclick="goBack()" style="top:52px;">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:80px;padding-bottom:120px;">
+    <h1 class="pq-title">Which gender best describes you?</h1>
+    <p class="pq-sub">Choose what describes you best. You can add more detail if you'd like.</p>
+    <div id="s11-rows">
+      <div class="pq-row" onclick="pqRadio(this,'s11')"><span class="pq-row-label">Man</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s11')"><span class="pq-row-label">Woman</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s11')"><span class="pq-row-label">Non-binary</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s11')"><span class="pq-row-label">Prefer not to say</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+    </div>
+    <p style="font-size:13px;color:#5A6072;margin-top:20px;line-height:1.6;"><span style="text-decoration:underline;cursor:pointer;">Learn more</span> about how we use gender to recommend flatmates.</p>
+  </div>
+  <div class="pq-footer">
+    <div class="pq-footer-inner">
+      <label class="pq-visible"><span class="pq-vis-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Visible on profile</label>
+      <button class="pq-next-btn inactive" id="s11-next" onclick="goTo(12)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11h12M12 6l5 5-5 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S12 — ETHNICITY
+══════════════════════════════════════════ -->
+<div class="screen pq-screen" id="s12">
+  <div class="back-btn" onclick="goBack()" style="top:52px;">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:80px;padding-bottom:120px;">
+    <h1 class="pq-title">How would you describe your ethnicity?</h1>
+    <p class="pq-sub">Select all that apply</p>
+    <div id="s12-rows">
+      <div class="pq-row" onclick="pqCheck(this,'s12',99)"><span class="pq-row-label">South Asian</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s12',99)"><span class="pq-row-label">East Asian</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s12',99)"><span class="pq-row-label">Southeast Asian</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s12',99)"><span class="pq-row-label">Middle Eastern</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s12',99)"><span class="pq-row-label">Black / African Descent</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s12',99)"><span class="pq-row-label">White / European</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s12',99)"><span class="pq-row-label">Mixed / Multiracial</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s12',99)"><span class="pq-row-label">Prefer not to say</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </div>
+    <p style="font-size:13px;color:#5A6072;margin-top:20px;line-height:1.6;">Wondering why we ask this? <span style="text-decoration:underline;cursor:pointer;">Learn more</span></p>
+  </div>
+  <div class="pq-footer">
+    <div class="pq-footer-inner">
+      <label class="pq-visible"><span class="pq-vis-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Visible on profile</label>
+      <button class="pq-next-btn active" onclick="goTo(13)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11h12M12 6l5 5-5 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S13 — WHO ARE YOU OPEN TO LIVING WITH
+══════════════════════════════════════════ -->
+<div class="screen pq-screen" id="s13">
+  <div class="back-btn" onclick="goBack()" style="top:52px;">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:80px;padding-bottom:120px;">
+    <h1 class="pq-title">Who are you open to living with?</h1>
+    <p class="pq-sub">Select all that apply</p>
+    <div id="s13-rows">
+      <div class="pq-row" onclick="pqCheck(this,'s13',99)"><span class="pq-row-label">Men</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s13',99)"><span class="pq-row-label">Women</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s13',99)"><span class="pq-row-label">Non-binary people</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="pq-row" onclick="pqCheck(this,'s13',99)"><span class="pq-row-label">Everyone</span><span class="pq-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </div>
+  </div>
+  <div class="pq-footer">
+    <div class="pq-footer-inner">
+      <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:#5A6072;">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9c0 .5.1 1 .2 1.4M9 2a7 7 0 017 7 7 7 0 01-7 7 7 7 0 01-7-7" stroke="#5A6072" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="2" x2="16" y2="16" stroke="#5A6072" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Hidden on profile
+      </div>
+      <button class="pq-next-btn inactive" id="s13-next" onclick="goTo(14)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11h12M12 6l5 5-5 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S14 — SEXUALITY
+══════════════════════════════════════════ -->
+<div class="screen pq-screen" id="s14">
+  <div class="back-btn" onclick="goBack()" style="top:52px;">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:80px;padding-bottom:120px;">
+    <h1 class="pq-title">What's your sexuality?</h1>
+    <div id="s14-rows" style="margin-top:28px;">
+      <div class="pq-row" onclick="pqRadio(this,'s14')"><span class="pq-row-label">Straight</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s14')"><span class="pq-row-label">Gay</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s14')"><span class="pq-row-label">Lesbian</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s14')"><span class="pq-row-label">Bisexual</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s14')"><span class="pq-row-label">Pansexual</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s14')"><span class="pq-row-label">Asexual</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s14')"><span class="pq-row-label">Prefer not to say</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+    </div>
+  </div>
+  <div class="pq-footer">
+    <div class="pq-footer-inner">
+      <label class="pq-visible"><span class="pq-vis-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Visible on profile</label>
+      <button class="pq-next-btn inactive" id="s14-next" onclick="goTo(3)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11h12M12 6l5 5-5 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
   </div>
 </div>
 
@@ -563,6 +726,46 @@
     picks[group] = el.textContent.trim();
     const done = ['sleep','clean','guests','wfh'].every(g => picks[g]);
     document.getElementById('life-next').disabled = !done;
+  }
+
+  // Profile question helpers
+  function pqCheck(row, screenId, max) {
+    const container = document.getElementById(screenId + '-rows');
+    const selected = container.querySelectorAll('.pq-row.sel');
+    if (row.classList.contains('sel')) {
+      row.classList.remove('sel');
+    } else {
+      if (selected.length >= max) return;
+      row.classList.add('sel');
+    }
+    // Update tags for pronouns screen
+    const tagsEl = document.getElementById(screenId + '-tags');
+    if (tagsEl) {
+      tagsEl.innerHTML = '';
+      container.querySelectorAll('.pq-row.sel').forEach(r => {
+        const label = r.querySelector('.pq-row-label').textContent;
+        const tag = document.createElement('span');
+        tag.style.cssText = 'background:#14161B;color:#fff;border-radius:50px;padding:6px 14px;font-size:13px;font-family:Hanken Grotesk,sans-serif;display:inline-flex;align-items:center;gap:6px;cursor:pointer;';
+        tag.innerHTML = label + ' <span style="opacity:0.6;">×</span>';
+        tag.onclick = () => { r.classList.remove('sel'); pqCheck(r, screenId, max); r.classList.remove('sel'); pqCheck({classList:{contains:()=>true,remove:()=>{}}}, screenId, max); tagsEl.removeChild(tag); };
+        tag.onclick = () => { r.classList.remove('sel'); tagsEl.removeChild(tag); };
+        tagsEl.appendChild(tag);
+      });
+    }
+    // Update next button if exists
+    const nextBtn = document.getElementById(screenId + '-next');
+    if (nextBtn) {
+      const anySelected = container.querySelectorAll('.pq-row.sel').length > 0;
+      nextBtn.className = 'pq-next-btn ' + (anySelected ? 'active' : 'inactive');
+    }
+  }
+
+  function pqRadio(row, screenId) {
+    const container = document.getElementById(screenId + '-rows');
+    container.querySelectorAll('.pq-row').forEach(r => r.classList.remove('sel'));
+    row.classList.add('sel');
+    const nextBtn = document.getElementById(screenId + '-next');
+    if (nextBtn) nextBtn.className = 'pq-next-btn active';
   }
 
   // Birthday validation
