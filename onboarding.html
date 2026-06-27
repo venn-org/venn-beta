@@ -1128,15 +1128,13 @@
   </div>
 
   <!-- Complete profile banner -->
-  <div id="complete-profile-banner" style="flex-shrink:0;margin:12px 16px 0;background:#FDF5F0;border-radius:16px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
-    <div style="flex:1;">
-      <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#14161B;font-weight:600;margin-bottom:2px;">Complete your flatmate preferences</div>
-      <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">Set filters to send and receive likes.</div>
+  <div id="complete-profile-banner" style="flex-shrink:0;margin:12px 16px 0;background:#FDF5F0;border-radius:16px;padding:14px 16px;position:relative;">
+    <div onclick="document.getElementById('complete-profile-banner').style.display='none'" style="position:absolute;top:10px;right:10px;cursor:pointer;opacity:0.4;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#14161B" stroke-width="2" stroke-linecap="round"/></svg>
     </div>
-    <button onclick="openPreferences()" style="background:#14161B;color:#fff;border:none;border-radius:50px;padding:9px 16px;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">Set up</button>
-    <div onclick="document.getElementById('complete-profile-banner').style.display='none'" style="cursor:pointer;padding:2px;opacity:0.4;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#14161B" stroke-width="2" stroke-linecap="round"/></svg>
-    </div>
+    <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#14161B;font-weight:600;margin-bottom:2px;padding-right:20px;">Complete your flatmate preferences</div>
+    <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;margin-bottom:10px;">Set filters to send and receive likes.</div>
+    <button onclick="openPreferences()" style="background:#14161B;color:#fff;border:none;border-radius:50px;padding:9px 20px;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Set up</button>
   </div>
 
   <!-- Profile cards container (stacked, animated) -->
