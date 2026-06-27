@@ -651,7 +651,105 @@
   <div class="pq-footer">
     <div class="pq-footer-inner">
       <label class="pq-visible"><span class="pq-vis-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Visible on profile</label>
-      <button class="pq-next-btn inactive" id="s19-next" onclick="goTo(3)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11h12M12 6l5 5-5 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="pq-next-btn inactive" id="s19-next" onclick="goTo(20)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11h12M12 6l5 5-5 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S20 — CHILDREN
+══════════════════════════════════════════ -->
+<div class="screen pq-screen" id="s20">
+  <div class="back-btn" onclick="goBack()" style="top:52px;">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:80px;padding-bottom:120px;">
+    <h1 class="pq-title">Do you have children?</h1>
+    <div id="s20-rows" style="margin-top:32px;">
+      <div class="pq-row" onclick="pqRadio(this,'s20')"><span class="pq-row-label">Don't have children</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s20')"><span class="pq-row-label">Have children</span><span class="pq-radio"><span class="pq-radio-dot"></span></span></div>
+      <div class="pq-row" onclick="pqRadio(this,'s20')" style="flex-direction:column;align-items:flex-start;gap:4px;">
+        <div style="display:flex;width:100%;align-items:center;justify-content:space-between;">
+          <span class="pq-row-label">Prefer not to say</span><span class="pq-radio"><span class="pq-radio-dot"></span></span>
+        </div>
+        <p style="font-size:12px;color:#5A6072;margin:0;">This will limit who sees your profile. <span style="text-decoration:underline;cursor:pointer;">Learn more</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="pq-footer">
+    <div class="pq-footer-inner">
+      <label class="pq-visible"><span class="pq-vis-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Visible on profile</label>
+      <button class="pq-next-btn inactive" id="s20-next" onclick="goTo(21)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11h12M12 6l5 5-5 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S21 — LIFESTYLE (drink / smoke / weed / drugs)
+══════════════════════════════════════════ -->
+<div class="screen pq-screen" id="s21">
+  <div style="display:flex;align-items:center;justify-content:center;padding:52px 28px 0;position:relative;flex-shrink:0;">
+    <div class="back-btn" onclick="goBack()" style="top:52px;">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#14161B;letter-spacing:-0.02em;">Lifestyle</span>
+  </div>
+  <div class="scroll-body px-main" style="padding-top:20px;padding-bottom:100px;">
+    <h1 class="pq-title" style="margin-bottom:8px;">How do these fit into your lifestyle?</h1>
+    <p class="pq-sub" style="text-align:center;">We ask because these preferences can shape whether two people feel like a good fit.</p>
+
+    <!-- Drink -->
+    <div style="background:#fff;border-radius:18px;padding:20px;margin-bottom:12px;">
+      <p style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#14161B;margin:0 0 14px;">Do you drink?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+        <div class="chip" onclick="pick(this,'drink')">Yes</div>
+        <div class="chip" onclick="pick(this,'drink')">Sometimes</div>
+        <div class="chip" onclick="pick(this,'drink')">No</div>
+        <div class="chip" onclick="pick(this,'drink')">Prefer not to say</div>
+      </div>
+      <label class="pq-visible"><span class="pq-vis-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Visible on profile</label>
+    </div>
+
+    <!-- Smoke tobacco -->
+    <div style="background:#fff;border-radius:18px;padding:20px;margin-bottom:12px;">
+      <p style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#14161B;margin:0 0 14px;">Do you smoke tobacco?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+        <div class="chip" onclick="pick(this,'tobacco')">Yes</div>
+        <div class="chip" onclick="pick(this,'tobacco')">Sometimes</div>
+        <div class="chip" onclick="pick(this,'tobacco')">No</div>
+        <div class="chip" onclick="pick(this,'tobacco')">Prefer not to say</div>
+      </div>
+      <label class="pq-visible"><span class="pq-vis-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Visible on profile</label>
+    </div>
+
+    <!-- Weed -->
+    <div style="background:#fff;border-radius:18px;padding:20px;margin-bottom:12px;">
+      <p style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#14161B;margin:0 0 14px;">Do you smoke weed?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+        <div class="chip" onclick="pick(this,'weed')">Yes</div>
+        <div class="chip" onclick="pick(this,'weed')">Sometimes</div>
+        <div class="chip" onclick="pick(this,'weed')">No</div>
+        <div class="chip" onclick="pick(this,'weed')">Prefer not to say</div>
+      </div>
+      <label class="pq-visible"><span class="pq-vis-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Visible on profile</label>
+    </div>
+
+    <!-- Drugs -->
+    <div style="background:#fff;border-radius:18px;padding:20px;margin-bottom:12px;">
+      <p style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#14161B;margin:0 0 14px;">Do you use drugs?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+        <div class="chip" onclick="pick(this,'drugs')">Yes</div>
+        <div class="chip" onclick="pick(this,'drugs')">Sometimes</div>
+        <div class="chip" onclick="pick(this,'drugs')">No</div>
+        <div class="chip" onclick="pick(this,'drugs')">Prefer not to say</div>
+      </div>
+      <label class="pq-visible"><span class="pq-vis-check"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Visible on profile</label>
+    </div>
+  </div>
+  <div class="pq-footer">
+    <div class="pq-footer-inner">
+      <div></div>
+      <button class="pq-next-btn active" onclick="goTo(3)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11h12M12 6l5 5-5 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </div>
 </div>
