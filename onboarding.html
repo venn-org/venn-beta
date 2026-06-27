@@ -807,7 +807,7 @@
     </div>
     <button onclick="goTo(3)" style="background:#fff;border:1.5px solid #E6E8EE;border-radius:50px;padding:8px 18px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#14161B;cursor:pointer;">Skip</button>
   </div>
-  <div class="scroll-body px-main" style="padding-top:24px;padding-bottom:40px;">
+  <div class="scroll-body px-main" style="padding-top:24px;padding-bottom:120px;">
     <h1 class="pq-title" style="margin-bottom:8px;">Pick Prompts to share your story</h1>
     <p class="pq-sub">Prompts let potential flatmates see who you are, in your own words.</p>
     <div id="prompt-card-0" onclick="openPrompts(0)" style="background:#fff;border-radius:18px;padding:28px 20px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;min-height:110px;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
@@ -849,7 +849,7 @@
         </div>
         <span style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#14161B;">Prompts</span>
       </div>
-      <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#8A5BFF;cursor:pointer;">View all</span>
+      <span onclick="viewAllPrompts()" style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#8A5BFF;cursor:pointer;">View all</span>
     </div>
     <!-- Tabs -->
     <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:16px;-webkit-overflow-scrolling:touch;scrollbar-width:none;" id="prompt-tabs">
@@ -864,7 +864,7 @@
     </div>
   </div>
   <!-- Prompt list -->
-  <div class="scroll-body" style="padding:0 24px 40px;" id="prompt-list"></div>
+  <div class="scroll-body" style="padding:0 24px 80px;" id="prompt-list"></div>
 </div>
 
 <!-- ══════════════════════════════════════════
@@ -1033,6 +1033,20 @@
   </div>
 </div>
 
+
+<!-- Answer modal -->
+<div id="answer-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.45);" onclick="closeAnswer(event)">
+  <div id="answer-sheet" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-radius:24px 24px 0 0;padding:24px 24px 0;">
+    <div style="width:40px;height:4px;background:#E6E8EE;border-radius:2px;margin:0 auto 20px;"></div>
+    <div id="answer-prompt-label" style="font-family:'Space Mono',monospace;font-size:10px;color:#8A5BFF;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;"></div>
+    <div id="answer-prompt-q" style="font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:700;color:#14161B;margin-bottom:16px;line-height:1.4;"></div>
+    <textarea id="answer-input" placeholder="Your answer..." maxlength="150" style="width:100%;min-height:110px;border:1.5px solid #E6E8EE;border-radius:14px;padding:14px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;resize:none;outline:none;box-sizing:border-box;line-height:1.5;" oninput="answerCount()"></textarea>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0 28px;">
+      <span id="answer-chars" style="font-family:'Space Mono',monospace;font-size:11px;color:#9AA0B2;">0 / 150</span>
+      <button onclick="saveAnswer()" style="background:#14161B;color:#fff;border:none;border-radius:50px;padding:12px 28px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;cursor:pointer;">Save</button>
+    </div>
+  </div>
+</div>
 
 </div><!-- /shell -->
 
@@ -1292,12 +1306,14 @@
       const card = document.getElementById('prompt-card-' + i);
       const p = selectedPrompts[i];
       if (p) {
+        const answerText = p.answer ? `<div style="margin-top:8px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#5A6072;line-height:1.5;">${p.answer}</div>` : `<div style="margin-top:10px;font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;">Tap to write your answer →</div>`;
         card.innerHTML = `
           <div style="width:100%;">
             <div style="font-family:'Space Mono',monospace;font-size:10px;color:#8A5BFF;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">${p.category === 'about' ? 'About me' : p.category === 'living' ? 'Living with me' : 'My space'}</div>
             <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;line-height:1.4;">${p.question}</div>
-            <div style="margin-top:10px;font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;">Tap to write your answer →</div>
+            ${answerText}
           </div>`;
+        card.onclick = () => openAnswer(i);
         card.style.justifyContent = 'flex-start';
         card.style.alignItems = 'flex-start';
       } else {
@@ -1308,6 +1324,7 @@
             </div>
             <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#9AA0B2;font-weight:500;">Add a prompt</span>
           </div>`;
+        card.onclick = () => openPrompts(i);
         card.style.justifyContent = 'center';
         card.style.alignItems = 'center';
       }
@@ -1318,6 +1335,49 @@
     if (nextBtn) nextBtn.className = 'pq-next-btn ' + (filled > 0 ? 'active' : 'inactive');
     const countEl = document.getElementById('s23-count');
     if (countEl) countEl.textContent = filled + ' of 3 selected';
+  }
+
+  // ── Answer modal ────────────────────────────────────────────────────────
+  let _answerCardIndex = 0;
+  function openAnswer(cardIndex) {
+    const p = selectedPrompts[cardIndex];
+    if (!p) return;
+    _answerCardIndex = cardIndex;
+    const labels = { about: 'About me', living: 'Living with me', space: 'My space' };
+    document.getElementById('answer-prompt-label').textContent = labels[p.category] || '';
+    document.getElementById('answer-prompt-q').textContent = p.question;
+    const ta = document.getElementById('answer-input');
+    ta.value = p.answer || '';
+    answerCount();
+    document.getElementById('answer-modal').style.display = 'block';
+    setTimeout(() => ta.focus(), 100);
+  }
+  function closeAnswer(e) {
+    if (e && e.target !== document.getElementById('answer-modal')) return;
+    document.getElementById('answer-modal').style.display = 'none';
+    document.getElementById('answer-input').blur();
+  }
+  function saveAnswer() {
+    const val = document.getElementById('answer-input').value.trim();
+    if (selectedPrompts[_answerCardIndex]) selectedPrompts[_answerCardIndex].answer = val;
+    document.getElementById('answer-modal').style.display = 'none';
+    document.getElementById('answer-input').blur();
+    updatePromptCards();
+  }
+  function answerCount() {
+    const len = document.getElementById('answer-input').value.length;
+    document.getElementById('answer-chars').textContent = len + ' / 150';
+  }
+
+  // "View all" — just switches to the tab with fewest picks so user sees fresh prompts
+  function viewAllPrompts() {
+    const tabs = ['about','living','space'];
+    const least = tabs.sort((a,b) =>
+      promptData[a].filter(q => selectedPrompts.some(p=>p&&p.question===q)).length -
+      promptData[b].filter(q => selectedPrompts.some(p=>p&&p.question===q)).length
+    )[0];
+    const btn = [...document.querySelectorAll('.ptab')].find(b => b.onclick.toString().includes("'"+least+"'"));
+    if (btn) switchTab(btn, least);
   }
 
   // init prompt cards on load
