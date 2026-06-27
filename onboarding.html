@@ -1094,8 +1094,8 @@
         <span style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#14161B;letter-spacing:-0.02em;">Venn</span>
       </div>
       <div style="display:flex;gap:10px;">
-        <div style="width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(0,0,0,0.08);cursor:pointer;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 3l-9.17 9.17M22 3H15M22 3v7M10 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-5" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div onclick="openPreferences()" style="width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(0,0,0,0.08);cursor:pointer;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><line x1="4" y1="6" x2="20" y2="6" stroke="#14161B" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="12" x2="20" y2="12" stroke="#14161B" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="18" x2="20" y2="18" stroke="#14161B" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="6" r="2" fill="#fff" stroke="#14161B" stroke-width="2"/><circle cx="15" cy="12" r="2" fill="#fff" stroke="#14161B" stroke-width="2"/><circle cx="9" cy="18" r="2" fill="#fff" stroke="#14161B" stroke-width="2"/></svg>
         </div>
         <div style="width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(0,0,0,0.08);cursor:pointer;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#14161B" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#14161B" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1125,6 +1125,18 @@
       </div>
     </div>
     <div style="height:1px;background:rgba(0,0,0,0.07);margin:0 -20px;"></div>
+  </div>
+
+  <!-- Complete profile banner -->
+  <div id="complete-profile-banner" style="flex-shrink:0;margin:12px 16px 0;background:#FDF5F0;border-radius:16px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+    <div style="flex:1;">
+      <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#14161B;font-weight:600;margin-bottom:2px;">Complete your flatmate preferences</div>
+      <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">Set filters to send and receive likes.</div>
+    </div>
+    <button onclick="openPreferences()" style="background:#14161B;color:#fff;border:none;border-radius:50px;padding:9px 16px;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">Set up</button>
+    <div onclick="document.getElementById('complete-profile-banner').style.display='none'" style="cursor:pointer;padding:2px;opacity:0.4;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#14161B" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
   </div>
 
   <!-- Profile cards container (stacked, animated) -->
@@ -1326,6 +1338,149 @@
     <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" stroke="#14161B" stroke-width="1.8"/></svg>
       
+    </div>
+  </div>
+</div>
+
+<!-- Flatmate Preferences modal -->
+<div id="prefs-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.45);" onclick="closePreferences(event)">
+  <div id="prefs-sheet" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-radius:24px 24px 0 0;max-height:90vh;display:flex;flex-direction:column;">
+    <!-- Handle + header -->
+    <div style="flex-shrink:0;padding:16px 20px 0;">
+      <div style="width:40px;height:4px;background:#E6E8EE;border-radius:2px;margin:0 auto 16px;"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#14161B;">Flatmate Preferences</span>
+        <div onclick="closePreferences(null)" style="cursor:pointer;width:32px;height:32px;border-radius:50%;background:#F2F3F7;display:flex;align-items:center;justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#14161B" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;margin:0 0 16px;">These help us show you the right people.</p>
+      <div style="height:1px;background:#F0F1F5;margin:0 -20px;"></div>
+    </div>
+
+    <!-- Scrollable content -->
+    <div style="flex:1;overflow-y:auto;padding:0 20px 32px;">
+
+      <!-- Free preferences -->
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:#9AA0B2;letter-spacing:0.08em;text-transform:uppercase;padding:18px 0 10px;">Your basics</div>
+
+      <!-- I am -->
+      <div style="border-bottom:1px solid #F0F1F5;padding:14px 0;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;margin-bottom:4px;">I am</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+          <div class="chip" onclick="prefPick(this,'role')" style="font-size:13px;">🔍 Looking for a flat</div>
+          <div class="chip" onclick="prefPick(this,'role')" style="font-size:13px;">🏠 Have a flat / room</div>
+        </div>
+      </div>
+
+      <!-- Areas looking in -->
+      <div style="border-bottom:1px solid #F0F1F5;padding:14px 0;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;margin-bottom:4px;">Areas I'm open to</div>
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;margin-bottom:10px;">Open to all</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Bandra</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Andheri</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Powai</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Juhu</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Worli</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Dadar</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Malad</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Goregaon</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Thane</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Navi Mumbai</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Pune</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Vile Parle</div>
+        </div>
+      </div>
+
+      <!-- Move-in date -->
+      <div style="border-bottom:1px solid #F0F1F5;padding:14px 0;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;margin-bottom:10px;">Move-in month</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div class="chip" onclick="prefPick(this,'movein')" style="font-size:13px;">ASAP</div>
+          <div class="chip" onclick="prefPick(this,'movein')" style="font-size:13px;">Jul 2026</div>
+          <div class="chip" onclick="prefPick(this,'movein')" style="font-size:13px;">Aug 2026</div>
+          <div class="chip" onclick="prefPick(this,'movein')" style="font-size:13px;">Sep 2026</div>
+          <div class="chip" onclick="prefPick(this,'movein')" style="font-size:13px;">Oct 2026</div>
+          <div class="chip" onclick="prefPick(this,'movein')" style="font-size:13px;">Flexible</div>
+        </div>
+      </div>
+
+      <!-- Flat type -->
+      <div style="border-bottom:1px solid #F0F1F5;padding:14px 0;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;margin-bottom:10px;">Flat / room type</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">1 BHK</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">2 BHK</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">3 BHK</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Private room</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Shared room</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">Studio</div>
+        </div>
+      </div>
+
+      <!-- Food -->
+      <div style="border-bottom:1px solid #F0F1F5;padding:14px 0;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;margin-bottom:4px;">Food preference in flat</div>
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;margin-bottom:10px;">Open to all</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">🥦 Veg only</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">🍳 Eggetarian ok</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">🍗 Non-veg ok</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">🌱 Vegan only</div>
+        </div>
+      </div>
+
+      <!-- Pets -->
+      <div style="border-bottom:1px solid #F0F1F5;padding:14px 0;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;margin-bottom:4px;">Pets</div>
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;margin-bottom:10px;">Open to all</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">🐶 I have a pet</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">✅ Fine with pets</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">🚫 No pets please</div>
+          <div class="chip" onclick="this.classList.toggle('chip-on')" style="font-size:13px;">🤧 Allergic</div>
+        </div>
+      </div>
+
+      <!-- Venn+ locked section -->
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:#9AA0B2;letter-spacing:0.08em;text-transform:uppercase;padding:18px 0 10px;">Venn+ preferences</div>
+      <div style="background:linear-gradient(135deg,#F3EEFF,#EEF0FF);border-radius:16px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8A5BFF,#335CFF);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z" fill="#fff"/></svg>
+        </div>
+        <div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:700;color:#8A5BFF;">Upgrade to Venn+</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">Fine-tune preferences with our Matchmaking Genie.</div>
+        </div>
+      </div>
+
+      <!-- Locked rows -->
+      <div style="opacity:0.5;">
+        <div style="border-bottom:1px solid #F0F1F5;padding:14px 0;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;">Sleep schedule</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;">Open to all</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#9AA0B2" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#9AA0B2" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div style="border-bottom:1px solid #F0F1F5;padding:14px 0;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;">Cleanliness</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;">Open to all</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#9AA0B2" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#9AA0B2" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div style="border-bottom:1px solid #F0F1F5;padding:14px 0;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;">Guests at home</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;">Open to all</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#9AA0B2" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#9AA0B2" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div style="border-bottom:1px solid #F0F1F5;padding:14px 0;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;">Work from home</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;">Open to all</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#9AA0B2" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#9AA0B2" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div style="padding:14px 0;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;">Noise level</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;">Open to all</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#9AA0B2" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#9AA0B2" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+
+      <!-- Save button -->
+      <button onclick="savePreferences()" style="width:100%;margin-top:20px;background:linear-gradient(135deg,#335CFF,#8A5BFF);color:#fff;border:none;border-radius:50px;padding:16px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:700;cursor:pointer;">Save preferences</button>
     </div>
   </div>
 </div>
@@ -1895,6 +2050,21 @@
     document.getElementById('budget-min').value = min;
     document.getElementById('budget-max').value = max;
     updateBudget();
+  }
+
+  // ── Flatmate Preferences modal ───────────────────────────────────────────
+  function openPreferences() { document.getElementById('prefs-modal').style.display = 'block'; }
+  function closePreferences(e) {
+    if (e && e.target !== document.getElementById('prefs-modal')) return;
+    document.getElementById('prefs-modal').style.display = 'none';
+  }
+  function prefPick(el, group) {
+    el.closest('div[style*="flex-wrap"]').querySelectorAll('.chip').forEach(c => c.classList.remove('chip-on'));
+    el.classList.add('chip-on');
+  }
+  function savePreferences() {
+    document.getElementById('prefs-modal').style.display = 'none';
+    document.getElementById('complete-profile-banner').style.display = 'none';
   }
 
   // ── Boost modal ──────────────────────────────────────────────────────────
