@@ -57,7 +57,7 @@
       position: absolute; inset: 0;
       display: flex; flex-direction: column;
       transform: translateX(100%);
-      transition: transform 0.36s cubic-bezier(0.4,0,0.2,1);
+      transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
       will-change: transform;
       background: #FCFCFD;
     }
@@ -499,6 +499,9 @@
   const picks = {};
 
   function goTo(n) {
+    // Dismiss keyboard instantly before animating
+    if (document.activeElement) document.activeElement.blur();
+
     const from = document.getElementById('s' + cur);
     const to   = document.getElementById('s' + n);
     if (!to) return;
