@@ -1232,24 +1232,24 @@
       </div>
     </div>
     <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
-      <div onclick="openPreferences()" style="display:flex;align-items:center;gap:4px;background:#14161B;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;flex-shrink:0;">
-        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#fff;">Area</span>
+      <div id="qf-areas" onclick="openFilter('areas')" style="display:flex;align-items:center;gap:4px;background:#14161B;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;flex-shrink:0;">
+        <span id="qf-areas-label" style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#fff;">Area</span>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div onclick="openPreferences()" style="display:flex;align-items:center;gap:4px;background:#fff;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.07);flex-shrink:0;">
-        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#14161B;">Budget</span>
+      <div id="qf-budget" onclick="openFilter('budget')" style="display:flex;align-items:center;gap:4px;background:#fff;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.07);flex-shrink:0;">
+        <span id="qf-budget-label" style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#14161B;">Budget</span>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#14161B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div onclick="openPreferences()" style="display:flex;align-items:center;gap:4px;background:#fff;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.07);flex-shrink:0;">
-        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#14161B;">Flat type</span>
+      <div id="qf-flattype" onclick="openFilter('flattype')" style="display:flex;align-items:center;gap:4px;background:#fff;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.07);flex-shrink:0;">
+        <span id="qf-flattype-label" style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#14161B;">Flat type</span>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#14161B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div onclick="openPreferences()" style="display:flex;align-items:center;gap:4px;background:#fff;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.07);flex-shrink:0;">
-        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#14161B;">Move-in</span>
+      <div id="qf-movein" onclick="openFilter('movein')" style="display:flex;align-items:center;gap:4px;background:#fff;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.07);flex-shrink:0;">
+        <span id="qf-movein-label" style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#14161B;">Move-in</span>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#14161B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div onclick="openPreferences()" style="display:flex;align-items:center;gap:4px;background:#fff;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.07);flex-shrink:0;">
-        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#14161B;">Gender</span>
+      <div id="qf-gender" onclick="openFilter('gender')" style="display:flex;align-items:center;gap:4px;background:#fff;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.07);flex-shrink:0;">
+        <span id="qf-gender-label" style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#14161B;">Gender</span>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#14161B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
     </div>
@@ -1671,6 +1671,26 @@
       </div>
 
       <button onclick="savePreferences()" style="width:100%;margin-top:24px;background:linear-gradient(135deg,#335CFF,#8A5BFF);color:#fff;border:none;border-radius:50px;padding:16px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:700;cursor:pointer;">Save preferences</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Focused quick-filter sheet ── -->
+<div id="qfilter-modal" style="display:none;position:fixed;inset:0;z-index:998;background:rgba(0,0,0,0.45);" onclick="closeFilter(event)">
+  <div id="qfilter-sheet" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-radius:24px 24px 0 0;padding:0;" onclick="event.stopPropagation()">
+    <div style="padding:16px 20px 0;">
+      <div style="width:40px;height:4px;background:#E6E8EE;border-radius:2px;margin:0 auto 18px;"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <span id="qfilter-title" style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#14161B;"></span>
+        <div onclick="closeFilter(null)" style="cursor:pointer;width:32px;height:32px;border-radius:50%;background:#F2F3F7;display:flex;align-items:center;justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#14161B" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <p id="qfilter-sub" style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;margin:0 0 18px;"></p>
+    </div>
+    <div id="qfilter-body" style="padding:0 20px 32px;display:flex;flex-wrap:wrap;gap:10px;"></div>
+    <div style="padding:0 20px 32px;">
+      <button onclick="applyFilter()" style="width:100%;background:#14161B;color:#fff;border:none;border-radius:50px;padding:16px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:700;cursor:pointer;">Apply</button>
     </div>
   </div>
 </div>
@@ -2253,6 +2273,82 @@
   }
 
   // ── Flatmate Preferences modal ───────────────────────────────────────────
+  // ── Quick filter configs ──────────────────────────────────────────────────
+  const filterDefs = {
+    areas:    { title: 'Preferred Areas', sub: 'Pick the neighbourhoods you\'re open to.', multi: true,
+                opts: ['Bandra','Andheri','Powai','Juhu','Worli','Dadar','Malad','Goregaon','Borivali','Thane','Navi Mumbai','Vile Parle','Pune','Kothrud','Hinjewadi'] },
+    budget:   { title: 'Monthly Budget', sub: 'Your expected rent range per month.', multi: false,
+                opts: ['Under ₹10k','₹10k–20k','₹20k–35k','₹35k–50k','₹50k+'] },
+    flattype: { title: 'Flat / Room Type', sub: 'What kind of place are you looking for?', multi: true,
+                opts: ['1 BHK','2 BHK','3 BHK','Studio','Private room','Shared room','PG'] },
+    movein:   { title: 'Move-in Date', sub: 'When are you planning to move?', multi: false,
+                opts: ['ASAP','Jul 2026','Aug 2026','Sep 2026','Oct 2026','Flexible'] },
+    gender:   { title: 'Gender Preference', sub: 'Who would you like as a flatmate?', multi: false,
+                opts: ['👩 Women only','👨 Men only','🌈 Any gender'] },
+  };
+
+  let _activeFilter = null;
+
+  function openFilter(key) {
+    _activeFilter = key;
+    const def = filterDefs[key];
+    document.getElementById('qfilter-title').textContent = def.title;
+    document.getElementById('qfilter-sub').textContent = def.sub;
+    // Render chips, restoring previously selected state from pref-* ids
+    const existing = [...(document.getElementById('pref-' + key)?.querySelectorAll('.chip-on') || [])].map(c => c.textContent.trim());
+    document.getElementById('qfilter-body').innerHTML = def.opts.map(o =>
+      `<div class="chip qf-chip${existing.includes(o) ? ' chip-on' : ''}" onclick="qfSelect(this,'${key}',${def.multi})">${o}</div>`
+    ).join('');
+    document.getElementById('qfilter-modal').style.display = 'block';
+  }
+
+  function qfSelect(chip, key, multi) {
+    const body = document.getElementById('qfilter-body');
+    if (!multi) {
+      body.querySelectorAll('.qf-chip').forEach(c => c.classList.remove('chip-on'));
+    }
+    chip.classList.toggle('chip-on');
+  }
+
+  function applyFilter() {
+    const key = _activeFilter;
+    const def = filterDefs[key];
+    const selected = [...document.getElementById('qfilter-body').querySelectorAll('.chip-on')].map(c => c.textContent.trim());
+    // Sync back into the full prefs modal chips
+    const optsEl = document.getElementById('pref-' + key);
+    if (optsEl) {
+      optsEl.querySelectorAll('.chip').forEach(c => {
+        if (selected.includes(c.textContent.trim())) c.classList.add('chip-on');
+        else c.classList.remove('chip-on');
+      });
+      const valEl = document.getElementById('pref-' + key + '-val');
+      if (valEl) valEl.textContent = selected.length ? selected.join(', ') : 'Open to all';
+    }
+    // Update the quick chip label + active state
+    const labelEl = document.getElementById('qf-' + key + '-label');
+    const chipEl  = document.getElementById('qf-' + key);
+    if (labelEl && selected.length) {
+      const short = selected.length === 1 ? selected[0].replace(/^[^\w₹]*/, '') : selected.length + ' selected';
+      labelEl.textContent = short.length > 14 ? short.slice(0,12) + '…' : short;
+      chipEl.style.background = '#335CFF';
+      chipEl.style.boxShadow = 'none';
+      labelEl.style.color = '#fff';
+      chipEl.querySelectorAll('svg path').forEach(p => p.setAttribute('stroke','#fff'));
+    } else if (labelEl) {
+      // reset to default label
+      const defaults = {areas:'Area',budget:'Budget',flattype:'Flat type',movein:'Move-in',gender:'Gender'};
+      labelEl.textContent = defaults[key];
+      chipEl.style.background = key === 'areas' ? '#14161B' : '#fff';
+      labelEl.style.color = key === 'areas' ? '#fff' : '#14161B';
+    }
+    document.getElementById('qfilter-modal').style.display = 'none';
+  }
+
+  function closeFilter(e) {
+    if (e && e.target !== document.getElementById('qfilter-modal')) return;
+    document.getElementById('qfilter-modal').style.display = 'none';
+  }
+
   function openPreferences() { document.getElementById('prefs-modal').style.display = 'block'; }
   function closePreferences(e) {
     if (e && e.target !== document.getElementById('prefs-modal')) return;
