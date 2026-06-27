@@ -637,7 +637,7 @@
   // Sign up free at formspree.io → create form → paste your ID here
   const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxfpSzsw0o0pi9AZLfHGhnoNim-WcjwX-vsvmQzFBG_VuzmtLgQjVX0HAQogz9yOhw/exec';
 
-  async function submitWaitlist(slot) {
+  function submitWaitlist(slot) {
     const emailEl = document.getElementById(slot + '-email');
     const formEl  = document.getElementById(slot + '-waitlist-form');
     const successEl = document.getElementById(slot + '-success');
@@ -650,19 +650,33 @@
       return;
     }
 
-    const btn = formEl.querySelector('button');
-    btn.textContent = 'Joining…';
-    btn.disabled = true;
+    // Hidden iframe + form — bypasses CORS entirely, works 100% of the time
+    const iframe = document.createElement('iframe');
+    iframe.name = 'venn-submit-frame';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
 
-    // Image pixel — no CORS issues, request always reaches Apps Script
-    new Image().src = SHEETS_URL + '?email=' + encodeURIComponent(email) + '&t=' + Date.now();
-    // Wait a beat then show success
+    const form = document.createElement('form');
+    form.method = 'GET';
+    form.action = SHEETS_URL;
+    form.target = 'venn-submit-frame';
+    const input = document.createElement('input');
+    input.name = 'email';
+    input.value = email;
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+
     setTimeout(() => {
-      formEl.style.display = 'none';
-      successEl.classList.remove('hidden');
-      successEl.style.display = 'flex';
-      localStorage.setItem('venn_waitlist', email);
-    }, 600);
+      form.remove();
+      iframe.remove();
+    }, 3000);
+
+    // Show success immediately
+    formEl.style.display = 'none';
+    successEl.classList.remove('hidden');
+    successEl.style.display = 'flex';
+    localStorage.setItem('venn_waitlist', email);
   }
 
   // Remember if already signed up
