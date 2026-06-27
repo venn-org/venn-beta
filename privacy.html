@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy — Venn</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='11' cy='16' r='10' fill='%23335CFF' opacity='0.9'/><circle cx='21' cy='16' r='10' fill='%238A5BFF' opacity='0.9'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'venn-blue': '#335CFF',
+            'venn-violet': '#8A5BFF',
+            'overlap-indigo': '#3A2FD6',
+            'ink': '#14161B',
+            'slate': '#5A6072',
+            'mist': '#E6E8EE',
+            'paper': '#FCFCFD',
+            'canvas': '#EDEEF2',
+          },
+          fontFamily: {
+            'display': ['Space Grotesk', 'sans-serif'],
+            'body': ['Hanken Grotesk', 'system-ui', 'sans-serif'],
+            'mono': ['Space Mono', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { -webkit-font-smoothing: antialiased; }
+    .nav-blur { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    .lens-mark { position: relative; display: inline-flex; }
+    .lens-mark .circle-l { border-radius: 50%; background: #335CFF; mix-blend-mode: multiply; }
+    .lens-mark .circle-r { border-radius: 50%; background: #8A5BFF; mix-blend-mode: multiply; position: absolute; }
+    .prose h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #14161B; margin-top: 2.5rem; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+    .prose p { font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; line-height: 1.75; color: #5A6072; margin-bottom: 1rem; }
+    .prose ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; }
+    .prose ul li { font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; line-height: 1.75; color: #5A6072; margin-bottom: 0.25rem; }
+    .prose a { color: #335CFF; text-decoration: underline; }
+  </style>
+</head>
+<body class="bg-canvas text-ink font-body">
+
+<!-- NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-paper/90 nav-blur border-b border-mist/60">
+  <div class="max-w-[1440px] mx-auto px-5 md:px-20 h-[72px] flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <div class="lens-mark relative w-10 h-[26px]">
+        <div class="circle-l absolute left-0 top-0 w-[26px] h-[26px]"></div>
+        <div class="circle-r right-0 top-0 w-[26px] h-[26px]"></div>
+      </div>
+      <span class="font-display font-semibold text-[22px] tracking-[-0.03em] text-ink">Venn</span>
+    </a>
+    <a href="/" class="font-mono text-[11px] tracking-[0.14em] uppercase text-slate hover:text-ink transition-colors">← Back</a>
+  </div>
+</header>
+
+<main class="pt-[72px]">
+  <div class="max-w-[720px] mx-auto px-5 md:px-0 py-20">
+
+    <div class="mb-12">
+      <p class="font-mono text-[11px] tracking-[0.18em] uppercase text-venn-blue mb-4">Legal</p>
+      <h1 class="font-display font-semibold text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.03em] text-ink mb-4">Privacy Policy</h1>
+      <p class="font-body text-[15px] text-slate">Last updated: 27 June 2026</p>
+    </div>
+
+    <div class="prose">
+
+      <p>Venn ("we", "us", or "our") is a pre-launch flatmate matching service. This policy explains what information we collect, how we use it, and your rights over it. We've kept this as plain and honest as possible.</p>
+
+      <h2>1. What we collect</h2>
+      <p>Right now, Venn is in waitlist-only mode. The only information we collect is:</p>
+      <ul>
+        <li><strong>Your email address</strong> — when you join the waitlist via our website.</li>
+      </ul>
+      <p>We do not collect your name, phone number, location, or any other personal data at this stage unless you contact us directly.</p>
+
+      <h2>2. How we use your information</h2>
+      <p>We use your email solely to:</p>
+      <ul>
+        <li>Confirm your place on the Venn waitlist.</li>
+        <li>Notify you when Venn launches or when early access opens in your city.</li>
+        <li>Occasionally share product updates if we believe they're relevant to you.</li>
+      </ul>
+      <p>We will never sell, rent, or share your email address with third parties for marketing purposes.</p>
+
+      <h2>3. Data storage</h2>
+      <p>Waitlist emails are stored securely using <a href="https://supabase.com" target="_blank">Supabase</a>, a cloud database provider based in the United States. Data is encrypted at rest and in transit. Supabase acts as a data processor on our behalf and does not use your data for its own purposes.</p>
+
+      <h2>4. Cookies</h2>
+      <p>We use a single item of browser local storage (<code>venn_waitlist</code>) to remember that you've already joined the waitlist, so we don't show you the form again. No tracking cookies, no analytics, no third-party scripts that profile you.</p>
+
+      <h2>5. Your rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li><strong>Access</strong> — ask us what data we hold about you.</li>
+        <li><strong>Deletion</strong> — ask us to delete your email from our waitlist at any time.</li>
+        <li><strong>Correction</strong> — ask us to correct any inaccurate data.</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="tel:+917208784418">+91 72087 84418</a>. We'll respond within 7 days.</p>
+
+      <h2>6. Data retention</h2>
+      <p>We'll keep your email until you ask us to remove it, or until 12 months after Venn has launched — whichever comes first. After that, waitlist data is deleted.</p>
+
+      <h2>7. Children</h2>
+      <p>Venn is not intended for anyone under the age of 18. We do not knowingly collect data from minors. If you believe a minor has submitted their email, contact us and we'll remove it promptly.</p>
+
+      <h2>8. Changes to this policy</h2>
+      <p>If we make meaningful changes to this policy, we'll update the date at the top of this page. We may also notify waitlist members by email for significant changes.</p>
+
+      <h2>9. Contact</h2>
+      <p>Questions or requests: <a href="tel:+917208784418">+91 72087 84418</a> or via <a href="https://www.instagram.com/venn.flat/" target="_blank">Instagram @venn.flat</a>.</p>
+
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-mist bg-paper">
+  <div class="max-w-[720px] mx-auto px-5 md:px-0 py-8 flex flex-col sm:flex-row justify-between items-center gap-3">
+    <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-slate">© 2026 Venn</p>
+    <div class="flex gap-6">
+      <a href="/privacy.html" class="font-mono text-[11px] tracking-[0.1em] uppercase text-venn-blue">Privacy</a>
+      <a href="/terms.html" class="font-mono text-[11px] tracking-[0.1em] uppercase text-slate hover:text-ink transition-colors">Terms</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
