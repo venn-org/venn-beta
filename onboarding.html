@@ -396,7 +396,7 @@
       </div>
       <span style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#fff;letter-spacing:-0.02em;">Venn</span>
     </div>
-    <span onclick="goTo(6)" style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#fff;cursor:pointer;opacity:0.65;">SKIP</span>
+    <span onclick="goTo(7)" style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#fff;cursor:pointer;opacity:0.65;">SKIP</span>
   </div>
 
   <!-- Headline — positioned in the bright zone above the girls -->
@@ -418,70 +418,11 @@
       </div>
     </div>
     <p style="font-size:12px;color:rgba(20,22,27,0.45);text-align:center;margin:0 0 20px;line-height:1.5;padding:0 10px;">Receive real-time alerts for new matches and messages.</p>
-    <button class="btn" onclick="goTo(6)" style="background:#335CFF;color:#fff;">Continue</button>
+    <button class="btn" onclick="goTo(7)" style="background:#335CFF;color:#fff;">Continue</button>
 
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     S6 — HOW DO YOU LIVE
-══════════════════════════════════════════ -->
-<div class="screen" id="s6">
-  <div class="status" style="color:#14161B;"><span class="status-time">5:01</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:#9FA6B7;">STEP 3 OF 5</span></div>
-  <div class="prog-track"><div class="prog-fill" style="width:60%"></div></div>
-
-  <div class="back-btn" onclick="goBack()">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="#14161B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </div>
-
-  <div class="scroll-body px-main" style="padding-top:16px;padding-bottom:36px;">
-    <div class="fu">
-      <h1 style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:600;color:#14161B;letter-spacing:-0.03em;line-height:1.1;margin:0 0 6px;">How do you actually live?</h1>
-      <p style="font-size:14px;color:#5A6072;line-height:1.55;margin:0 0 24px;">Your honest answers find your best overlap.</p>
-    </div>
-
-    <!-- Sleep -->
-    <div class="fu d1" style="margin-bottom:20px;">
-      <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#5A6072;margin:0 0 10px;">Sleep schedule</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <div class="chip" onclick="pick(this,'sleep')">🌅 Early bird</div>
-        <div class="chip" onclick="pick(this,'sleep')">☀️ 9-to-5 ish</div>
-        <div class="chip" onclick="pick(this,'sleep')">🌙 Night owl</div>
-      </div>
-    </div>
-    <!-- Cleanliness -->
-    <div class="fu d2" style="margin-bottom:20px;">
-      <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#5A6072;margin:0 0 10px;">Cleanliness</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <div class="chip" onclick="pick(this,'clean')">😌 Relaxed</div>
-        <div class="chip" onclick="pick(this,'clean')">👌 Moderate</div>
-        <div class="chip" onclick="pick(this,'clean')">✨ Spotless</div>
-      </div>
-    </div>
-    <!-- Guests -->
-    <div class="fu d2" style="margin-bottom:20px;">
-      <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#5A6072;margin:0 0 10px;">Guests over</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <div class="chip" onclick="pick(this,'guests')">🙅 Rarely</div>
-        <div class="chip" onclick="pick(this,'guests')">🙋 Sometimes</div>
-        <div class="chip" onclick="pick(this,'guests')">🎉 Often</div>
-      </div>
-    </div>
-    <!-- WFH -->
-    <div class="fu d3" style="margin-bottom:28px;">
-      <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#5A6072;margin:0 0 10px;">Work from home</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <div class="chip" onclick="pick(this,'wfh')">🏢 Never</div>
-        <div class="chip" onclick="pick(this,'wfh')">💻 Sometimes</div>
-        <div class="chip on-v" onclick="pick(this,'wfh')">🏠 Full-time</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="px-main" style="padding-bottom:40px;padding-top:12px;">
-    <button class="btn btn-dark" id="life-next" disabled onclick="goTo(7)">Continue</button>
-  </div>
-</div>
 
 <!-- ══════════════════════════════════════════
      S7 — PHONE OTP VERIFY
