@@ -1447,10 +1447,10 @@
 
   function goBack() {
     if (hist.length <= 1) return;
-    hist.pop();
-    const prev = hist[hist.length - 1];
+    const prev = hist[hist.length - 2];
     // Never go back to splash
     if (prev === 0) return;
+    hist.pop();
     const fromEl = document.getElementById('s' + cur);
     const toEl   = document.getElementById('s' + prev);
 
