@@ -2526,7 +2526,7 @@
       <div onclick="closeChatMenu(null)" style="padding:18px 24px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:500;color:#14161B;border-bottom:1px solid #F0F1F5;cursor:pointer;">We met</div>
       <div onclick="closeChatMenu(null)" style="padding:18px 24px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:500;color:#14161B;border-bottom:1px solid #F0F1F5;cursor:pointer;">Hide</div>
       <div onclick="closeChatMenu(null)" style="padding:18px 24px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:500;color:#14161B;border-bottom:1px solid #F0F1F5;cursor:pointer;">Unmatch</div>
-      <div onclick="closeChatMenu(null)" style="padding:18px 24px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:500;color:#FF4D6A;border-bottom:1px solid #F0F1F5;cursor:pointer;">Report</div>
+      <div onclick="closeChatMenu(null);openReportModal(_chatWith)" style="padding:18px 24px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:500;color:#FF4D6A;border-bottom:1px solid #F0F1F5;cursor:pointer;">Report or Block</div>
       <div onclick="closeChatMenu(null)" style="padding:18px 24px;font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:600;color:#14161B;cursor:pointer;text-align:center;">Cancel</div>
     </div>
   </div>
@@ -2681,6 +2681,7 @@
   function toggleNotif() {
     notifOn = !notifOn;
     _saveState({ notifOn });
+    if (notifOn) requestPushPermission();
     const t = document.getElementById('notif-toggle');
     const k = document.getElementById('notif-knob');
     t.style.background = notifOn ? '#335CFF' : '#D1D5DB';
@@ -2978,6 +2979,7 @@
     const modal = document.getElementById('match-modal');
     modal.style.display = 'flex';
     spawnConfetti();
+    _maybePushMatchNotif(profile.name);
   }
 
   function closeMatchModal() {
@@ -3237,13 +3239,8 @@
       if (card) { card.style.opacity = '0'; card.style.transform = 'scale(0.95)'; }
       setTimeout(() => { feedIdx++; initFeed(); }, 250);
     } else if (action === 'report') {
-      // Show a brief toast-style confirmation
-      const toast = document.createElement('div');
-      toast.textContent = 'Report submitted';
-      toast.style.cssText = 'position:absolute;bottom:110px;left:50%;transform:translateX(-50%);background:#14161B;color:#fff;font-family:Hanken Grotesk,sans-serif;font-size:13px;font-weight:600;padding:10px 20px;border-radius:50px;z-index:999;white-space:nowrap;';
-      document.getElementById('feed-stack').appendChild(toast);
-      setTimeout(() => toast.remove(), 2200);
-      setTimeout(() => { feedIdx++; initFeed(); }, 400);
+      const name = feedProfiles[feedIdx] ? feedProfiles[feedIdx].name : 'this person';
+      openReportModal(name);
     }
   }
 
@@ -4392,18 +4389,19 @@
       </div>`
     },
     photo1: {
-      title: 'Your main photo',
-      body: `<div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:10px;">
-        <div onclick="closePSheet()" style="padding:16px;border-bottom:1px solid #F0F1F5;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;cursor:pointer;">Change photo</div>
-        <div onclick="closePSheet()" style="padding:16px;border-bottom:1px solid #F0F1F5;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;cursor:pointer;">Make profile picture</div>
-        <div onclick="closePSheet()" style="padding:16px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#FF4D6A;cursor:pointer;">Remove photo</div>
+      title: 'Edit photo',
+      body: `<div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:2px;">
+        <div onclick="closePSheet();setTimeout(()=>{_editingPhotoIdx=_photoMenuIdx;document.getElementById('photo-file-input').click();},120)" style="padding:16px;border-bottom:1px solid #F0F1F5;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;cursor:pointer;">Change photo</div>
+        <div onclick="removePhoto(_photoMenuIdx);closePSheet()" style="padding:16px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#FF4D6A;cursor:pointer;">Remove photo</div>
+        <div onclick="closePSheet()" style="padding:16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#9AA0B2;cursor:pointer;text-align:center;">Cancel</div>
       </div>`
     },
     addphoto: {
       title: 'Add a photo',
-      body: `<div style="padding:0 20px 20px;">
-        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;margin:0 0 16px;">Photo upload is coming soon. You'll be able to add up to 6 photos when the app launches.</p>
-        <button onclick="closePSheet()" style="width:100%;padding:14px;background:#14161B;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:#fff;cursor:pointer;">Got it</button>
+      body: `<div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:10px;">
+        <button onclick="closePSheet();setTimeout(()=>document.getElementById('photo-file-input').click(),120)" style="width:100%;padding:15px;background:#14161B;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:#fff;cursor:pointer;">Choose from library</button>
+        <button onclick="closePSheet();setTimeout(()=>{document.getElementById('photo-file-input').setAttribute('capture','user');document.getElementById('photo-file-input').click();},120)" style="width:100%;padding:15px;background:#F2F3F7;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;cursor:pointer;">Take a selfie</button>
+        <button onclick="closePSheet()" style="width:100%;padding:14px;background:none;border:none;font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;cursor:pointer;">Cancel</button>
       </div>`
     },
     editprompt: {
@@ -4630,7 +4628,137 @@
     _origGoTo(n);
   }
 
-  // Register service worker for PWA / offline
+  // ── Photo Upload ─────────────────────────────────────────────────────────────
+  let _userPhotos = JSON.parse(localStorage.getItem('venn_photos') || '[]');
+  let _editingPhotoIdx = null;
+  let _photoMenuIdx = null;
+
+  function _savePhotos() { localStorage.setItem('venn_photos', JSON.stringify(_userPhotos)); }
+
+  function renderPhotoGrid() {
+    const grid = document.getElementById('photo-grid');
+    if (!grid) return;
+    let html = '';
+    for (let i = 0; i < 6; i++) {
+      if (_userPhotos[i]) {
+        html += `<div onclick="_photoMenuIdx=${i};openPSheet('photo1')" style="aspect-ratio:3/4;border-radius:12px;position:relative;overflow:hidden;cursor:pointer;background:#E6E8EE;">
+          <img src="${_userPhotos[i]}" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+          <div style="position:absolute;top:6px;left:6px;background:rgba(0,0,0,0.35);border-radius:6px;padding:2px 6px;">
+            <span style="font-family:'Space Mono',monospace;font-size:10px;color:#fff;font-weight:700;">${i+1}</span>
+          </div>
+          <div style="position:absolute;bottom:6px;right:6px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+          </div>
+        </div>`;
+      } else {
+        html += `<div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#F8F9FB;cursor:pointer;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
+          ${i === 0 ? '<span style="font-family:Hanken Grotesk,sans-serif;font-size:10px;color:#C0C5D0;font-weight:600;">Main</span>' : ''}
+        </div>`;
+      }
+    }
+    grid.innerHTML = html;
+  }
+
+  function handlePhotoUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      if (_editingPhotoIdx !== null) {
+        _userPhotos[_editingPhotoIdx] = ev.target.result;
+        _editingPhotoIdx = null;
+      } else {
+        // Fill next empty slot
+        const slot = _userPhotos.length < 6 ? _userPhotos.length : 0;
+        _userPhotos[slot] = ev.target.result;
+      }
+      _savePhotos();
+      renderPhotoGrid();
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+    // Remove capture attr after use
+    document.getElementById('photo-file-input').removeAttribute('capture');
+  }
+
+  function removePhoto(idx) {
+    _userPhotos.splice(idx, 1);
+    _savePhotos();
+    renderPhotoGrid();
+  }
+
+  // ── Push Notifications ───────────────────────────────────────────────────────
+  async function requestPushPermission() {
+    if (!('Notification' in window)) return;
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      new Notification('Venn notifications on 🔔', {
+        body: "We'll let you know when you get a match or message.",
+        icon: '/icon-192.png'
+      });
+    }
+  }
+
+  function _maybePushMatchNotif(name) {
+    if (Notification.permission === 'granted' && document.hidden) {
+      new Notification(`You matched with ${name}! 🎉`, {
+        body: 'Your Venn circles overlap — say hi!',
+        icon: '/icon-192.png'
+      });
+    }
+  }
+
+  // ── Report / Block ───────────────────────────────────────────────────────────
+  let _reportTarget = null;
+  let _selectedReason = null;
+  let _blockedUsers = JSON.parse(localStorage.getItem('venn_blocked') || '[]');
+
+  function openReportModal(name) {
+    _reportTarget = name;
+    _selectedReason = null;
+    document.getElementById('report-modal-name').textContent = name || '';
+    document.querySelectorAll('#report-reasons div').forEach(d => {
+      d.style.background = '#F8F9FB'; d.style.color = '#14161B';
+    });
+    const btn = document.getElementById('report-submit-btn');
+    btn.disabled = true; btn.style.background = '#E6E8EE'; btn.style.color = '#9AA0B2'; btn.style.cursor = 'not-allowed';
+    document.getElementById('report-modal').style.display = 'block';
+  }
+
+  function closeReportModal() {
+    document.getElementById('report-modal').style.display = 'none';
+  }
+
+  function selectReportReason(el) {
+    document.querySelectorAll('#report-reasons div').forEach(d => {
+      d.style.background = '#F8F9FB'; d.style.color = '#14161B';
+    });
+    el.style.background = '#FFF0F3'; el.style.color = '#FF4D6A';
+    _selectedReason = el.dataset.reason;
+    const btn = document.getElementById('report-submit-btn');
+    btn.disabled = false; btn.style.background = '#14161B'; btn.style.color = '#fff'; btn.style.cursor = 'pointer';
+  }
+
+  function submitReport(block) {
+    closeReportModal();
+    if (block && _reportTarget && !_blockedUsers.includes(_reportTarget)) {
+      _blockedUsers.push(_reportTarget);
+      localStorage.setItem('venn_blocked', JSON.stringify(_blockedUsers));
+    }
+    const msg = block ? `${_reportTarget} blocked` : 'Report submitted — thanks for keeping Venn safe';
+    const toast = document.createElement('div');
+    toast.textContent = msg;
+    toast.style.cssText = 'position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:#14161B;color:#fff;font-family:Hanken Grotesk,sans-serif;font-size:13px;font-weight:600;padding:11px 22px;border-radius:50px;z-index:9999;white-space:nowrap;animation:s0-rise 0.25s ease both;';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2800);
+    // Skip past blocked user in feed
+    if (feedIdx < feedProfiles.length && feedProfiles[feedIdx] && feedProfiles[feedIdx].name === _reportTarget) {
+      feedIdx++; initFeed();
+    }
+  }
+
+  // ── Register service worker for PWA / offline
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
   }
@@ -4639,6 +4767,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     updatePromptCards();
     renderPrompts('about');
+    renderPhotoGrid();
 
     const done = localStorage.getItem('venn_done') === '1';
     const savedScreen = _loadState().onboardingScreen;
@@ -4660,6 +4789,31 @@
     history.replaceState({ screen: cur }, '', '#s' + cur);
   });
 </script>
+
+<!-- Report / Block modal -->
+<div id="report-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.5);" onclick="if(event.target===this)closeReportModal()">
+  <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:24px 24px 0 0;padding:20px 0 40px;" onclick="event.stopPropagation()">
+    <div style="width:40px;height:4px;background:#E6E8EE;border-radius:2px;margin:0 auto 20px;"></div>
+    <div style="padding:0 20px 16px;border-bottom:1px solid #F0F1F5;">
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#14161B;margin-bottom:4px;">Report or Block</div>
+      <div id="report-modal-name" style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;"></div>
+    </div>
+    <div style="padding:12px 20px 0;">
+      <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:700;color:#9AA0B2;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Why are you reporting?</div>
+      <div id="report-reasons" style="display:flex;flex-direction:column;gap:2px;">
+        <div onclick="selectReportReason(this)" data-reason="Fake profile or scam" style="padding:13px 16px;border-radius:12px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;cursor:pointer;background:#F8F9FB;">Fake profile or scam</div>
+        <div onclick="selectReportReason(this)" data-reason="Inappropriate photos" style="padding:13px 16px;border-radius:12px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;cursor:pointer;background:#F8F9FB;">Inappropriate photos</div>
+        <div onclick="selectReportReason(this)" data-reason="Harassment or threats" style="padding:13px 16px;border-radius:12px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;cursor:pointer;background:#F8F9FB;">Harassment or threats</div>
+        <div onclick="selectReportReason(this)" data-reason="Misleading information" style="padding:13px 16px;border-radius:12px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;cursor:pointer;background:#F8F9FB;">Misleading information</div>
+        <div onclick="selectReportReason(this)" data-reason="Other" style="padding:13px 16px;border-radius:12px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;cursor:pointer;background:#F8F9FB;">Other</div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button onclick="submitReport(false)" id="report-submit-btn" disabled style="flex:2;padding:14px;background:#E6E8EE;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#9AA0B2;cursor:not-allowed;transition:all 0.2s;">Submit report</button>
+        <button onclick="submitReport(true)" style="flex:1;padding:14px;background:#FF4D6A;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;">Block</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Profile bottom sheet -->
 <div id="p-sheet-overlay" style="display:none;position:absolute;inset:0;z-index:999;background:rgba(0,0,0,0.45);" onclick="closePSheet()">
@@ -4742,29 +4896,8 @@
       </div>
 
       <!-- Photo grid -->
-      <div style="padding:0 20px 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-        <div onclick="openPSheet('photo1')" style="aspect-ratio:3/4;border-radius:12px;background:linear-gradient(160deg,#335CFF,#8A5BFF);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-          <span style="font-size:26px;">📸</span>
-          <div style="position:absolute;top:6px;left:6px;background:rgba(0,0,0,0.35);border-radius:6px;padding:2px 6px;">
-            <span style="font-family:'Space Mono',monospace;font-size:10px;color:#fff;font-weight:700;">1</span>
-          </div>
-        </div>
-        <div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-      </div>
+      <input type="file" id="photo-file-input" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)"/>
+      <div id="photo-grid" style="padding:0 20px 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
 
       <div style="height:1px;background:#F0F1F5;margin:0 20px;"></div>
 
