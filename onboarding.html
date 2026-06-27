@@ -1003,11 +1003,10 @@
 <!-- ══════════════════════════════════════════
      S25 — MAIN BROWSE FEED
 ══════════════════════════════════════════ -->
-<div class="screen" id="s25" style="background:#F2F3F7;display:flex;flex-direction:column;">
+<div class="screen" id="s25" style="background:#F2F3F7;display:flex;flex-direction:column;overflow:hidden;">
 
   <!-- Sticky top bar -->
   <div style="flex-shrink:0;background:#F2F3F7;padding:52px 20px 0;position:relative;z-index:10;">
-    <!-- Logo row -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
       <div style="display:flex;align-items:center;gap:8px;">
         <div style="position:relative;width:36px;height:22px;">
@@ -1025,7 +1024,6 @@
         </div>
       </div>
     </div>
-    <!-- Filter chips -->
     <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:14px;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
       <div style="display:flex;align-items:center;gap:6px;background:#fff;border-radius:50px;padding:8px 14px;white-space:nowrap;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.07);flex-shrink:0;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="7" r="4" stroke="#14161B" stroke-width="2"/><circle cx="17" cy="9" r="3" stroke="#14161B" stroke-width="2"/><path d="M1 21v-2a7 7 0 0114 0v2" stroke="#14161B" stroke-width="2" stroke-linecap="round"/><path d="M23 21v-1.5a4 4 0 00-3-3.87" stroke="#14161B" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1051,166 +1049,59 @@
     <div style="height:1px;background:rgba(0,0,0,0.07);margin:0 -20px;"></div>
   </div>
 
-  <!-- Scrollable profile cards -->
-  <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 90px;" id="feed-scroll">
+  <!-- Profile cards container (stacked, animated) -->
+  <div style="flex:1;position:relative;overflow:hidden;" id="feed-stack">
+    <!-- rendered by JS -->
+  </div>
 
-    <!-- Profile header -->
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 4px 12px;">
-      <div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#14161B;letter-spacing:-0.02em;">Priya</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#8A5BFF"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:3px;">
-          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;">she/her</span>
-          <span style="width:3px;height:3px;border-radius:50%;background:#9AA0B2;display:inline-block;"></span>
-          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#335CFF;font-weight:600;">Active today</span>
-        </div>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(0,0,0,0.1);cursor:pointer;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1018 0A9 9 0 003 12zM12 8v4l3 3" stroke="#14161B" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <div style="width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(0,0,0,0.1);cursor:pointer;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="1.5" fill="#14161B"/><circle cx="12" cy="12" r="1.5" fill="#14161B"/><circle cx="12" cy="19" r="1.5" fill="#14161B"/></svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Profile photo card -->
-    <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:10px;background:#D0D0D0;">
-      <img src="hero.jpeg" alt="" style="width:100%;height:420px;object-fit:cover;object-position:center top;display:block;"/>
-      <div style="position:absolute;bottom:14px;right:14px;">
-        <div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.15);cursor:pointer;" onclick="likeThis(this)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="like-icon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#14161B" stroke-width="1.5"/></svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Info chips card -->
-    <div style="background:#fff;border-radius:20px;padding:18px;margin-bottom:10px;">
-      <div style="display:flex;flex-wrap:wrap;gap:0;">
-        <div style="display:flex;align-items:center;gap:8px;padding:10px 16px 10px 0;border-right:1px solid #F0F0F4;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#9AA0B2" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#9AA0B2" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;font-weight:500;">24</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;border-right:1px solid #F0F0F4;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12z" stroke="#9AA0B2" stroke-width="1.5"/><path d="M20.4 21.6c0-4.6-3.8-8.4-8.4-8.4s-8.4 3.8-8.4 8.4" stroke="#9AA0B2" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;font-weight:500;">Woman</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:10px 0 10px 16px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="#9AA0B2" stroke-width="1.5"/><circle cx="12" cy="10" r="3" stroke="#9AA0B2" stroke-width="1.5"/></svg>
-          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;font-weight:500;">Andheri</span>
-        </div>
-      </div>
-      <div style="height:1px;background:#F0F0F4;margin:4px 0 12px;"></div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" stroke="#9AA0B2" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="#9AA0B2" stroke-width="1.5"/></svg>
-        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;font-weight:500;">UX Designer at Swiggy</span>
-      </div>
-    </div>
-
-    <!-- Prompt card 1 -->
-    <div style="position:relative;background:#fff;border-radius:20px;padding:24px 20px;margin-bottom:10px;">
-      <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#5A6072;margin-bottom:10px;font-weight:500;">My ideal noise level at home is</div>
-      <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:#14161B;letter-spacing:-0.02em;line-height:1.25;">chill background music, never dead silent</div>
-      <div style="position:absolute;bottom:14px;right:14px;">
-        <div style="width:44px;height:44px;border-radius:50%;background:#F2F3F7;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="likeThis(this)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="like-icon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#14161B" stroke-width="1.5"/></svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Flat photo card -->
-    <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:10px;">
-      <img src="notif-bg.jpeg" alt="" style="width:100%;height:300px;object-fit:cover;display:block;"/>
-      <div style="position:absolute;bottom:14px;left:14px;background:rgba(0,0,0,0.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:50px;padding:6px 12px;">
-        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#fff;font-weight:600;">Their flat · Andheri West</span>
-      </div>
-      <div style="position:absolute;bottom:14px;right:14px;">
-        <div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.15);cursor:pointer;" onclick="likeThis(this)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="like-icon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#14161B" stroke-width="1.5"/></svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Prompt card 2 -->
-    <div style="position:relative;background:#fff;border-radius:20px;padding:24px 20px;margin-bottom:10px;">
-      <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#5A6072;margin-bottom:10px;font-weight:500;">I handle shared chores by</div>
-      <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:#14161B;letter-spacing:-0.02em;line-height:1.25;">making a rota nobody actually sticks to, then doing it myself anyway</div>
-      <div style="position:absolute;bottom:14px;right:14px;">
-        <div style="width:44px;height:44px;border-radius:50%;background:#F2F3F7;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="likeThis(this)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="like-icon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#14161B" stroke-width="1.5"/></svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- More details card -->
-    <div style="background:#fff;border-radius:20px;padding:18px;margin-bottom:10px;">
-      <div style="font-family:'Space Mono',monospace;font-size:10px;color:#9AA0B2;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;">About Priya</div>
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="#9AA0B2" stroke-width="1.5"/></svg>
-          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;">Looking for a flat in Bandra / Andheri</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#9AA0B2"/></svg>
-          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;">Originally from Pune</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#9AA0B2" stroke-width="1.5"/></svg>
-          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;">Non-smoker · Social drinker</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#9AA0B2" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#9AA0B2" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;">Early bird · Available from Aug 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Prompt card 3 -->
-    <div style="position:relative;background:linear-gradient(135deg,#EEF0FF 0%,#F3EEFF 100%);border-radius:20px;padding:24px 20px;margin-bottom:10px;">
-      <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#8A5BFF;margin-bottom:10px;font-weight:600;">My room aesthetic is</div>
-      <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:#14161B;letter-spacing:-0.02em;line-height:1.25;">organised chaos with very good lighting</div>
-      <div style="position:absolute;bottom:14px;right:14px;">
-        <div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 8px rgba(138,91,255,0.15);" onclick="likeThis(this)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="like-icon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#8A5BFF" stroke-width="1.5"/></svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Send request CTA -->
-    <div style="background:#14161B;border-radius:20px;padding:24px;margin-bottom:10px;text-align:center;">
-      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,0.55);margin:0 0 16px;">Vibing with Priya?</p>
-      <button style="background:linear-gradient(135deg,#335CFF,#8A5BFF);color:#fff;border:none;border-radius:50px;padding:14px 36px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:700;cursor:pointer;width:100%;">Send a Request</button>
-    </div>
-
-  </div><!-- /feed-scroll -->
+  <!-- Bottom action bar: X / Heart -->
+  <div style="flex-shrink:0;background:#F2F3F7;padding:14px 0 30px;display:flex;align-items:center;justify-content:center;gap:32px;z-index:10;">
+    <button onclick="feedPass()" id="feed-x-btn" style="width:64px;height:64px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.12);cursor:pointer;transition:transform 0.12s;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#FF4D6A" stroke-width="2.5" stroke-linecap="round"/></svg>
+    </button>
+    <button onclick="feedLike()" id="feed-heart-btn" style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#335CFF,#8A5BFF);border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(51,92,255,0.35);cursor:pointer;transition:transform 0.12s;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#fff"/></svg>
+    </button>
+  </div>
 
   <!-- Bottom nav -->
-  <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:12px 0 28px;z-index:10;">
-    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;">
+  <div style="flex-shrink:0;background:#fff;border-top:1px solid #E6E8EE;display:flex;justify-content:space-around;align-items:center;padding:10px 0 24px;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="#335CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#335CFF;letter-spacing:0.05em;">HOME</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;opacity:0.4;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">LIKES</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;opacity:0.4;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">MATCHES</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;opacity:0.4;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">CHATS</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;opacity:0.4;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:0.35;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" stroke="#14161B" stroke-width="1.8"/></svg>
       <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#14161B;letter-spacing:0.05em;">PROFILE</span>
     </div>
   </div>
 
+</div>
+
+<!-- Like comment sheet -->
+<div id="like-sheet-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.45);" onclick="closeLikeSheet(event)">
+  <div id="like-sheet" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-radius:24px 24px 0 0;padding:24px 24px 0;">
+    <div style="width:40px;height:4px;background:#E6E8EE;border-radius:2px;margin:0 auto 20px;"></div>
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#14161B;margin-bottom:6px;" id="like-sheet-name"></div>
+    <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;margin-bottom:18px;">Add a comment with your like (optional)</div>
+    <textarea id="like-comment-input" placeholder="Say something nice..." maxlength="120" style="width:100%;min-height:90px;border:1.5px solid #E6E8EE;border-radius:14px;padding:14px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#14161B;resize:none;outline:none;box-sizing:border-box;line-height:1.5;"></textarea>
+    <div style="display:flex;gap:10px;padding:14px 0 30px;">
+      <button onclick="closeLikeSheet(null)" style="flex:1;background:#F2F3F7;color:#14161B;border:none;border-radius:50px;padding:14px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;cursor:pointer;">Skip</button>
+      <button onclick="sendLike()" style="flex:2;background:linear-gradient(135deg,#335CFF,#8A5BFF);color:#fff;border:none;border-radius:50px;padding:14px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Send Like 💙</button>
+    </div>
+  </div>
 </div>
 
 
@@ -1281,6 +1172,7 @@
       const ph = document.getElementById('phone')?.value || '';
       document.getElementById('ph-display').textContent = '+91 ' + (ph || '——————');
     }
+    if (n === 25) { setTimeout(initFeed, 60); }
 
     // Replay animations
     to.querySelectorAll('.fu').forEach(el => { el.style.animation='none'; el.offsetHeight; el.style.animation=''; });
@@ -1424,22 +1316,233 @@
     document.getElementById('otp-next').disabled=true;
   }
 
-  // Like button toggle
-  function likeThis(btn) {
-    const icon = btn.querySelector('.like-icon path');
+  // ── Feed / Browse Engine ─────────────────────────────────────────────────
+  const feedProfiles = [
+    {
+      name: 'Priya', age: 24, pronouns: 'she/her', verified: true, active: 'Active today',
+      photo: 'hero.jpeg', photoPos: 'center top',
+      area: 'Andheri', gender: 'Woman', job: 'UX Designer at Swiggy',
+      flatPhoto: 'notif-bg.jpeg', flatLabel: 'Their flat · Andheri West',
+      looking: 'Bandra / Andheri', from: 'Pune', lifestyle: 'Non-smoker · Social drinker', schedule: 'Early bird · Available Aug 2026',
+      prompts: [
+        { q: 'My ideal noise level at home is', a: 'chill background music, never dead silent' },
+        { q: 'I handle shared chores by', a: 'making a rota nobody actually sticks to, then doing it myself anyway' },
+        { q: 'My room aesthetic is', a: 'organised chaos with very good lighting', accent: true },
+      ]
+    },
+    {
+      name: 'Arjun', age: 26, pronouns: 'he/him', verified: false, active: 'Active 2h ago',
+      photo: 'notif-bg.jpeg', photoPos: 'center center',
+      area: 'Bandra', gender: 'Man', job: 'Software Engineer at Zepto',
+      flatPhoto: 'hero.jpeg', flatLabel: 'Their flat · Bandra West',
+      looking: 'Bandra / Khar / Santacruz', from: 'Delhi', lifestyle: 'Social drinker · Non-smoker', schedule: 'Night owl · Available Jul 2026',
+      prompts: [
+        { q: 'The dish I actually know how to cook', a: 'dal chawal at 2am, no notes' },
+        { q: 'My sleep schedule in three words', a: 'completely beyond repair' },
+        { q: 'When it comes to guests, I', a: 'give a heads-up, always — my flat my rules but also my warmth', accent: true },
+      ]
+    },
+    {
+      name: 'Meera', age: 23, pronouns: 'she/they', verified: true, active: 'Active today',
+      photo: 'hero.jpeg', photoPos: 'center 20%',
+      area: 'Powai', gender: 'Woman', job: 'Graphic Designer (Freelance)',
+      flatPhoto: 'notif-bg.jpeg', flatLabel: 'Their flat · Powai',
+      looking: 'Powai / Vikhroli / Ghatkopar', from: 'Bangalore', lifestyle: 'Non-smoker · Non-drinker', schedule: 'Morning person · Available Sep 2026',
+      prompts: [
+        { q: 'People would describe me as', a: 'the one who alphabetises the spice rack and somehow makes it fun' },
+        { q: 'The thing I'm currently obsessed with', a: 'sourdough, my plants, and the idea of a colour-coded chore chart' },
+        { q: 'The flat I\'m looking for feels like', a: 'a soft place to land after a loud day', accent: true },
+      ]
+    },
+  ];
+
+  let feedIdx = 0;
+
+  function renderFeedCard(profile) {
+    const accentPrompt = profile.prompts.find(p => p.accent);
+    const regPrompts = profile.prompts.filter(p => !p.accent);
+
+    const heartSVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#14161B" stroke-width="1.5"/></svg>`;
+    const heartSVGAccent = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#8A5BFF" stroke-width="1.5"/></svg>`;
+    const likeBtnBase = `width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;`;
+
+    let promptsHTML = regPrompts.map(p => `
+      <div style="position:relative;background:#fff;border-radius:20px;padding:24px 20px 60px;margin-bottom:10px;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#5A6072;margin-bottom:10px;font-weight:500;">${p.q}</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#14161B;letter-spacing:-0.02em;line-height:1.3;">${p.a}</div>
+        <div style="position:absolute;bottom:14px;right:14px;${likeBtnBase}background:#F2F3F7;" onclick="cardLike(this,'${profile.name}')">
+          ${heartSVG}
+        </div>
+      </div>`).join('');
+
+    const accentHTML = accentPrompt ? `
+      <div style="position:relative;background:linear-gradient(135deg,#EEF0FF,#F3EEFF);border-radius:20px;padding:24px 20px 60px;margin-bottom:10px;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#8A5BFF;margin-bottom:10px;font-weight:600;">${accentPrompt.q}</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#14161B;letter-spacing:-0.02em;line-height:1.3;">${accentPrompt.a}</div>
+        <div style="position:absolute;bottom:14px;right:14px;${likeBtnBase}background:#fff;box-shadow:0 1px 8px rgba(138,91,255,0.15);" onclick="cardLike(this,'${profile.name}')">
+          ${heartSVGAccent}
+        </div>
+      </div>` : '';
+
+    return `
+      <div style="padding:16px 16px 0;">
+        <!-- Name header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:0 4px 12px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#14161B;letter-spacing:-0.02em;">${profile.name}</span>
+              ${profile.verified ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#8A5BFF"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:3px;">
+              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;">${profile.pronouns}</span>
+              <span style="width:3px;height:3px;border-radius:50%;background:#9AA0B2;display:inline-block;"></span>
+              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#335CFF;font-weight:600;">${profile.active}</span>
+            </div>
+          </div>
+          <div style="width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(0,0,0,0.1);cursor:pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="1.5" fill="#14161B"/><circle cx="12" cy="12" r="1.5" fill="#14161B"/><circle cx="12" cy="19" r="1.5" fill="#14161B"/></svg>
+          </div>
+        </div>
+
+        <!-- Profile photo -->
+        <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:10px;">
+          <img src="${profile.photo}" style="width:100%;height:400px;object-fit:cover;object-position:${profile.photoPos};display:block;"/>
+          <div style="position:absolute;bottom:14px;right:14px;${likeBtnBase}background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.15);" onclick="cardLike(this,'${profile.name}')">
+            ${heartSVG}
+          </div>
+        </div>
+
+        <!-- Info chips -->
+        <div style="background:#fff;border-radius:20px;padding:18px;margin-bottom:10px;">
+          <div style="display:flex;gap:0;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 14px 8px 0;border-right:1px solid #F0F0F4;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#9AA0B2" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#9AA0B2" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;font-weight:500;">${profile.age}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-right:1px solid #F0F0F4;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12z" stroke="#9AA0B2" stroke-width="1.5"/><path d="M20.4 21.6c0-4.6-3.8-8.4-8.4-8.4s-8.4 3.8-8.4 8.4" stroke="#9AA0B2" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;font-weight:500;">${profile.gender}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 0 8px 14px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="#9AA0B2" stroke-width="1.5"/><circle cx="12" cy="10" r="3" stroke="#9AA0B2" stroke-width="1.5"/></svg>
+              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;font-weight:500;">${profile.area}</span>
+            </div>
+          </div>
+          <div style="height:1px;background:#F0F0F4;margin:8px 0 12px;"></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" stroke="#9AA0B2" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="#9AA0B2" stroke-width="1.5"/></svg>
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;font-weight:500;">${profile.job}</span>
+          </div>
+        </div>
+
+        ${promptsHTML}
+
+        <!-- Flat photo -->
+        <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:10px;">
+          <img src="${profile.flatPhoto}" style="width:100%;height:280px;object-fit:cover;display:block;"/>
+          <div style="position:absolute;bottom:14px;left:14px;background:rgba(0,0,0,0.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:50px;padding:6px 12px;">
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#fff;font-weight:600;">${profile.flatLabel}</span>
+          </div>
+          <div style="position:absolute;bottom:14px;right:14px;${likeBtnBase}background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.15);" onclick="cardLike(this,'${profile.name}')">
+            ${heartSVG}
+          </div>
+        </div>
+
+        <!-- About card -->
+        <div style="background:#fff;border-radius:20px;padding:18px;margin-bottom:10px;">
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:#9AA0B2;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;">About ${profile.name}</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="#9AA0B2" stroke-width="1.5"/></svg><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;">Looking in ${profile.looking}</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="#9AA0B2" stroke-width="1.5"/><circle cx="12" cy="10" r="3" stroke="#9AA0B2" stroke-width="1.5"/></svg><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;">From ${profile.from}</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#9AA0B2" stroke-width="1.5"/></svg><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;">${profile.lifestyle}</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#9AA0B2" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#9AA0B2" stroke-width="1.5" stroke-linecap="round"/></svg><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#14161B;">${profile.schedule}</span></div>
+          </div>
+        </div>
+
+        ${accentHTML}
+
+        <!-- Spacer for action bar -->
+        <div style="height:20px;"></div>
+      </div>`;
+  }
+
+  function initFeed() {
+    if (feedIdx >= feedProfiles.length) {
+      document.getElementById('feed-stack').innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:16px;padding:40px;">
+          <div style="width:64px;height:64px;border-radius:50%;background:#EEF0FF;display:flex;align-items:center;justify-content:center;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#335CFF"/></svg>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#14161B;text-align:center;">You've seen everyone nearby</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#9AA0B2;text-align:center;line-height:1.6;">Expand your search area or check back later for new flatmate candidates.</div>
+        </div>`;
+      document.getElementById('feed-x-btn').style.opacity = '0.3';
+      document.getElementById('feed-heart-btn').style.opacity = '0.3';
+      return;
+    }
+    const stack = document.getElementById('feed-stack');
+    stack.innerHTML = `<div id="feed-card-current" style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1),opacity 0.35s;">${renderFeedCard(feedProfiles[feedIdx])}</div>`;
+  }
+
+  function feedPass() {
+    const card = document.getElementById('feed-card-current');
+    if (!card) return;
+    // Animate left
+    card.style.transform = 'translateX(-110%) rotate(-6deg)';
+    card.style.opacity = '0';
+    // Flash X red
+    const xBtn = document.getElementById('feed-x-btn');
+    xBtn.style.transform = 'scale(1.15)';
+    setTimeout(() => { xBtn.style.transform = 'scale(1)'; }, 200);
+    setTimeout(() => { feedIdx++; initFeed(); }, 320);
+  }
+
+  function feedLike() {
+    if (feedIdx >= feedProfiles.length) return;
+    document.getElementById('like-sheet-name').textContent = feedProfiles[feedIdx].name;
+    document.getElementById('like-comment-input').value = '';
+    document.getElementById('like-sheet-modal').style.display = 'block';
+  }
+
+  function cardLike(btn, name) {
     const liked = btn.dataset.liked === '1';
     if (liked) {
       btn.dataset.liked = '0';
-      btn.style.background = btn.closest('[style*="gradient"]') ? '#fff' : (btn.closest('[style*="background:#fff"]') ? '#F2F3F7' : '#fff');
-      icon.setAttribute('stroke', btn.closest('[style*="8A5BFF"]') ? '#8A5BFF' : '#14161B');
-      icon.setAttribute('fill', 'none');
+      btn.style.background = btn.style.boxShadow ? btn.style.background : '#F2F3F7';
+      btn.querySelector('path').setAttribute('fill', 'none');
+      btn.querySelector('path').setAttribute('stroke', btn.closest('[style*="8A5BFF"]') ? '#8A5BFF' : '#14161B');
     } else {
       btn.dataset.liked = '1';
       btn.style.background = '#335CFF';
-      icon.setAttribute('stroke', '#fff');
-      icon.setAttribute('fill', '#fff');
+      btn.querySelector('path').setAttribute('fill', '#fff');
+      btn.querySelector('path').setAttribute('stroke', '#fff');
+      // Scroll card into view and open like sheet
+      document.getElementById('like-sheet-name').textContent = name;
+      document.getElementById('like-comment-input').value = '';
+      document.getElementById('like-sheet-modal').style.display = 'block';
     }
   }
+
+  function sendLike() {
+    document.getElementById('like-sheet-modal').style.display = 'none';
+    // Animate out and advance
+    const card = document.getElementById('feed-card-current');
+    if (card) {
+      card.style.transform = 'translateX(110%) rotate(6deg)';
+      card.style.opacity = '0';
+    }
+    const hBtn = document.getElementById('feed-heart-btn');
+    hBtn.style.transform = 'scale(1.15)';
+    setTimeout(() => { hBtn.style.transform = 'scale(1)'; }, 200);
+    setTimeout(() => { feedIdx++; initFeed(); }, 320);
+  }
+
+  function closeLikeSheet(e) {
+    if (e && e.target !== document.getElementById('like-sheet-modal')) return;
+    document.getElementById('like-sheet-modal').style.display = 'none';
+  }
+
+
 
   // ── Prompts ──────────────────────────────────────────────────────────────
   const promptData = {
