@@ -1434,67 +1434,39 @@
   </div>
 
   <!-- HAS LIKES STATE (hidden by default) -->
-  <div id="s27-likes" style="flex:1;overflow-y:auto;display:none;padding:0 16px 16px;">
+  <div id="s27-likes" style="flex:1;overflow-y:auto;scrollbar-width:none;display:none;padding:0 16px 16px;">
 
-    <!-- First visible like card -->
-    <div style="background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;">
-      <div style="padding:14px 16px 10px;display:flex;align-items:center;gap:8px;">
-        <div style="background:#FFF0F3;border-radius:50px;padding:5px 12px;">
-          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;color:#FF4D6A;">❤️ Liked your answer</span>
-        </div>
-      </div>
-      <div style="padding:0 16px 6px;display:flex;align-items:center;gap:8px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#335CFF"/></svg>
-        <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#14161B;">Priya, 24</span>
-      </div>
-      <img src="hero.jpeg" style="width:100%;height:240px;object-fit:cover;object-position:center top;display:block;"/>
-      <!-- Answer they liked -->
-      <div style="padding:14px 16px 16px;">
-        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9AA0B2;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.04em;">My ideal Sunday at home</div>
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;line-height:1.4;margin-bottom:14px;">"Masala chai, balcony plants, and zero plans — just pure peace."</div>
-        <div style="display:flex;gap:10px;">
-          <button style="flex:1;background:#F2F3F7;color:#14161B;border:none;border-radius:50px;padding:13px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Pass</button>
-          <button style="flex:2;background:linear-gradient(135deg,#335CFF,#8A5BFF);color:#fff;border:none;border-radius:50px;padding:13px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:700;cursor:pointer;">❤️ Like back</button>
-        </div>
-      </div>
-    </div>
+    <!-- Featured like card (rendered by JS) -->
+    <div id="s27-featured"></div>
 
-    <!-- Up next section -->
-    <div style="margin-bottom:8px;">
+    <!-- Up next grid (rendered by JS) -->
+    <div id="s27-grid-wrap" style="margin-bottom:8px;">
       <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#14161B;margin-bottom:4px;">Up next</div>
       <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;margin-bottom:14px;">More people who liked your profile</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <!-- Card 1 -->
-        <div style="background:#fff;border-radius:16px;overflow:hidden;cursor:pointer;">
-          <div style="position:relative;">
-            <img src="notif-bg.jpeg" style="width:100%;height:140px;object-fit:cover;object-position:center top;display:block;"/>
-            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.22) 0%,rgba(0,0,0,0) 60%);"></div>
-            <div style="position:absolute;top:8px;left:10px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:#fff;">Ananya, 26</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="background:#FFF0F3;border-radius:50px;padding:3px 8px;display:inline-block;">
-              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:600;color:#FF4D6A;">❤️ Liked your photo</span>
-            </div>
-          </div>
-        </div>
-        <!-- Card 2 -->
-        <div style="background:#fff;border-radius:16px;overflow:hidden;cursor:pointer;">
-          <div style="position:relative;">
-            <img src="hero.jpeg" style="width:100%;height:140px;object-fit:cover;object-position:center 20%;display:block;"/>
-            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.22) 0%,rgba(0,0,0,0) 60%);"></div>
-            <div style="position:absolute;top:8px;left:10px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:#fff;">Meera, 23</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="background:#FFF0F3;border-radius:50px;padding:3px 8px;display:inline-block;">
-              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:600;color:#FF4D6A;">❤️ Liked your answer</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="s27-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
     </div>
 
-    <!-- Back to empty link -->
     <button onclick="hideLikesDemo()" style="margin:8px auto 0;display:block;background:none;border:none;font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;cursor:pointer;text-decoration:underline;">Back to empty state</button>
+  </div>
+
+  <!-- Likes profile overlay (light, in-context) -->
+  <div id="likes-profile-overlay" onclick="closeLikesProfile()" style="display:none;position:absolute;inset:0;z-index:200;background:rgba(0,0,0,0.5);align-items:flex-end;justify-content:center;">
+    <div id="likes-profile-card" onclick="event.stopPropagation()" style="width:100%;height:92%;border-radius:24px 24px 0 0;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;background:#fff;position:relative;">
+      <div style="position:sticky;top:0;z-index:10;background:linear-gradient(to bottom,#fff 70%,rgba(255,255,255,0));padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between;">
+        <button onclick="closeLikesProfile()" style="width:34px;height:34px;border-radius:50%;background:#F2F3F7;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#14161B" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <div style="display:flex;gap:10px;">
+          <button id="lp-pass-btn" style="width:44px;height:44px;border-radius:50%;background:#FFF0F3;border:1px solid rgba(255,75,106,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#FF4D6A" stroke-width="2.2" stroke-linecap="round"/></svg>
+          </button>
+          <button id="lp-like-btn" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#335CFF,#8A5BFF);border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(51,92,255,0.35);cursor:pointer;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" fill="#fff"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="likes-profile-body" style="padding:0 14px 32px;"></div>
+    </div>
   </div>
 
   <!-- Bottom nav -->
@@ -1795,21 +1767,21 @@
 ══════════════════════════════════════════ -->
 <div class="screen" id="s26" style="background:#111;display:flex;flex-direction:column;overflow:hidden;">
 
-  <!-- Compact top bar -->
-  <div style="flex-shrink:0;padding:48px 20px 14px;position:relative;z-index:5;">
-    <div style="display:flex;align-items:center;justify-content:space-between;">
+  <!-- Top bar -->
+  <div style="flex-shrink:0;padding:52px 20px 12px;position:relative;z-index:5;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
       <div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
-          <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.03em;">Standouts</span>
-          <div style="background:rgba(138,91,255,0.2);border:1px solid rgba(138,91,255,0.4);border-radius:50px;padding:2px 8px;">
-            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:10px;font-weight:700;color:#C4AAFF;letter-spacing:0.04em;">FLAT OWNERS</span>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:#fff;letter-spacing:-0.03em;">Standouts</span>
+          <div style="background:rgba(138,91,255,0.22);border:1px solid rgba(138,91,255,0.45);border-radius:50px;padding:3px 10px;flex-shrink:0;">
+            <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#C4AAFF;letter-spacing:0.06em;">FLAT OWNERS</span>
           </div>
         </div>
-        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:rgba(255,255,255,0.45);margin:0;">These people have a flat ready. Send a Rose 🌹 to connect.</p>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:rgba(255,255,255,0.4);margin:0;line-height:1.4;">People with a flat ready. Send a Rose 🌹 to connect.</p>
       </div>
-      <div onclick="showRosesInfo()" style="display:flex;align-items:center;gap:7px;background:#2A1A4A;border-radius:50px;padding:9px 14px;cursor:pointer;border:1px solid rgba(138,91,255,0.35);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" fill="#8A5BFF" opacity="0.4"/><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" stroke="#8A5BFF" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 3v18" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/><path d="M9 6c0 0 1 2 3 2s3-2 3-2" stroke="#8A5BFF" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:700;color:#8A5BFF;" id="roses-count">Roses (0)</span>
+      <div onclick="showRosesInfo()" style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px;background:#1E0F38;border-radius:16px;padding:10px 16px;cursor:pointer;border:1px solid rgba(138,91,255,0.35);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" fill="#8A5BFF" opacity="0.5"/><path d="M12 3C10 3 7 5 7 8c0 2 1 3.5 2.5 4.5C8 14 7 16 7 18c0 2 1.5 3 5 3s5-1 5-3c0-2-1-4-2.5-5.5C16 11.5 17 10 17 8c0-3-3-5-5-5z" stroke="#8A5BFF" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:700;color:#8A5BFF;white-space:nowrap;" id="roses-count">Roses (0)</span>
       </div>
     </div>
   </div>
@@ -2623,49 +2595,80 @@
 
     body.innerHTML = `
       <!-- Hero photo -->
-      <div style="border-radius:16px;overflow:hidden;margin-bottom:10px;position:relative;">
+      <div style="border-radius:16px;overflow:hidden;margin-bottom:12px;position:relative;">
         <img src="${p.photo}" style="width:100%;height:380px;object-fit:cover;object-position:${p.photoPos};display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0) 55%);"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0) 55%);"></div>
         <div style="position:absolute;bottom:20px;left:20px;right:20px;">
-          <div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:6px;">
+          <div style="display:flex;align-items:flex-end;gap:8px;margin-bottom:8px;">
             <span style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:#fff;letter-spacing:-0.02em;">${p.name}</span>
             <span style="font-family:'Hanken Grotesk',sans-serif;font-size:22px;color:rgba(255,255,255,0.75);margin-bottom:2px;">${p.age}</span>
             ${p.verified ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="margin-bottom:4px;"><circle cx="12" cy="12" r="10" fill="#8A5BFF"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
           </div>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;">
-            <div style="display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border-radius:50px;padding:5px 12px;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="10" r="3" stroke="#fff" stroke-width="1.8"/></svg>
-              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#fff;">${p.area}</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:5px;background:rgba(138,91,255,0.3);backdrop-filter:blur(8px);border-radius:50px;padding:5px 12px;border:1px solid rgba(138,91,255,0.5);">
-              <span style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:700;color:#C4AAFF;">🏠 Has flat · ${p.rent}</span>
-            </div>
+        </div>
+      </div>
+
+      <!-- Single info card with all onboarding details -->
+      <div style="background:rgba(255,255,255,0.06);border-radius:16px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.1);overflow:hidden;">
+        <!-- Top row: age / gender / area (scrollable) -->
+        <div style="display:flex;border-bottom:1px solid rgba(255,255,255,0.07);overflow-x:auto;scrollbar-width:none;">
+          <div style="flex:1;min-width:80px;padding:14px 14px;border-right:1px solid rgba(255,255,255,0.07);text-align:center;">
+            <div style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:4px;letter-spacing:0.03em;">AGE</div>
+            <div style="font-family:'Hanken Grotesk',sans-serif;font-size:16px;font-weight:700;color:#fff;">${p.age}</div>
           </div>
+          <div style="flex:1;min-width:90px;padding:14px 14px;border-right:1px solid rgba(255,255,255,0.07);text-align:center;">
+            <div style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:4px;letter-spacing:0.03em;">AREA</div>
+            <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:700;color:#fff;white-space:nowrap;">${p.area}</div>
+          </div>
+          <div style="flex:1;min-width:90px;padding:14px 14px;text-align:center;">
+            <div style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:4px;letter-spacing:0.03em;">RENT</div>
+            <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:700;color:#C4AAFF;white-space:nowrap;">${p.rent}</div>
+          </div>
+        </div>
+        <!-- Detail rows -->
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,0.55);">Flat type</span>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#fff;margin-left:auto;">2 BHK · Has flat</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" stroke="rgba(255,255,255,0.45)" stroke-width="1.8"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,0.55);">Occupation</span>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#fff;margin-left:auto;">Working professional</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="7" r="4" stroke="rgba(255,255,255,0.45)" stroke-width="1.8"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,0.55);">Gender</span>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#fff;margin-left:auto;">Woman</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,0.55);">Food habits</span>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#fff;margin-left:auto;">Vegetarian</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 3l-1 1m0 0l-4 4M17 4l-4 4m0 0L9 12M13 8l-4 4m0 0l-2 2m2-2l-2 2m0 0l-1 1" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round"/><path d="M3 21l4.5-4.5" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,0.55);">Smoking</span>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#fff;margin-left:auto;">Non-smoker</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,0.55);">Move-in</span>
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;color:#fff;margin-left:auto;">ASAP</span>
         </div>
       </div>
 
       <!-- Main prompt -->
-      <div style="background:rgba(255,255,255,0.06);border-radius:16px;padding:16px 18px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.08);">
+      <div style="background:rgba(255,255,255,0.06);border-radius:16px;padding:16px 18px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.08);">
         <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">${p.prompt}</div>
         <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff;line-height:1.35;">"${p.answer}"</div>
       </div>
 
-      <!-- Second photo -->
-      <div style="border-radius:16px;overflow:hidden;margin-bottom:10px;">
-        <img src="${p.photo}" style="width:100%;height:260px;object-fit:cover;object-position:center 60%;display:block;"/>
-      </div>
-
       <!-- Extra prompts -->
       ${extraPrompts.map(ep => `
-      <div style="background:rgba(255,255,255,0.06);border-radius:16px;padding:16px 18px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.08);">
+      <div style="background:rgba(255,255,255,0.06);border-radius:16px;padding:16px 18px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.08);">
         <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">${ep.q}</div>
         <div style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#fff;line-height:1.35;">"${ep.a}"</div>
       </div>`).join('')}
-
-      <!-- Third photo -->
-      <div style="border-radius:16px;overflow:hidden;margin-bottom:14px;">
-        <img src="${p.photo}" style="width:100%;height:240px;object-fit:cover;object-position:center 40%;display:block;"/>
-      </div>
 
       <!-- Action buttons -->
       <div style="display:flex;gap:10px;padding-bottom:4px;">
