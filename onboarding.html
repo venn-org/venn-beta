@@ -3385,6 +3385,208 @@
     if (btn) switchTab(btn, least);
   }
 
+  // ── Profile sheet ──────────────────────────
+  const pSheetContent = {
+    complete: {
+      title: 'Finish your profile',
+      body: `<div style="padding:0 20px 20px;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#F8F9FB;border-radius:14px;cursor:pointer;" onclick="closePSheet();profileTab('profile')">
+            <div style="width:36px;height:36px;border-radius:10px;background:#EEF1FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#335CFF" stroke-width="1.8"/><path d="M8 12h8M12 8v8" stroke="#335CFF" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <div><div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Add photos</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">Upload at least 2 photos</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#F8F9FB;border-radius:14px;cursor:pointer;" onclick="closePSheet();goTo(22)">
+            <div style="width:36px;height:36px;border-radius:10px;background:#EEF1FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#335CFF" stroke-width="1.8"/></svg></div>
+            <div><div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Write a prompt</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">Show your personality</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#F8F9FB;border-radius:14px;cursor:pointer;" onclick="closePSheet();profileTab('safety');setTimeout(()=>document.getElementById('ptab-safety').scrollIntoView(),100)">
+            <div style="width:36px;height:36px;border-radius:10px;background:#EEF1FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#335CFF" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <div><div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Verify selfie</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">Build trust with verified badge</div></div>
+          </div>
+        </div>
+      </div>`
+    },
+    photo1: {
+      title: 'Your main photo',
+      body: `<div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:10px;">
+        <div onclick="closePSheet()" style="padding:16px;border-bottom:1px solid #F0F1F5;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;cursor:pointer;">Change photo</div>
+        <div onclick="closePSheet()" style="padding:16px;border-bottom:1px solid #F0F1F5;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#14161B;cursor:pointer;">Make profile picture</div>
+        <div onclick="closePSheet()" style="padding:16px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#FF4D6A;cursor:pointer;">Remove photo</div>
+      </div>`
+    },
+    addphoto: {
+      title: 'Add a photo',
+      body: `<div style="padding:0 20px 20px;">
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#9AA0B2;margin:0 0 16px;">Photo upload is coming soon. You'll be able to add up to 6 photos when the app launches.</p>
+        <button onclick="closePSheet()" style="width:100%;padding:14px;background:#14161B;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:#fff;cursor:pointer;">Got it</button>
+      </div>`
+    },
+    editprompt: {
+      title: 'Edit prompt',
+      body: `<div style="padding:0 20px 20px;">
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9AA0B2;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 8px;">My ideal Sunday looks like</p>
+        <textarea style="width:100%;min-height:90px;border:1.5px solid #E6E8EE;border-radius:14px;padding:14px;font-family:'Space Grotesk',sans-serif;font-size:15px;color:#14161B;resize:none;outline:none;box-sizing:border-box;">Slow mornings, a good playlist, and absolutely no plans</textarea>
+        <div style="display:flex;gap:10px;margin-top:12px;">
+          <button onclick="closePSheet()" style="flex:1;padding:14px;background:#F2F3F7;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:#14161B;cursor:pointer;">Cancel</button>
+          <button onclick="closePSheet()" style="flex:2;padding:14px;background:#14161B;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;">Save</button>
+        </div>
+      </div>`
+    },
+    preview: {
+      title: 'How others see you',
+      body: `<div style="padding:0 20px 20px;">
+        <div style="background:#F2F3F7;border-radius:20px;overflow:hidden;">
+          <div style="background:linear-gradient(160deg,#335CFF,#8A5BFF);height:180px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:48px;">📸</span>
+          </div>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#14161B;">Aryan, 21</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#335CFF" stroke-width="2"/></svg>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+              <span style="background:#fff;border-radius:50px;padding:5px 10px;font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#14161B;">🎓 IIT Bombay</span>
+              <span style="background:#fff;border-radius:50px;padding:5px 10px;font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#14161B;">🌙 Night owl</span>
+              <span style="background:#fff;border-radius:50px;padding:5px 10px;font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#14161B;">🧹 Tidy</span>
+            </div>
+            <div style="border-left:3px solid #335CFF;padding:10px 12px;background:#fff;border-radius:0 10px 10px 0;">
+              <div style="font-family:'Hanken Grotesk',sans-serif;font-size:10px;color:#9AA0B2;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.08em;">My ideal Sunday</div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#14161B;">Slow mornings, a good playlist, and absolutely no plans</div>
+            </div>
+          </div>
+        </div>
+        <button onclick="closePSheet()" style="width:100%;padding:14px;background:#F2F3F7;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:#14161B;cursor:pointer;margin-top:14px;">Close preview</button>
+      </div>`
+    },
+    selfie: {
+      title: 'Selfie Verification',
+      body: `<div style="padding:0 20px 20px;">
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#5A6072;line-height:1.6;margin:0 0 16px;">Selfie verification confirms you're a real person. You'll take a quick selfie when the feature launches — it's never stored or shared.</p>
+        <div style="background:#FDF5F0;border-radius:14px;padding:14px;margin-bottom:16px;">
+          <p style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#FF8B3E;margin:0;">Coming soon · Launching with the app</p>
+        </div>
+        <button onclick="closePSheet()" style="width:100%;padding:14px;background:#14161B;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:#fff;cursor:pointer;">Got it</button>
+      </div>`
+    },
+    blocklist: {
+      title: 'Block List',
+      body: `<div style="padding:0 20px 20px;text-align:center;">
+        <div style="width:56px;height:56px;border-radius:50%;background:#FFF0F0;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#FF4D6A" stroke-width="1.8"/><path d="M4.93 4.93l14.14 14.14" stroke="#FF4D6A" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#14161B;margin:0 0 6px;">No blocked users</p>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;margin:0 0 20px;">People you block won't be able to see your profile or contact you.</p>
+        <button onclick="closePSheet()" style="width:100%;padding:14px;background:#F2F3F7;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:#14161B;cursor:pointer;">Close</button>
+      </div>`
+    },
+    pastflat: {
+      title: 'Past Flatmates',
+      body: `<div style="padding:0 20px 20px;text-align:center;">
+        <div style="width:56px;height:56px;border-radius:50%;background:#E8F5E9;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#2E7D32" stroke-width="1.8"/><circle cx="9" cy="7" r="4" stroke="#2E7D32" stroke-width="1.8"/></svg>
+        </div>
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#14161B;margin:0 0 6px;">Add past flatmates</p>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;margin:0 0 20px;">This feature lets you note people you've already lived with so Venn won't show them again.</p>
+        <button onclick="closePSheet()" style="width:100%;padding:14px;background:#14161B;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:#fff;cursor:pointer;">Coming soon</button>
+      </div>`
+    },
+    safety: {
+      title: 'Safety resources',
+      body: `<div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:12px;">
+        <div style="background:#F8F9FF;border-radius:14px;padding:14px;">
+          <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;margin:0 0 4px;">Meet in public first</p>
+          <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#5A6072;margin:0;">Always meet a potential flatmate in a café or public space before visiting their flat.</p>
+        </div>
+        <div style="background:#F8F9FF;border-radius:14px;padding:14px;">
+          <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;margin:0 0 4px;">Verify identity</p>
+          <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#5A6072;margin:0;">Look for the verified badge. Ask for a government ID before signing any agreement.</p>
+        </div>
+        <div style="background:#F8F9FF;border-radius:14px;padding:14px;">
+          <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;margin:0 0 4px;">Trust your instincts</p>
+          <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#5A6072;margin:0;">If something feels off, it probably is. Block and report anyone who makes you uncomfortable.</p>
+        </div>
+        <button onclick="closePSheet()" style="padding:14px;background:#F2F3F7;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:#14161B;cursor:pointer;">Close</button>
+      </div>`
+    },
+    notifs: {
+      title: 'Notifications',
+      body: `<div style="padding:0 20px 20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #F0F1F5;">
+          <div><div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">New matches</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">When someone likes you back</div></div>
+          <div onclick="this.style.background=this.style.background==='#335CFF'?'#E6E8EE':'#335CFF'" style="width:42px;height:24px;background:#335CFF;border-radius:12px;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;"><div style="position:absolute;right:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;"></div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #F0F1F5;">
+          <div><div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Messages</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">When you receive a new message</div></div>
+          <div onclick="this.style.background=this.style.background==='#335CFF'?'#E6E8EE':'#335CFF'" style="width:42px;height:24px;background:#335CFF;border-radius:12px;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;"><div style="position:absolute;right:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;"></div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;">
+          <div><div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Product updates</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">News and new features</div></div>
+          <div onclick="this.style.background=this.style.background==='#E6E8EE'?'#335CFF':'#E6E8EE'" style="width:42px;height:24px;background:#E6E8EE;border-radius:12px;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;"><div style="position:absolute;left:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;"></div></div>
+        </div>
+        <button onclick="closePSheet()" style="width:100%;padding:14px;background:#14161B;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;margin-top:8px;">Save</button>
+      </div>`
+    },
+    privacy: {
+      title: 'Privacy',
+      body: `<div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #F0F1F5;">
+          <div><div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Show active status</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">Let matches see when you're online</div></div>
+          <div onclick="this.style.background=this.style.background==='#335CFF'?'#E6E8EE':'#335CFF'" style="width:42px;height:24px;background:#335CFF;border-radius:12px;position:relative;cursor:pointer;flex-shrink:0;"><div style="position:absolute;right:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;"></div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #F0F1F5;">
+          <div><div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Read receipts</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">Show when you've read messages</div></div>
+          <div onclick="this.style.background=this.style.background==='#335CFF'?'#E6E8EE':'#335CFF'" style="width:42px;height:24px;background:#335CFF;border-radius:12px;position:relative;cursor:pointer;flex-shrink:0;"><div style="position:absolute;right:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;"></div></div>
+        </div>
+        <div onclick="closePSheet()" style="padding:14px 0;cursor:pointer;"><span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#FF4D6A;">Delete my account</span></div>
+        <button onclick="closePSheet()" style="width:100%;padding:14px;background:#14161B;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;">Save</button>
+      </div>`
+    },
+    help: {
+      title: 'Help & support',
+      body: `<div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:0;">
+        <div style="padding:14px 0;border-bottom:1px solid #F0F1F5;cursor:pointer;"><span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">How does matching work?</span></div>
+        <div style="padding:14px 0;border-bottom:1px solid #F0F1F5;cursor:pointer;"><span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Report a problem</span></div>
+        <div style="padding:14px 0;border-bottom:1px solid #F0F1F5;cursor:pointer;"><a href="https://www.instagram.com/venn.flat/" target="_blank" style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#335CFF;text-decoration:none;">Contact us on Instagram</a></div>
+        <div style="padding:14px 0;cursor:pointer;"><a href="tel:+917208784418" style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#335CFF;text-decoration:none;">Call +91 72087 84418</a></div>
+      </div>`
+    },
+    logout: {
+      title: 'Log out?',
+      body: `<div style="padding:0 20px 20px;">
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#5A6072;margin:0 0 20px;">You'll need to sign in again to access your matches and messages.</p>
+        <div style="display:flex;gap:10px;">
+          <button onclick="closePSheet()" style="flex:1;padding:14px;background:#F2F3F7;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:#14161B;cursor:pointer;">Cancel</button>
+          <button onclick="localStorage.removeItem('venn_done');closePSheet();goTo(0)" style="flex:1;padding:14px;background:#FF4D6A;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;">Log out</button>
+        </div>
+      </div>`
+    }
+  };
+
+  function openPSheet(key) {
+    const data = pSheetContent[key];
+    if (!data) return;
+    document.getElementById('p-sheet-content').innerHTML =
+      `<div style="padding:0 20px 12px;"><h2 style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#14161B;margin:0;">${data.title}</h2></div>${data.body}`;
+    document.getElementById('p-sheet-overlay').style.display = 'block';
+  }
+  function closePSheet() {
+    document.getElementById('p-sheet-overlay').style.display = 'none';
+  }
+
+  let commentFilterOn = true;
+  function toggleCommentFilter(row) {
+    commentFilterOn = !commentFilterOn;
+    const tog = document.getElementById('comment-filter-toggle');
+    const knob = document.getElementById('comment-filter-knob');
+    if (commentFilterOn) {
+      tog.style.background = '#335CFF';
+      knob.style.right = '3px'; knob.style.left = '';
+    } else {
+      tog.style.background = '#E6E8EE';
+      knob.style.left = '3px'; knob.style.right = '';
+    }
+  }
+
   // Profile tab switching
   function profileTab(tab) {
     ['profile','safety','settings'].forEach(t => {
@@ -3411,6 +3613,14 @@
     }
   });
 </script>
+
+<!-- Profile bottom sheet -->
+<div id="p-sheet-overlay" style="display:none;position:absolute;inset:0;z-index:999;background:rgba(0,0,0,0.45);" onclick="closePSheet()">
+  <div id="p-sheet" style="position:absolute;bottom:0;width:100%;background:#fff;border-radius:24px 24px 0 0;padding:20px 0 32px;" onclick="event.stopPropagation()">
+    <div style="width:40px;height:4px;background:#E6E8EE;border-radius:2px;margin:0 auto 16px;"></div>
+    <div id="p-sheet-content"></div>
+  </div>
+</div>
 
 <!-- ══════════════════════════════════════════
      S35 — PROFILE HUB
@@ -3470,7 +3680,7 @@
     <div id="ptab-profile" class="profile-tab-panel" style="display:block;">
 
       <!-- Completion nudge row -->
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
+      <div onclick="openPSheet('complete')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;active:background:#F8F9FB;">
         <div>
           <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;margin-bottom:2px;">Complete your profile</div>
           <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">Add photos · prompt · selfie verify</div>
@@ -3486,25 +3696,25 @@
 
       <!-- Photo grid -->
       <div style="padding:0 20px 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-        <div style="aspect-ratio:3/4;border-radius:12px;background:linear-gradient(160deg,#335CFF,#8A5BFF);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        <div onclick="openPSheet('photo1')" style="aspect-ratio:3/4;border-radius:12px;background:linear-gradient(160deg,#335CFF,#8A5BFF);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;">
           <span style="font-size:26px;">📸</span>
           <div style="position:absolute;top:6px;left:6px;background:rgba(0,0,0,0.35);border-radius:6px;padding:2px 6px;">
             <span style="font-family:'Space Mono',monospace;font-size:10px;color:#fff;font-weight:700;">1</span>
           </div>
         </div>
-        <div style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
+        <div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
-        <div style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
+        <div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
-        <div style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
+        <div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
-        <div style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
+        <div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
-        <div style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
+        <div onclick="openPSheet('addphoto')" style="aspect-ratio:3/4;border-radius:12px;border:2px dashed #D0D3DE;display:flex;align-items:center;justify-content:center;background:#F8F9FB;cursor:pointer;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
       </div>
@@ -3514,7 +3724,7 @@
       <!-- About section -->
       <div style="padding:18px 20px 10px;display:flex;justify-content:space-between;align-items:center;">
         <span style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:#14161B;">About you</span>
-        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#335CFF;font-weight:500;cursor:pointer;">Edit</span>
+        <span onclick="goTo(10)" style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#335CFF;font-weight:500;cursor:pointer;">Edit</span>
       </div>
       <div style="padding:0 20px 18px;display:flex;flex-wrap:wrap;gap:8px;">
         <div style="background:#F2F3F7;border-radius:50px;padding:7px 14px;display:flex;align-items:center;gap:6px;">
@@ -3533,7 +3743,7 @@
           <span style="font-size:13px;">🧹</span>
           <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#14161B;font-weight:500;">Tidy</span>
         </div>
-        <div style="background:#F2F3F7;border-radius:50px;padding:7px 14px;display:flex;align-items:center;gap:6px;cursor:pointer;">
+        <div onclick="goTo(10)" style="background:#F2F3F7;border-radius:50px;padding:7px 14px;display:flex;align-items:center;gap:6px;cursor:pointer;">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#9AA0B2" stroke-width="2.5" stroke-linecap="round"/></svg>
           <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;font-weight:500;">Add</span>
         </div>
@@ -3544,20 +3754,27 @@
       <!-- Prompts section -->
       <div style="padding:18px 20px 10px;display:flex;justify-content:space-between;align-items:center;">
         <span style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:#14161B;">Prompts</span>
-        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#335CFF;font-weight:500;cursor:pointer;">Add</span>
+        <span onclick="goTo(22)" style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#335CFF;font-weight:500;cursor:pointer;">Add</span>
       </div>
       <div style="padding:0 20px 20px;">
-        <div style="border-left:3px solid #335CFF;padding:12px 14px;background:#F8F9FF;border-radius:0 12px 12px 0;margin-bottom:10px;cursor:pointer;">
+        <div onclick="openPSheet('editprompt')" style="border-left:3px solid #335CFF;padding:12px 14px;background:#F8F9FF;border-radius:0 12px 12px 0;margin-bottom:10px;cursor:pointer;">
           <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9AA0B2;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.08em;">My ideal Sunday looks like</div>
           <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:#14161B;">Slow mornings, a good playlist, and absolutely no plans</div>
         </div>
-        <div style="border:1.5px dashed #D0D3DE;border-radius:12px;padding:13px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;">
+        <div onclick="goTo(22)" style="border:1.5px dashed #D0D3DE;border-radius:12px;padding:13px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
           <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#9AA0B2;">Add a second prompt</span>
         </div>
       </div>
 
-      <div style="height:80px;"></div>
+      <!-- Preview button -->
+      <div style="padding:0 20px 20px;">
+        <button onclick="openPSheet('preview')" style="width:100%;padding:14px;background:#14161B;border:none;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:#fff;cursor:pointer;">
+          Preview my profile
+        </button>
+      </div>
+
+      <div style="height:40px;"></div>
     </div>
 
     <!-- SAFETY TAB -->
@@ -3567,7 +3784,7 @@
       <div style="padding:18px 20px 6px;">
         <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:600;color:#9AA0B2;text-transform:uppercase;letter-spacing:0.1em;">Verification</span>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
+      <div onclick="openPSheet('selfie')" style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="width:36px;height:36px;border-radius:10px;background:#EEF1FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#335CFF" stroke-width="2" stroke-linecap="round"/></svg>
@@ -3584,7 +3801,7 @@
       <div style="padding:18px 20px 6px;">
         <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:600;color:#9AA0B2;text-transform:uppercase;letter-spacing:0.1em;">Controls</span>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
+      <div onclick="toggleCommentFilter(this)" style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="width:36px;height:36px;border-radius:10px;background:#F0EEFF;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#8A5BFF" stroke-width="1.8"/></svg>
@@ -3594,11 +3811,11 @@
             <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;color:#9AA0B2;">Hides offensive messages</div>
           </div>
         </div>
-        <div style="width:42px;height:24px;background:#335CFF;border-radius:12px;position:relative;flex-shrink:0;">
-          <div style="position:absolute;right:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;"></div>
+        <div id="comment-filter-toggle" style="width:42px;height:24px;background:#335CFF;border-radius:12px;position:relative;flex-shrink:0;transition:background 0.2s;">
+          <div id="comment-filter-knob" style="position:absolute;right:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:right 0.2s;"></div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
+      <div onclick="openPSheet('blocklist')" style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="width:36px;height:36px;border-radius:10px;background:#FFF0F0;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#FF4D6A" stroke-width="1.8"/><path d="M4.93 4.93l14.14 14.14" stroke="#FF4D6A" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -3610,7 +3827,7 @@
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
+      <div onclick="openPSheet('pastflat')" style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="width:36px;height:36px;border-radius:10px;background:#E8F5E9;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#2E7D32" stroke-width="1.8"/><circle cx="9" cy="7" r="4" stroke="#2E7D32" stroke-width="1.8"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -3622,7 +3839,7 @@
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
       </div>
-      <div style="display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer;">
+      <div onclick="openPSheet('safety')" style="display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#335CFF" stroke-width="1.8" stroke-linecap="round"/></svg>
         <span style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:#335CFF;font-weight:500;">Explore safety resources</span>
       </div>
@@ -3635,23 +3852,23 @@
       <div style="padding:18px 20px 6px;">
         <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:600;color:#9AA0B2;text-transform:uppercase;letter-spacing:0.1em;">Account</span>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
+      <div onclick="goTo(28)" style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
         <span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Search preferences</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
+      <div onclick="openPSheet('notifs')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
         <span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Notifications</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
+      <div onclick="openPSheet('privacy')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
         <span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Privacy</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
+      <div onclick="openPSheet('help')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #F0F1F5;cursor:pointer;">
         <span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#14161B;">Help & support</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#C0C5D0" stroke-width="2" stroke-linecap="round"/></svg>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;cursor:pointer;">
+      <div onclick="openPSheet('logout')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;cursor:pointer;">
         <span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#FF4D6A;">Log out</span>
       </div>
       <div style="height:80px;"></div>
