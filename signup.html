@@ -7,30 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'venn-blue': '#335CFF',
-            'venn-violet': '#8A5BFF',
-            'overlap-indigo': '#3A2FD6',
-            'ink': '#14161B',
-            'slate': '#5A6072',
-            'mist': '#E6E8EE',
-            'paper': '#FCFCFD',
-            'canvas': '#EDEEF2',
-          },
-          fontFamily: {
-            'display': ['Space Grotesk', 'sans-serif'],
-            'body': ['Hanken Grotesk', 'system-ui', 'sans-serif'],
-            'mono': ['Space Mono', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
+  <link rel="stylesheet" href="/tailwind.css">
   <style>
     * { box-sizing: border-box; }
     body { -webkit-font-smoothing: antialiased; }
@@ -454,7 +431,7 @@
                   </svg>
                 </div>
                 <span class="font-body text-[14px] text-slate leading-[1.5]">
-                  I agree to Venn's <a href="#" class="text-venn-blue underline underline-offset-2">Terms of Service</a> and <a href="#" class="text-venn-blue underline underline-offset-2">Privacy Policy</a>. I'm happy to receive updates about the launch.
+                  I agree to Venn's <a href="/terms.html" target="_blank" rel="noopener" class="text-venn-blue underline underline-offset-2">Terms of Service</a> and <a href="/privacy.html" target="_blank" rel="noopener" class="text-venn-blue underline underline-offset-2">Privacy Policy</a>. I'm happy to receive updates about the launch.
                 </span>
               </label>
             </div>
@@ -467,6 +444,7 @@
                 Find my overlap ✦
               </button>
             </div>
+            <p id="submit-error" role="alert" class="hidden mt-4 font-body text-[13px] font-semibold text-[#D6244B] text-center">Something went wrong — please check your connection and try again.</p>
           </div>
 
           <!-- ===== SUCCESS STATE ===== -->
@@ -630,7 +608,27 @@
     return true;
   }
 
-  function handleSubmit() {
+  // SECURITY: this must be a PUBLIC key — the sb_publishable_… key (or legacy
+  // anon key). Never put a secret/service_role key in client-side code. Pair
+  // with an RLS policy that allows INSERT only on the tables below.
+  const SUPA_URL = 'https://iahnrlgeivjzmzzqloan.supabase.co';
+  const SUPA_PUBLIC_KEY = 'sb_publishable_9RNub_FrmdEjav-NCaf4Ew_stwXfalC';
+
+  async function supaInsert(table, payload) {
+    return fetch(`${SUPA_URL}/rest/v1/${table}`, {
+      method: 'POST',
+      headers: {
+        // publishable keys go in the apikey header only — no Authorization
+        // header, which is reserved for user JWTs
+        'Content-Type': 'application/json',
+        'apikey': SUPA_PUBLIC_KEY,
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify(payload),
+    });
+  }
+
+  async function handleSubmit() {
     if (!document.getElementById('terms').checked) {
       const label = document.querySelector('.checkbox-wrap');
       label.style.outline = '2px solid #E53E3E';
@@ -657,10 +655,28 @@
       wfh: document.getElementById('wfh-value').value,
     };
 
-    console.log('Pre-registration data:', data);
-    // In production: POST to your backend / Airtable / Supabase here
+    const btn = document.getElementById('submit-btn');
+    const errorEl = document.getElementById('submit-error');
+    const btnLabel = btn.textContent;
+    btn.textContent = 'Joining…';
+    btn.disabled = true;
+    errorEl.classList.add('hidden');
 
-    goToStep('success');
+    try {
+      let res = await supaInsert('preregistrations', data);
+      if (res.status === 404) {
+        // preregistrations table doesn't exist yet — at minimum save the email
+        res = await supaInsert('waitlist', { email: data.email });
+      }
+      // 409 = already registered with this email; treat as success
+      if (!res.ok && res.status !== 409) throw new Error('pre-registration failed: ' + res.status);
+      localStorage.setItem('venn_waitlist', data.email);
+      goToStep('success');
+    } catch (e) {
+      errorEl.classList.remove('hidden');
+      btn.textContent = btnLabel;
+      btn.disabled = false;
+    }
   }
 
   function copyRef() {

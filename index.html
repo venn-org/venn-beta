@@ -5,47 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Venn — Find your overlap.</title>
   <meta name="description" content="Flatmate matching for students and young professionals in Mumbai, Navi Mumbai and Pune — matched on lifestyle, not luck."/>
+  <meta name="theme-color" content="#335CFF"/>
+  <link rel="canonical" href="https://venn-tau.vercel.app/"/>
   <!-- Open Graph / WhatsApp / iMessage -->
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://venn-tau.vercel.app/"/>
   <meta property="og:title" content="Venn — Find your overlap."/>
   <meta property="og:description" content="Finally, a flatmate app that matches on how you actually live — sleep schedules, cleanliness, guests, noise. Joining the waitlist is free. Launching Mumbai · Navi Mumbai · Pune."/>
   <meta property="og:site_name" content="Venn"/>
+  <meta property="og:image" content="https://venn-tau.vercel.app/og-image.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="Venn — flatmate matching for Mumbai, Navi Mumbai and Pune. Find your overlap."/>
   <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Venn — Find your overlap."/>
   <meta name="twitter:description" content="Finally, a flatmate app that matches on how you actually live. Launching Mumbai · Navi Mumbai · Pune."/>
+  <meta name="twitter:image" content="https://venn-tau.vercel.app/og-image.png"/>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='11' cy='16' r='10' fill='%23335CFF' opacity='0.9'/><circle cx='21' cy='16' r='10' fill='%238A5BFF' opacity='0.9'/></svg>">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'venn-blue': '#335CFF',
-            'venn-violet': '#8A5BFF',
-            'overlap-indigo': '#3A2FD6',
-            'ink': '#14161B',
-            'slate': '#5A6072',
-            'mist': '#E6E8EE',
-            'paper': '#FCFCFD',
-            'canvas': '#EDEEF2',
-          },
-          fontFamily: {
-            'display': ['Space Grotesk', 'sans-serif'],
-            'body': ['Hanken Grotesk', 'system-ui', 'sans-serif'],
-            'mono': ['Space Mono', 'monospace'],
-          },
-          spacing: {
-            'section': '104px',
-          }
-        }
-      }
-    }
-  </script>
+  <link rel="stylesheet" href="/tailwind.css">
+  <script>document.documentElement.classList.add('js');</script>
   <style>
     * { box-sizing: border-box; }
     body { -webkit-font-smoothing: antialiased; }
@@ -72,15 +55,26 @@
       -webkit-backdrop-filter: blur(16px);
     }
 
-    /* Smooth fade-up on scroll */
-    .reveal {
+    /* Smooth fade-up on scroll — only when JS is available, so content
+       stays visible if the script fails to load */
+    html.js .reveal {
       opacity: 0;
       transform: translateY(28px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .reveal.visible {
+    html.js .reveal.visible {
       opacity: 1;
       transform: none;
+    }
+
+    /* Honeypot field — visually gone, still in the DOM for bots */
+    .hp-field {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
     }
 
     /* Gradient glow blobs */
@@ -135,6 +129,22 @@
     /* Button active press */
     .btn-press { transition: transform 0.12s ease, box-shadow 0.12s ease; }
     .btn-press:active { transform: scale(0.96); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html.js .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .ticker-track,
+      .pulse-ring,
+      .circle-anim-l,
+      .circle-anim-r,
+      .animate-pulse {
+        animation: none !important;
+      }
+      html { scroll-behavior: auto; }
+    }
   </style>
 </head>
 <body class="bg-canvas text-ink font-body">
@@ -159,7 +169,7 @@
       </button>
     </nav>
     <!-- Mobile hamburger -->
-    <button id="mob-toggle" class="md:hidden p-2 text-ink" aria-label="Menu">
+    <button id="mob-toggle" class="md:hidden p-2 text-ink" aria-label="Menu" aria-expanded="false" aria-controls="mob-menu">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
         <line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/>
       </svg>
@@ -188,7 +198,7 @@
       <!-- pill -->
       <div class="inline-flex items-center gap-2 bg-venn-blue/10 border border-venn-blue/25 px-3 py-2 rounded-full">
         <span class="w-2 h-2 rounded-full bg-venn-blue animate-pulse flex-none"></span>
-        <span class="font-mono text-[9px] sm:text-[10px] tracking-[0.18em] uppercase text-venn-blue">Launching soon · Mumbai · Navi Mumbai · Pune</span>
+        <span class="font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-venn-blue">Launching soon · Mumbai · Navi Mumbai · Pune</span>
       </div>
       <h1 class="font-display font-semibold text-[40px] sm:text-[56px] md:text-[70px] lg:text-[80px] leading-[0.93] tracking-[-0.035em] text-ink">
         Find where<br>your lives <span class="text-venn-blue">overlap.</span>
@@ -197,19 +207,22 @@
         Not another scrolling board. Not another WhatsApp group. Something built around how you actually live.
       </p>
       <div class="flex flex-col items-start gap-4 pt-2 w-full max-w-[480px]" id="hero-form">
-        <div id="hero-waitlist-form" class="flex w-full gap-2">
-          <input id="hero-email" type="email" placeholder="your@email.com"
-            class="flex-1 min-w-0 bg-white border border-mist rounded-full px-6 py-4 font-body text-[15px] text-ink placeholder-slate/50 outline-none focus:border-venn-blue transition-colors shadow-lg shadow-venn-blue/10"
-            onkeydown="if(event.key==='Enter')submitWaitlist('hero')"/>
-          <button onclick="submitWaitlist('hero')" class="btn-press bg-venn-blue text-white font-display font-semibold text-[15px] px-7 py-4 rounded-full hover:bg-overlap-indigo hover:shadow-xl hover:shadow-venn-blue/30 transition-all duration-200 whitespace-nowrap shadow-lg shadow-venn-blue/10">
+        <form id="hero-waitlist-form" class="flex w-full gap-2" onsubmit="submitWaitlist(event, 'hero')">
+          <label for="hero-email" class="sr-only">Email address</label>
+          <input id="hero-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="your@email.com"
+            class="flex-1 min-w-0 bg-white border border-mist rounded-full px-6 py-4 font-body text-[15px] text-ink placeholder-slate/50 outline-none focus:border-venn-blue transition-colors shadow-lg shadow-venn-blue/10"/>
+          <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true"/>
+          <button type="submit" class="btn-press bg-venn-blue text-white font-display font-semibold text-[15px] px-7 py-4 rounded-full hover:bg-overlap-indigo hover:shadow-xl hover:shadow-venn-blue/30 transition-all duration-200 whitespace-nowrap shadow-lg shadow-venn-blue/10">
             Join waitlist
           </button>
-        </div>
-        <div id="hero-success" class="hidden items-center gap-3 bg-venn-blue/8 border border-venn-blue/20 rounded-full px-6 py-3">
+        </form>
+        <div id="hero-success" class="hidden items-center flex-wrap gap-x-3 gap-y-1 bg-venn-blue/10 border border-venn-blue/20 rounded-full px-6 py-3">
           <span class="text-venn-blue text-[18px]">🎉</span>
-          <span class="font-body font-semibold text-[14px] text-venn-blue">You're on the list! We'll be in touch.</span>
+          <span class="font-body font-semibold text-[14px] text-venn-blue">You're on the list!</span>
+          <a href="/signup.html" class="font-body font-semibold text-[14px] text-overlap-indigo underline underline-offset-2 hover:text-venn-blue transition-colors">Complete your profile →</a>
         </div>
-        <p class="font-mono text-[10px] tracking-[0.1em] uppercase text-slate/70">Free to join · Early access for first members · No spam</p>
+        <p id="hero-error" role="alert" class="hidden font-body text-[13px] font-semibold text-[#D6244B]">Something went wrong — please check your connection and try again.</p>
+        <p class="font-mono text-[10px] tracking-[0.1em] uppercase text-slate">Free to join · Early access for first members · No spam</p>
         <a href="#how" class="flex items-center gap-2 font-mono text-[11px] tracking-[0.12em] uppercase text-ink hover:text-venn-blue transition-colors group">
           See the idea
           <svg class="group-hover:translate-x-1 transition-transform" width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -219,8 +232,8 @@
       </div>
     </div>
 
-    <!-- Hero visual: phone mockup -->
-    <div class="lg:col-span-6 flex justify-center items-center relative reveal pb-8 lg:pb-0" style="transition-delay:0.1s">
+    <!-- Hero visual: phone mockup (decorative) -->
+    <div class="lg:col-span-6 flex justify-center items-center relative reveal pb-8 lg:pb-0" style="transition-delay:0.1s" aria-hidden="true">
       <!-- Blobs -->
       <div class="blob-blue absolute top-0 right-0 w-[380px] h-[380px] rounded-full pointer-events-none"></div>
       <div class="blob-violet absolute bottom-0 left-0 w-[260px] h-[260px] rounded-full pointer-events-none"></div>
@@ -289,7 +302,7 @@
 
             <!-- Photo -->
             <div style="border-radius:16px;overflow:hidden;position:relative;margin-bottom:8px;">
-              <img src="hero.jpeg" style="width:100%;height:200px;object-fit:cover;object-position:center top;display:block;"/>
+              <img src="hero.jpeg" alt="" width="736" height="1109" fetchpriority="high" style="width:100%;height:200px;object-fit:cover;object-position:center top;display:block;"/>
               <div style="position:absolute;bottom:10px;right:10px;width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#14161B" stroke-width="1.5"/></svg>
               </div>
@@ -355,7 +368,7 @@
       </div>
 
       <!-- Floating match badge -->
-      <div class="pulse-ring absolute bottom-16 left-4 bg-venn-blue text-white font-mono text-[10px] tracking-[0.1em] uppercase px-3 py-2 rounded-xl shadow-xl">
+      <div class="pulse-ring absolute bottom-16 left-4 bg-venn-blue text-white font-mono text-[11px] tracking-[0.1em] uppercase px-3 py-2 rounded-xl shadow-xl">
         ✦ It's a match
       </div>
     </div>
@@ -529,16 +542,21 @@
         </div>
         <h2 class="font-display font-semibold text-[38px] md:text-[52px] leading-[1.05] tracking-[-0.03em]">Venn, if not now?</h2>
         <p class="font-body text-[17px] leading-[1.6] text-paper/70">Join the waitlist free. Early members get priority access and a say in shaping the product before it launches.</p>
-        <div id="footer-waitlist-form" class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full max-w-[460px] mx-auto">
-          <input id="footer-email" type="email" placeholder="your@email.com"
-            class="w-full sm:flex-1 bg-white/10 border border-white/20 rounded-full px-6 py-4 font-body text-[15px] text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors"
-            onkeydown="if(event.key==='Enter')submitWaitlist('footer')"/>
-          <button onclick="submitWaitlist('footer')" class="btn-press w-full sm:w-auto bg-paper text-ink font-display font-semibold text-[15px] px-8 py-4 rounded-full hover:bg-white transition-colors whitespace-nowrap">
+        <form id="footer-waitlist-form" class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full max-w-[460px] mx-auto" onsubmit="submitWaitlist(event, 'footer')">
+          <label for="footer-email" class="sr-only">Email address</label>
+          <input id="footer-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="your@email.com"
+            class="w-full sm:flex-1 bg-white/10 border border-white/20 rounded-full px-6 py-4 font-body text-[15px] text-white placeholder-white/40 outline-none focus:border-white/50 transition-colors"/>
+          <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true"/>
+          <button type="submit" class="btn-press w-full sm:w-auto bg-paper text-ink font-display font-semibold text-[15px] px-8 py-4 rounded-full hover:bg-white transition-colors whitespace-nowrap">
             Join waitlist
           </button>
+        </form>
+        <div id="footer-success" class="hidden items-center justify-center flex-wrap gap-x-2 gap-y-1 font-semibold text-[15px] text-white/90 pt-2">
+          <span>🎉 You're on the list!</span>
+          <a href="/signup.html" class="text-white underline underline-offset-2 hover:text-venn-violet transition-colors">Complete your profile →</a>
         </div>
-        <div id="footer-success" class="hidden font-semibold text-[15px] text-white/90 pt-2">🎉 You're on the list! We'll be in touch.</div>
-        <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-paper/40">No spam · Unsubscribe anytime · Launching 2026</p>
+        <p id="footer-error" role="alert" class="hidden font-body text-[13px] font-semibold text-[#FF7A93]">Something went wrong — please check your connection and try again.</p>
+        <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-paper/60">No spam · Unsubscribe anytime · Launching 2026</p>
       </div>
     </div>
   </section>
@@ -580,7 +598,7 @@
         <div class="space-y-3">
           <p class="font-mono text-[10px] tracking-[0.16em] uppercase text-ink">Connect</p>
           <ul class="space-y-2">
-            <li><a href="https://www.instagram.com/venn.flat/" target="_blank" class="font-body text-[14px] text-slate hover:text-ink transition-colors">Instagram</a></li>
+            <li><a href="https://www.instagram.com/venn.flat/" target="_blank" rel="noopener noreferrer" class="font-body text-[14px] text-slate hover:text-ink transition-colors">Instagram</a></li>
             <li><a href="tel:+917208784418" class="font-body text-[14px] text-slate hover:text-ink transition-colors">+91 72087 84418</a></li>
           </ul>
         </div>
@@ -599,7 +617,13 @@
   // Mobile nav toggle
   const toggle = document.getElementById('mob-toggle');
   const menu = document.getElementById('mob-menu');
-  toggle.addEventListener('click', () => menu.classList.toggle('hidden'));
+  function setMenu(open) {
+    menu.classList.toggle('hidden', !open);
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+  toggle.addEventListener('click', () => setMenu(menu.classList.contains('hidden')));
+  // Close the drawer when a link/button inside it is tapped
+  menu.querySelectorAll('a, button').forEach(el => el.addEventListener('click', () => setMenu(false)));
 
   // Ticker — duplicate content for seamless loop
   const tmpl = document.getElementById('ticker-items');
@@ -621,52 +645,67 @@
   });
 
   // ── Waitlist form ──
+  // SECURITY: this must be a PUBLIC key — the sb_publishable_… key (or legacy
+  // anon key). Never put a secret/service_role key in client-side code — it
+  // bypasses Row Level Security and grants full database access to anyone who
+  // views source. Pair the public key with an RLS policy on the waitlist table
+  // that allows INSERT only, e.g.:
+  //   alter table waitlist enable row level security;
+  //   create policy "waitlist_insert_only" on waitlist for insert to anon with check (true);
   const SUPA_URL = 'https://iahnrlgeivjzmzzqloan.supabase.co';
-  const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlhaG5ybGdlaXZqem16enFsb2FuIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MjQ4NzUzOCwiZXhwIjoyMDk4MDYzNTM4fQ.IDPmUIbI9j7RC9s6dRXDyyhbbZffFo_xBNpxgXQnC58';
+  const SUPA_PUBLIC_KEY = 'sb_publishable_9RNub_FrmdEjav-NCaf4Ew_stwXfalC';
 
-  async function submitWaitlist(slot) {
-    const emailEl   = document.getElementById(slot + '-email');
+  function showWaitlistSuccess(slot) {
+    document.getElementById(slot + '-waitlist-form').style.display = 'none';
+    const s = document.getElementById(slot + '-success');
+    s.classList.remove('hidden');
+    s.style.display = 'flex';
+  }
+
+  async function submitWaitlist(event, slot) {
+    event.preventDefault();
     const formEl    = document.getElementById(slot + '-waitlist-form');
-    const successEl = document.getElementById(slot + '-success');
-    const email     = emailEl.value.trim();
+    const errorEl   = document.getElementById(slot + '-error');
+    const email     = document.getElementById(slot + '-email').value.trim();
 
-    if (!email || !email.includes('@')) {
-      emailEl.style.borderColor = '#FF4D6A';
-      emailEl.focus();
-      setTimeout(() => emailEl.style.borderColor = '', 1500);
+    // Honeypot: bots that fill the hidden field get a silent fake success
+    if (formEl.querySelector('.hp-field').value) {
+      showWaitlistSuccess(slot);
       return;
     }
 
-    const btn = formEl.querySelector('button');
+    const btn = formEl.querySelector('button[type="submit"]');
+    const btnLabel = btn.textContent;
     btn.textContent = 'Joining…';
     btn.disabled = true;
+    errorEl.classList.add('hidden');
 
     try {
-      await fetch(`${SUPA_URL}/rest/v1/waitlist`, {
+      const res = await fetch(`${SUPA_URL}/rest/v1/waitlist`, {
         method: 'POST',
         headers: {
+          // publishable keys go in the apikey header only — no Authorization
+          // header, which is reserved for user JWTs
           'Content-Type': 'application/json',
-          'apikey': SUPA_KEY,
-          'Authorization': `Bearer ${SUPA_KEY}`,
+          'apikey': SUPA_PUBLIC_KEY,
           'Prefer': 'return=minimal',
         },
         body: JSON.stringify({ email }),
       });
-    } catch(e) {}
-
-    formEl.style.display = 'none';
-    successEl.classList.remove('hidden');
-    successEl.style.display = 'flex';
-    localStorage.setItem('venn_waitlist', email);
+      // 409 = unique-constraint conflict: this email is already on the list
+      if (!res.ok && res.status !== 409) throw new Error('waitlist insert failed: ' + res.status);
+      localStorage.setItem('venn_waitlist', email);
+      showWaitlistSuccess(slot);
+    } catch (e) {
+      errorEl.classList.remove('hidden');
+      btn.textContent = btnLabel;
+      btn.disabled = false;
+    }
   }
 
   // Remember if already signed up
   if (localStorage.getItem('venn_waitlist')) {
-    ['hero'].forEach(slot => {
-      const f = document.getElementById(slot + '-waitlist-form');
-      const s = document.getElementById(slot + '-success');
-      if (f && s) { f.style.display = 'none'; s.classList.remove('hidden'); s.style.display = 'flex'; }
-    });
+    ['hero', 'footer'].forEach(showWaitlistSuccess);
   }
 </script>
   <script defer src="/_vercel/insights/script.js"></script>
