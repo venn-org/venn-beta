@@ -664,13 +664,16 @@
 
     try {
       let res = await supaInsert('preregistrations', data);
+      let fullProfileSaved = res.ok || res.status === 409;
       if (res.status === 404) {
         // preregistrations table doesn't exist yet — at minimum save the email
         res = await supaInsert('waitlist', { email: data.email });
+        fullProfileSaved = false;
       }
       // 409 = already registered with this email; treat as success
       if (!res.ok && res.status !== 409) throw new Error('pre-registration failed: ' + res.status);
       localStorage.setItem('venn_waitlist', data.email);
+      if (fullProfileSaved) localStorage.setItem('venn_preregistered', data.email);
       goToStep('success');
     } catch (e) {
       errorEl.classList.remove('hidden');

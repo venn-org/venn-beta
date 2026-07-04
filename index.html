@@ -218,8 +218,8 @@
         </form>
         <div id="hero-success" class="hidden items-center flex-wrap gap-x-3 gap-y-1 bg-venn-blue/10 border border-venn-blue/20 rounded-full px-6 py-3">
           <span class="text-venn-blue text-[18px]">🎉</span>
-          <span class="font-body font-semibold text-[14px] text-venn-blue">You're on the list!</span>
-          <a href="/signup.html" class="font-body font-semibold text-[14px] text-overlap-indigo underline underline-offset-2 hover:text-venn-blue transition-colors">Complete your profile →</a>
+          <span class="font-body font-semibold text-[14px] text-venn-blue" id="hero-success-label">You're on the list!</span>
+          <a href="/signup.html" id="hero-complete-profile" class="font-body font-semibold text-[14px] text-overlap-indigo underline underline-offset-2 hover:text-venn-blue transition-colors">Complete your profile →</a>
         </div>
         <p id="hero-error" role="alert" class="hidden font-body text-[13px] font-semibold text-[#D6244B]">Something went wrong — please check your connection and try again.</p>
         <p class="font-mono text-[10px] tracking-[0.1em] uppercase text-slate">Free to join · Early access for first members · No spam</p>
@@ -552,8 +552,8 @@
           </button>
         </form>
         <div id="footer-success" class="hidden items-center justify-center flex-wrap gap-x-2 gap-y-1 font-semibold text-[15px] text-white/90 pt-2">
-          <span>🎉 You're on the list!</span>
-          <a href="/signup.html" class="text-white underline underline-offset-2 hover:text-venn-violet transition-colors">Complete your profile →</a>
+          <span id="footer-success-label">🎉 You're on the list!</span>
+          <a href="/signup.html" id="footer-complete-profile" class="text-white underline underline-offset-2 hover:text-venn-violet transition-colors">Complete your profile →</a>
         </div>
         <p id="footer-error" role="alert" class="hidden font-body text-[13px] font-semibold text-[#FF7A93]">Something went wrong — please check your connection and try again.</p>
         <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-paper/60">No spam · Unsubscribe anytime · Launching 2026</p>
@@ -660,6 +660,15 @@
     const s = document.getElementById(slot + '-success');
     s.classList.remove('hidden');
     s.style.display = 'flex';
+
+    // Once the full profile (signup.html) is done, stop inviting the user
+    // to complete it again
+    if (localStorage.getItem('venn_preregistered')) {
+      const link = document.getElementById(slot + '-complete-profile');
+      const label = document.getElementById(slot + '-success-label');
+      if (link) link.remove();
+      if (label) label.textContent = slot === 'hero' ? "You're on the list! Profile complete ✓" : '🎉 You\'re on the list! Profile complete ✓';
+    }
   }
 
   async function submitWaitlist(event, slot) {
