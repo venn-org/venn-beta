@@ -693,10 +693,12 @@
       const res = await fetch(`${SUPA_URL}/rest/v1/waitlist`, {
         method: 'POST',
         headers: {
-          // publishable keys go in the apikey header only — no Authorization
-          // header, which is reserved for user JWTs
+          // Send the key in both apikey and Authorization — required by
+          // legacy JWT-based Supabase projects, and harmless for projects
+          // on the newer publishable/secret key system.
           'Content-Type': 'application/json',
           'apikey': SUPA_PUBLIC_KEY,
+          'Authorization': `Bearer ${SUPA_PUBLIC_KEY}`,
           'Prefer': 'return=minimal',
         },
         body: JSON.stringify({ email }),
