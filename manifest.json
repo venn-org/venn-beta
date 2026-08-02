@@ -2,7 +2,7 @@
   "name": "Venn — Find your flatmate",
   "short_name": "Venn",
   "description": "Flatmate matching for Mumbai, Navi Mumbai & Pune",
-  "start_url": "/onboarding.html",
+  "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#14161B",

@@ -11,7 +11,7 @@
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://venn-tau.vercel.app/"/>
   <meta property="og:title" content="Venn — Find your overlap."/>
-  <meta property="og:description" content="Finally, a flatmate app that matches on how you actually live — sleep schedules, cleanliness, guests, noise. Joining the waitlist is free. Launching Mumbai · Navi Mumbai · Pune."/>
+  <meta property="og:description" content="Finally, a flatmate app that matches on how you actually live — sleep schedules, cleanliness, guests, noise. Free to join. Mumbai · Navi Mumbai · Pune."/>
   <meta property="og:site_name" content="Venn"/>
   <meta property="og:image" content="https://venn-tau.vercel.app/og-image.png"/>
   <meta property="og:image:width" content="1200"/>
@@ -671,7 +671,7 @@
       <a href="#how" class="link">The idea</a>
       <a href="#life" class="link">Why it matters</a>
       <a href="#features" class="link">Features</a>
-      <button onclick="document.getElementById('hero-form').scrollIntoView({behavior:'smooth'})" class="btn btn-nav">Join waitlist</button>
+      <a href="https://app.vennflat.site" class="btn btn-nav">Get started</a>
     </nav>
     <button id="mob-toggle" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mob-menu">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -683,7 +683,7 @@
     <a href="#how" class="link">The idea</a>
     <a href="#life" class="link">Why it matters</a>
     <a href="#features" class="link">Features</a>
-    <button onclick="document.getElementById('hero-form').scrollIntoView({behavior:'smooth'})" class="btn btn-primary">Join waitlist</button>
+    <a href="https://app.vennflat.site" class="btn btn-primary">Get started</a>
   </div>
 </header>
 
@@ -698,7 +698,7 @@
       <div class="hero-copy reveal">
         <div class="pill">
           <span class="dot"></span>
-          Launching soon · Mumbai · Navi Mumbai · Pune
+          Now live · Mumbai · Navi Mumbai · Pune
         </div>
 
         <h1 class="h1">Find where your lives <span class="ink-grad">overlap.</span></h1>
@@ -708,21 +708,10 @@
           actually want to come home to — matched on how you really live.
         </p>
 
-        <p class="launch-line">✦ Launching this Sunday</p>
+        <p class="launch-line">✦ We're live — get started free</p>
 
         <div class="hero-form-block" id="hero-form">
-          <form id="hero-waitlist-form" class="form-row" onsubmit="submitWaitlist(event, 'hero')">
-            <label for="hero-email" class="sr-only">Email address</label>
-            <input id="hero-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="your@email.com" class="field"/>
-            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true"/>
-            <button type="submit" class="btn btn-primary">Join waitlist</button>
-          </form>
-          <div id="hero-success" class="success-chip hidden">
-            <span>🎉</span>
-            <span id="hero-success-label">You're on the list!</span>
-            <a href="/signup.html" id="hero-complete-profile">Complete your profile →</a>
-          </div>
-          <p id="hero-error" role="alert" class="err hidden">Something went wrong — please check your connection and try again.</p>
+          <a href="https://app.vennflat.site" class="btn btn-primary">Get started free</a>
           <p class="note">Free to join · Early access for first members · No spam</p>
           <a href="#how" class="text-link">
             See the idea
@@ -1083,21 +1072,10 @@
           </span>
 
           <h2 class="h2">Venn, if not now?</h2>
-          <p class="lede">Join the waitlist free. Early members get priority access and a say in shaping the product before it launches.</p>
+          <p class="lede">Join free. Early members get priority access and a say in shaping the product.</p>
 
-          <form id="footer-waitlist-form" class="form-row" style="max-width:470px;" onsubmit="submitWaitlist(event, 'footer')">
-            <label for="footer-email" class="sr-only">Email address</label>
-            <input id="footer-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="your@email.com" class="field"/>
-            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true"/>
-            <button type="submit" class="btn btn-light">Join waitlist</button>
-          </form>
-
-          <div id="footer-success" class="cta-success hidden">
-            <span id="footer-success-label">🎉 You're on the list!</span>
-            <a href="/signup.html" id="footer-complete-profile">Complete your profile →</a>
-          </div>
-          <p id="footer-error" role="alert" class="err hidden">Something went wrong — please check your connection and try again.</p>
-          <p class="note">No spam · Unsubscribe anytime · Launching 2026</p>
+          <a href="https://app.vennflat.site" class="btn btn-light" style="display:inline-block;">Get started free</a>
+          <p class="note">No spam · Unsubscribe anytime · Now live</p>
         </div>
       </div>
     </div>
@@ -1185,78 +1163,6 @@
     nav.classList.toggle('shadow-md', window.scrollY > 24);
   });
 
-  // ── Waitlist form ──
-  // SECURITY: this must be a PUBLIC key — the sb_publishable_… key (or legacy
-  // anon key). Never put a secret/service_role key in client-side code — it
-  // bypasses Row Level Security and grants full database access to anyone who
-  // views source. Pair the public key with an RLS policy on the waitlist table
-  // that allows INSERT only, e.g.:
-  //   alter table waitlist enable row level security;
-  //   create policy "waitlist_insert_only" on waitlist for insert to anon with check (true);
-  const SUPA_URL = 'https://iahnrlgeivjzmzzqloan.supabase.co';
-  const SUPA_PUBLIC_KEY = 'sb_publishable_9RNub_FrmdEjav-NCaf4Ew_stwXfalC';
-
-  function showWaitlistSuccess(slot) {
-    document.getElementById(slot + '-waitlist-form').style.display = 'none';
-    const s = document.getElementById(slot + '-success');
-    s.classList.remove('hidden');
-    s.style.display = 'flex';
-
-    // Once the full profile (signup.html) is done, stop inviting the user
-    // to complete it again
-    if (localStorage.getItem('venn_preregistered')) {
-      const link = document.getElementById(slot + '-complete-profile');
-      const label = document.getElementById(slot + '-success-label');
-      if (link) link.remove();
-      if (label) label.textContent = slot === 'hero' ? "You're on the list! Profile complete ✓" : '🎉 You\'re on the list! Profile complete ✓';
-    }
-  }
-
-  async function submitWaitlist(event, slot) {
-    event.preventDefault();
-    const formEl    = document.getElementById(slot + '-waitlist-form');
-    const errorEl   = document.getElementById(slot + '-error');
-    const email     = document.getElementById(slot + '-email').value.trim();
-
-    // Honeypot: bots that fill the hidden field get a silent fake success
-    if (formEl.querySelector('.hp-field').value) {
-      showWaitlistSuccess(slot);
-      return;
-    }
-
-    const btn = formEl.querySelector('button[type="submit"]');
-    const btnLabel = btn.textContent;
-    btn.textContent = 'Joining…';
-    btn.disabled = true;
-    errorEl.classList.add('hidden');
-
-    try {
-      const res = await fetch(`${SUPA_URL}/rest/v1/waitlist`, {
-        method: 'POST',
-        headers: {
-          // publishable keys go in the apikey header only — no Authorization
-          // header, which is reserved for user JWTs
-          'Content-Type': 'application/json',
-          'apikey': SUPA_PUBLIC_KEY,
-          'Prefer': 'return=minimal',
-        },
-        body: JSON.stringify({ email }),
-      });
-      // 409 = unique-constraint conflict: this email is already on the list
-      if (!res.ok && res.status !== 409) throw new Error('waitlist insert failed: ' + res.status);
-      localStorage.setItem('venn_waitlist', email);
-      showWaitlistSuccess(slot);
-    } catch (e) {
-      errorEl.classList.remove('hidden');
-      btn.textContent = btnLabel;
-      btn.disabled = false;
-    }
-  }
-
-  // Remember if already signed up
-  if (localStorage.getItem('venn_waitlist')) {
-    ['hero', 'footer'].forEach(showWaitlistSuccess);
-  }
 </script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
